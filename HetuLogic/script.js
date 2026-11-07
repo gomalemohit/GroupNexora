@@ -54,8 +54,8 @@ const mappingData = {
 };
 
 function runEngine() {
-    const prop = document.getElementById('propInput').value;
-    const reason = document.getElementById('reasonInput').value;
+    const prop = document.getElementById('propInput').value.trim() || "The claim is valid.";
+    const reason = document.getElementById('reasonInput').value.trim() || "The observed sign is present.";
     
     const container = document.getElementById('stepsContainer');
     const placeholder = document.getElementById('contextPlaceholder');
@@ -64,12 +64,35 @@ function runEngine() {
     placeholder.classList.add('hidden');
     activeDisplay.classList.remove('hidden');
 
+    const cleanReason = reason.replace(/\.+$/, '');
+    const cleanProp = prop.replace(/\.+$/, '');
+
     const steps = [
-        { id: 'step1', text: prop, highlight: 'border-amber-500/50 bg-amber-500/5 text-amber-300' },
-        { id: 'step2', text: reason, highlight: 'border-blue-500/50 bg-blue-500/5 text-blue-300' },
-        { id: 'step3', text: "Universal Rule (Vyapti): Operational failure is invariably preceded by resource exhaustion.", highlight: 'border-emerald-500/50 bg-emerald-500/5 text-emerald-300' },
-        { id: 'step4', text: "Application (Upanaya): Connecting observed resource exhaustion to the universal rule of failure.", highlight: 'border-purple-500/50 bg-purple-500/5 text-purple-300' },
-        { id: 'step5', text: "Conclusion (Nigamana): Confirmed valid inference. Production halt actively occurring.", highlight: 'border-red-500/60 bg-red-500/10 text-red-300 font-bold' }
+        { 
+            id: 'step1', 
+            text: `Proposition (Pratijna): ${cleanProp}.`, 
+            highlight: 'border-amber-500/50 bg-amber-500/5 text-amber-300' 
+        },
+        { 
+            id: 'step2', 
+            text: `Reason (Hetu): ${cleanReason}.`, 
+            highlight: 'border-blue-500/50 bg-blue-500/5 text-blue-300' 
+        },
+        { 
+            id: 'step3', 
+            text: `Universal Rule (Udaharana/Vyapti): Wherever there is observation of "${cleanReason}", it is invariably accompanied by "${cleanProp}".`, 
+            highlight: 'border-emerald-500/50 bg-emerald-500/5 text-emerald-300' 
+        },
+        { 
+            id: 'step4', 
+            text: `Application (Upanaya): This specific case exhibits "${cleanReason}", which connects to the universal rule.`, 
+            highlight: 'border-purple-500/50 bg-purple-500/5 text-purple-300' 
+        },
+        { 
+            id: 'step5', 
+            text: `Conclusion (Nigamana): Therefore, "${cleanProp}" is proven true.`, 
+            highlight: 'border-red-500/60 bg-red-500/10 text-red-300 font-bold' 
+        }
     ];
 
     container.innerHTML = '<h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4 font-mono">Execution Pipeline:</h3>';
@@ -77,6 +100,7 @@ function runEngine() {
 
     steps.forEach((step, index) => {
         setTimeout(() => {
+            // Append Left Step Card
             const stepCard = document.createElement('div');
             stepCard.className = `step-card p-4 rounded-xl border ${step.highlight} space-y-1 animate-fadeIn`;
             stepCard.innerHTML = `
@@ -88,6 +112,7 @@ function runEngine() {
             `;
             container.appendChild(stepCard);
 
+            // Append Right Mapping Card using explicit step IDs ('step1', 'step2', etc.)
             const data = mappingData[step.id];
             const contextCard = document.createElement('div');
             contextCard.className = 'bg-slate-900/80 p-5 rounded-xl border border-slate-800 space-y-2 animate-fadeIn';
@@ -106,17 +131,44 @@ function runEngine() {
     });
 }
 
-/* === MODULE 2: QUIZ DRAG & DROP LOGIC === */
-const masterCards = [
-    { id: 1, stage: "Pratijna (Proposition)", text: "The mountain has fire.", tag: "Claim" },
-    { id: 2, stage: "Hetu (Reason)", text: "Because there is smoke.", tag: "Observation" },
-    { id: 3, stage: "Udaharana (Universal Rule)", text: "Wherever there is smoke, there is fire.", tag: "Rule Base" },
-    { id: 4, stage: "Upanaya (Application)", text: "The mountain has smoke.", tag: "Pattern Match" },
-    { id: 5, stage: "Nigamana (Conclusion)", text: "Therefore, the mountain has fire.", tag: "Inference" }
+/* === MODULE 2: DYNAMIC QUIZ POOL & DRAG & DROP LOGIC === */
+const questionPool = [
+    {
+        scenario: "Is there fire on the mountain?",
+        cards: [
+            { id: 1, stage: "Pratijna (Proposition)", text: "The mountain has fire.", tag: "Claim" },
+            { id: 2, stage: "Hetu (Reason)", text: "Because there is smoke.", tag: "Observation" },
+            { id: 3, stage: "Udaharana (Universal Rule)", text: "Wherever there is smoke, there is fire.", tag: "Rule Base" },
+            { id: 4, stage: "Upanaya (Application)", text: "The mountain has smoke.", tag: "Pattern Match" },
+            { id: 5, stage: "Nigamana (Conclusion)", text: "Therefore, the mountain has fire.", tag: "Inference" }
+        ]
+    },
+    {
+        scenario: "Is the server room overheating?",
+        cards: [
+            { id: 1, stage: "Pratijna (Proposition)", text: "The server room is overheating.", tag: "Claim" },
+            { id: 2, stage: "Hetu (Reason)", text: "Because cooling fan RPM is zero.", tag: "Observation" },
+            { id: 3, stage: "Udaharana (Universal Rule)", text: "Whenever cooling fans fail, servers overheat.", tag: "Rule Base" },
+            { id: 4, stage: "Upanaya (Application)", text: "This server room's cooling fan RPM is zero.", tag: "Pattern Match" },
+            { id: 5, stage: "Nigamana (Conclusion)", text: "Therefore, the server room is overheating.", tag: "Inference" }
+        ]
+    },
+    {
+        scenario: "Will crop yield decrease this season?",
+        cards: [
+            { id: 1, stage: "Pratijna (Proposition)", text: "Crop yield will decrease this season.", tag: "Claim" },
+            { id: 2, stage: "Hetu (Reason)", text: "Because rainfall was deficient by 60%.", tag: "Observation" },
+            { id: 3, stage: "Udaharana (Universal Rule)", text: "Whenever seasonal rainfall is deficient by over 50%, crop yield decreases.", tag: "Rule Base" },
+            { id: 4, stage: "Upanaya (Application)", text: "This season experienced a 60% rainfall deficiency.", tag: "Pattern Match" },
+            { id: 5, stage: "Nigamana (Conclusion)", text: "Therefore, crop yield will decrease this season.", tag: "Inference" }
+        ]
+    }
 ];
 
+let currentMasterCards = [];
 let currentCards = [];
 let dragSrcIndex = null;
+let isAnswerCorrect = false;
 
 function shuffleArray(array) {
     let shuffled = [...array];
@@ -128,7 +180,20 @@ function shuffleArray(array) {
 }
 
 function initQuiz() {
-    currentCards = shuffleArray(masterCards);
+    isAnswerCorrect = false;
+    const randomQuestion = questionPool[Math.floor(Math.random() * questionPool.length)];
+    currentMasterCards = randomQuestion.cards;
+    currentCards = shuffleArray(currentMasterCards);
+    
+    const scenarioEl = document.getElementById('scenarioText');
+    if(scenarioEl) scenarioEl.textContent = `"${randomQuestion.scenario}"`;
+
+    const actionBtn = document.getElementById('actionBtn');
+    if(actionBtn) {
+        actionBtn.textContent = "Submit Answer";
+        actionBtn.setAttribute("onclick", "submitQuiz()");
+    }
+
     renderCardOrder();
 }
 
@@ -139,8 +204,8 @@ function renderCardOrder() {
     
     if(!container) return;
 
-    resultBox.classList.add('hidden');
-    scoreBadge.classList.add('hidden');
+    if(!isAnswerCorrect && resultBox) resultBox.classList.add('hidden');
+    if(!isAnswerCorrect && scoreBadge) scoreBadge.classList.add('hidden');
     container.innerHTML = '';
 
     currentCards.forEach((card, index) => {
@@ -167,6 +232,7 @@ function renderCardOrder() {
 }
 
 function handleDragStart(e) {
+    if (isAnswerCorrect) return;
     dragSrcIndex = this.dataset.index;
     this.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
@@ -178,6 +244,7 @@ function handleDragOver(e) {
 }
 
 function handleDrop(e) {
+    if (isAnswerCorrect) return;
     if (e.stopPropagation) e.stopPropagation();
     const targetIndex = this.dataset.index;
 
@@ -196,7 +263,7 @@ function handleDragEnd() {
 function submitQuiz() {
     let correctCount = 0;
     currentCards.forEach((card, index) => {
-        if (card.id === masterCards[index].id) {
+        if (card.id === currentMasterCards[index].id) {
             correctCount++;
         }
     });
@@ -205,26 +272,34 @@ function submitQuiz() {
     const resultBox = document.getElementById('resultBox');
     const scoreVal = document.getElementById('scoreVal');
     const scoreBadge = document.getElementById('scoreBadge');
+    const actionBtn = document.getElementById('actionBtn');
 
     scoreVal.textContent = score;
     scoreBadge.classList.remove('hidden');
     resultBox.classList.remove('hidden');
 
     if (correctCount === 5) {
+        isAnswerCorrect = true;
         resultBox.className = "p-4 rounded-xl border border-emerald-500/50 bg-emerald-500/10 text-emerald-300 space-y-1 animate-fadeIn";
         resultBox.innerHTML = `
-            <div class="font-bold text-sm">🎉 Perfect! 500 / 500 Points</div>
-            <p class="text-xs">You have correctly constructed the 5-step Anumana logical deduction sequence!</p>
+            <div class="font-bold text-sm">🎉 Correct! 500 / 500 Points</div>
+            <p class="text-xs">Great job! You solved this inference puzzle. Click below for the next problem.</p>
         `;
+        if(actionBtn) {
+            actionBtn.textContent = "Next Problem ➔";
+            actionBtn.setAttribute("onclick", "initQuiz()");
+        }
     } else {
         resultBox.className = "p-4 rounded-xl border border-amber-500/50 bg-amber-500/10 text-amber-300 space-y-1 animate-fadeIn";
         resultBox.innerHTML = `
             <div class="font-bold text-sm">⚠️ Score: ${score} / 500 (${correctCount}/5 Correct Positions)</div>
-            <p class="text-xs">Remember the Nyaya order: 1. Proposition (Pratijna) ➔ 2. Reason (Hetu) ➔ 3. Rule (Udaharana) ➔ 4. Application (Upanaya) ➔ 5. Conclusion (Nigamana).</p>
+            <p class="text-xs">Not quite right yet. Rearrange the cards and try again! You have unlimited chances.</p>
         `;
     }
 }
 
-function resetQuiz() {
-    initQuiz();
+function resetCurrentQuiz() {
+    if (isAnswerCorrect) return;
+    currentCards = shuffleArray(currentMasterCards);
+    renderCardOrder();
 }
