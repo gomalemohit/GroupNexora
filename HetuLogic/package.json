@@ -1,0 +1,26 @@
+{
+  "name": "hetulogic",
+  "version": "1.0.0",
+  "description": "HetuLogic (PRAMANAX): Ancient Indian Logic Meets Modern AI — Bridging Nyaya-Vaisheshika Philosophy with Symbolic AI & Knowledge Graphs",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "deploy:surge": "npx surge . hetulogic-pramanax.surge.sh",
+    "deploy:vercel": "npx vercel --prod",
+    "deploy:netlify": "npx netlify deploy --prod --dir=."
+  },
+  "keywords": [
+    "indian-knowledge-systems",
+    "nyaya",
+    "vaisheshika",
+    "epistemology",
+    "symbolic-ai",
+    "knowledge-graphs",
+    "inference-engine",
+    "pramana"
+  ],
+  "author": "HetuLogic Epistemology",
+  "license": "MIT"
+}
+

@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HetuLogic (PRAMANAX): Ancient Indian Logic Meets Modern AI</title>
+  <meta name="description" content="An interactive epistemological dashboard bridging 2,500 years of Nyaya-Vaisheshika philosophy with Symbolic AI, Knowledge Graphs, and Rule-Based Inference Engines.">
+  
+  <!-- Google Fonts: Cinzel Decorative, Cinzel, Inter, JetBrains Mono, Noto Sans Devanagari -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Background Canvas / Particle Grid -->
+  <div class="ambient-glow glow-gold"></div>
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="ambient-glow glow-indigo"></div>
+
+  <!-- STICKY TOP NAVIGATION BAR -->
+  <header class="top-nav-bar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="#hero-section" class="brand-link">
+          <div class="brand-symbol">
+            <svg viewBox="0 0 40 40" width="36" height="36" class="brand-svg">
+              <defs>
+                <linearGradient id="brandGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fbbf24" />
+                  <stop offset="100%" stop-color="#d97706" />
+                </linearGradient>
+                <linearGradient id="brandCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#22d3ee" />
+                  <stop offset="100%" stop-color="#6366f1" />
+                </linearGradient>
+              </defs>
+              <!-- Outer Yantra Triangle -->
+              <polygon points="20,4 36,32 4,32" fill="none" stroke="url(#brandGold)" stroke-width="1.8" opacity="0.85"/>
+              <polygon points="20,36 4,8 36,8" fill="none" stroke="url(#brandCyan)" stroke-width="1.8" opacity="0.85"/>
+              <!-- Central Inference Node -->
+              <circle cx="20" cy="20" r="4" fill="url(#brandGold)"/>
+              <circle cx="20" cy="20" r="8" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3,2"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">HETULOGIC <span class="brand-accent">प्रमाणX</span></span>
+            <span class="brand-tagline">Nyaya-Vaisheshika ⇌ Symbolic AI</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Links to the 4 Main Sections -->
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#inference-engine" class="nav-item active" data-section="inference-engine">
+          <span class="nav-icon">⚡</span>
+          <span class="nav-label">1. Inference Engine</span>
+          <span class="nav-sanskrit">अनुमानम्</span>
+        </a>
+        <a href="#iks-ai-mapping" class="nav-item" data-section="iks-ai-mapping">
+          <span class="nav-icon">⚖️</span>
+          <span class="nav-label">2. Ancient-to-AI Mapping</span>
+          <span class="nav-sanskrit">तुलना</span>
+        </a>
+        <a href="#logic-lab" class="nav-item" data-section="logic-lab">
+          <span class="nav-icon">🧩</span>
+          <span class="nav-label">3. Logic Lab</span>
+          <span class="nav-sanskrit">तर्कशाला</span>
+        </a>
+        <a href="#pramanax-explorer" class="nav-item" data-section="pramanax-explorer">
+          <span class="nav-icon">🏛️</span>
+          <span class="nav-label">4. Nyaya & Vaisheshika</span>
+          <span class="nav-sanskrit">न्याय-वैशेषिक</span>
+        </a>
+      </nav>
+
+      <!-- Utility Controls -->
+      <div class="nav-actions">
+        <button id="sound-toggle-btn" class="nav-btn-icon" title="Toggle Audio Effects (Vedic Bell & AI Chime)" aria-label="Toggle Sound">
+          <span class="sound-icon" id="sound-icon">🔔</span>
+          <span class="sound-label">Audio: ON</span>
+        </button>
+        <button id="glossary-modal-btn" class="nav-btn-secondary" title="Sanskrit Logic Glossary">
+          <span class="btn-sanskrit-icon">॥</span>
+          <span>Glossary</span>
+        </button>
+        <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Open Mobile Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-content">
+
+    <!-- HERO SECTION & INTRO BADGE -->
+    <section class="hero-section" id="hero-section">
+      <div class="section-container hero-container">
+        <div class="hero-badge">
+          <span class="badge-sanskrit">॥ यतोऽभ्युदयनिःश्रेयससिद्धिः स धर्मः ॥</span>
+          <span class="badge-divider">•</span>
+          <span class="badge-tech">EPISTEMIC SYMBOLIC COMPUTING & PRAMANA THEORY</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="gold-gradient-text">HetuLogic:</span> Ancient Logic Meets Modern AI
+        </h1>
+        <p class="hero-subtitle">
+          Bridging Nyaya-Vaisheshika Philosophy with Symbolic AI & Rule-Based Inference Engines.
+        </p>
+        <p class="hero-description">
+          Over 2,500 years ago, Maharshi Akshapada Gautama codified the <em>Nyaya Sutras</em>—a rigorous 5-step inductive-deductive method for rational inference (<em>Anumana</em>). Today, autonomous AI systems, knowledge graphs, and expert rule engines operate upon identical formal structures. Explore the living bridge between ancient Indian epistemology (<em>IKS</em>) and contemporary cognitive computation.
+        </p>
+
+        <!-- Quick Metrics / Concepts Banner -->
+        <div class="epistemic-stats-bar">
+          <div class="stat-pill">
+            <span class="stat-sanskrit">४ प्रमाणानि</span>
+            <span class="stat-en">4 Pramanas (Valid Means of Knowledge)</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-sanskrit">५ अवयवाः</span>
+            <span class="stat-en">5-Member Syllogism (Pancha-Avayava)</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-sanskrit">७ पदार्थाः</span>
+            <span class="stat-en">7 Ontological Categories (Vaisheshika Graph)</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-sanskrit">व्याप्ति-नियमः</span>
+            <span class="stat-en">Vyapti (Invariant Concomitance / Horn Rules)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 1: HERO & HETULOGIC INFERENCE SIMULATOR                           -->
+    <!-- ========================================================================= -->
+    <section class="app-section" id="inference-engine">
+      <div class="section-container">
+        
+        <div class="section-header">
+          <div class="section-number-tag">
+            <span class="section-num">01</span>
+            <span class="section-sub-sanskrit">॥ पञ्चावयव-अनुमान-प्रक्रिया ॥</span>
+          </div>
+          <h2 class="section-heading">
+            Live Inference Engine: <span class="cyan-gradient-text">Anumana Simulator</span>
+          </h2>
+          <p class="section-subheading">
+            Simulate the 5 classical stages of Nyaya reasoning side-by-side with modern Symbolic AI forward-chaining deduction in real-time.
+          </p>
+        </div>
+
+        <!-- INPUT CONTROL PANEL -->
+        <div class="glass-card input-panel-card">
+          <div class="input-panel-header">
+            <div class="input-label-group">
+              <span class="pulse-indicator"></span>
+              <h3 class="panel-title">Inference Task Selector & Query Formulation</h3>
+            </div>
+            <div class="mode-tag">
+              <span class="badge-label">ENGINE:</span>
+              <span class="badge-value">RETE / NYAYA-UNIFIER v2.4</span>
+            </div>
+          </div>
+
+          <div class="input-grid">
+            <!-- Preset Dropdown -->
+            <div class="form-group">
+              <label for="preset-select" class="form-label">
+                <span class="label-sanskrit">दृष्टान्त चयन (Preset Scenarios):</span>
+                <span class="label-en">Select Premise to Evaluate</span>
+              </label>
+              <div class="select-wrapper">
+                <select id="preset-select" class="custom-select">
+                  <option value="server">🖥️ 1. "Server is overheating" — (Cloud DevOps & Predictive Maintenance)</option>
+                  <option value="mountain" selected>🔥 2. "There is fire on the mountain" — (Parvata & Dhuma / Classical Nyaya)</option>
+                  <option value="packet_loss">📡 3. "Network packet loss detected" — (Cybersecurity & Routing Diagnostics)</option>
+                  <option value="pneumonia">🩺 4. "Patient has acute pneumonia" — (Clinical Decision Support / CDSS)</option>
+                  <option value="autonomous_brake">🚗 5. "Autonomous vehicle emergency brake" — (Robotics & Sensor Fusion)</option>
+                  <option value="custom">✏️ [Custom Proposition] — Author your own Paksha & Hetu</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Custom Input / Details Field -->
+            <div class="form-group">
+              <label for="custom-proposition-input" class="form-label">
+                <span class="label-sanskrit">प्रतिज्ञा वाक्य (Active Proposition / Target Goal):</span>
+                <span class="label-en">Subject (Paksha) & Predicate (Sadhya)</span>
+              </label>
+              <div class="input-with-button">
+                <input 
+                  type="text" 
+                  id="custom-proposition-input" 
+                  class="custom-text-input" 
+                  value="There is fire on the mountain"
+                  placeholder="Enter a hypothesis to validate..."
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Preset Chips -->
+          <div class="preset-chips-row">
+            <span class="chips-label">Quick Presets:</span>
+            <button class="preset-chip" data-preset="server">
+              <span class="chip-icon">🖥️</span>
+              <span>1. Server is overheating</span>
+            </button>
+            <button class="preset-chip active" data-preset="mountain">
+              <span class="chip-icon">🔥</span>
+              <span>2. There is fire on the mountain</span>
+            </button>
+            <button class="preset-chip" data-preset="packet_loss">
+              <span class="chip-icon">📡</span>
+              <span>3. Network packet loss detected</span>
+            </button>
+            <button class="preset-chip" data-preset="pneumonia">
+              <span class="chip-icon">🩺</span>
+              <span>4. Medical CDSS</span>
+            </button>
+          </div>
+
+          <!-- Action Control Bar -->
+          <div class="engine-controls-bar">
+            <div class="btn-group-left">
+              <button id="run-inference-btn" class="primary-btn glow-btn" title="Automated Inference (Spacebar)">
+                <span class="btn-icon">⚡</span>
+                <span class="btn-text">Run Inference</span>
+                <span class="btn-sanskrit-sub">अनुमान चालन</span>
+              </button>
+              <button id="step-prev-btn" class="ghost-btn" title="Step Backward (Left Arrow)">
+                <span class="btn-icon">⏮️</span>
+                <span class="btn-text">Prev</span>
+              </button>
+              <button id="step-inference-btn" class="secondary-btn" title="Step Forward (Right Arrow)">
+                <span class="btn-icon">⏭️</span>
+                <span class="btn-text">Step Forward</span>
+                <span class="btn-sanskrit-sub">एकैक-पद</span>
+              </button>
+              <button id="reset-inference-btn" class="ghost-btn">
+                <span class="btn-icon">↺</span>
+                <span class="btn-text">Reset</span>
+              </button>
+              <button id="export-report-btn" class="ghost-btn" title="Export Syllogism Report as Markdown">
+                <span class="btn-icon">📄</span>
+                <span class="btn-text">Export Report</span>
+              </button>
+            </div>
+
+            <div class="engine-speed-control">
+              <span class="speed-label">Anim Speed:</span>
+              <div class="speed-selector">
+                <button class="speed-btn" data-speed="1400">Slow</button>
+                <button class="speed-btn active" data-speed="800">Normal</button>
+                <button class="speed-btn" data-speed="400">Fast</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Progress Tracker Bar -->
+          <div class="stepper-progress-container">
+            <div class="stepper-progress-bar" id="stepper-progress-bar" style="width: 0%;"></div>
+            <div class="stepper-nodes-row">
+              <div class="stepper-node" data-step="1">
+                <span class="node-num">1</span>
+                <span class="node-title">प्रतिज्ञा (Pratijna)</span>
+              </div>
+              <div class="stepper-node" data-step="2">
+                <span class="node-num">2</span>
+                <span class="node-title">हेतु (Hetu)</span>
+              </div>
+              <div class="stepper-node" data-step="3">
+                <span class="node-num">3</span>
+                <span class="node-title">उदाहरण (Udaharana)</span>
+              </div>
+              <div class="stepper-node" data-step="4">
+                <span class="node-num">4</span>
+                <span class="node-title">उपनय (Upanaya)</span>
+              </div>
+              <div class="stepper-node" data-step="5">
+                <span class="node-num">5</span>
+                <span class="node-title">निगमन (Nigamana)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DYNAMIC 5-STAGE OUTPUT & PERMANENT SIDE-BY-SIDE COMPARISON PANEL -->
+        <div class="inference-dashboard-grid">
+          
+          <!-- LEFT COLUMN: NYAYA ANUMANA 5-STAGE PROCESS -->
+          <div class="dashboard-col nyaya-col">
+            <div class="col-header-banner nyaya-banner">
+              <div class="banner-title-wrap">
+                <span class="banner-badge gold-badge">INDIAN KNOWLEDGE SYSTEMS (IKS)</span>
+                <h3 class="col-heading">Nyaya 5-Step Anumana</h3>
+                <span class="col-sanskrit-tag">पञ्चावयव-अनुमान-प्रमाणम्</span>
+              </div>
+              <div class="banner-status" id="nyaya-status-pill">
+                <span class="status-dot"></span>
+                <span class="status-text">Standby</span>
+              </div>
+            </div>
+
+            <div class="steps-container" id="nyaya-steps-list">
+              
+              <!-- STAGE 1: PRATIJNA -->
+              <div class="step-card" id="nyaya-step-1" data-stage="1">
+                <div class="step-card-ribbon">1</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="sanskrit-term">१. प्रतिज्ञा (Pratijna)</span>
+                    <span class="term-translation">Proposition / Hypothesis to Establish</span>
+                  </div>
+                  <span class="step-state-badge">Pending</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="formula-line">
+                    <span class="formula-label">संस्कृत सूत्र:</span>
+                    <span class="formula-val" id="nyaya-sutra-1">पर्वतो वह्निमान् (The mountain has fire)</span>
+                  </div>
+                  <p class="step-explanation" id="nyaya-desc-1">
+                    The initial thesis or proposition that needs logical demonstration. The subject (<em>Paksha</em> = Mountain) is asserted to possess the property (<em>Sadhya</em> = Fire).
+                  </p>
+                  <div class="epistemic-tag-row">
+                    <span class="epistemic-tag">पक्ष: <strong id="tag-paksha">पर्वतः (Mountain)</strong></span>
+                    <span class="epistemic-tag">साध्य: <strong id="tag-sadhya">वह्निः (Fire)</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 2: HETU -->
+              <div class="step-card" id="nyaya-step-2" data-stage="2">
+                <div class="step-card-ribbon">2</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="sanskrit-term">२. हेतु (Hetu)</span>
+                    <span class="term-translation">Observed Sign / Logical Ground (Linga)</span>
+                  </div>
+                  <span class="step-state-badge">Pending</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="formula-line">
+                    <span class="formula-label">संस्कृत सूत्र:</span>
+                    <span class="formula-val" id="nyaya-sutra-2">धूमवत्त्वात् (Because it possesses smoke)</span>
+                  </div>
+                  <p class="step-explanation" id="nyaya-desc-2">
+                    The middle term or observable evidentiary indicator present on the subject (<em>Paksha-dharmata</em>). The presence of smoke provides the rational ground.
+                  </p>
+                  <div class="epistemic-tag-row">
+                    <span class="epistemic-tag">हेतु / लिङ्ग: <strong id="tag-hetu">धूमः (Smoke)</strong></span>
+                    <span class="epistemic-tag">स्थिति: <strong id="tag-hetu-status">प्रत्यक्ष-सिद्ध (Empirically Observed)</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 3: UDAHARANA -->
+              <div class="step-card" id="nyaya-step-3" data-stage="3">
+                <div class="step-card-ribbon">3</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="sanskrit-term">३. उदाहरण (Udaharana)</span>
+                    <span class="term-translation">Universal Rule (Vyapti) & Verified Example (Drishtanta)</span>
+                  </div>
+                  <span class="step-state-badge">Pending</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="formula-line">
+                    <span class="formula-label">संस्कृत सूत्र:</span>
+                    <span class="formula-val" id="nyaya-sutra-3">यो यो धूमवान् स स वह्निमान्, यथा महानसः</span>
+                  </div>
+                  <p class="step-explanation" id="nyaya-desc-3">
+                    The universal invariable concomitance (<em>Vyapti</em>) between the Hetu and Sadhya, corroborated by an undisputed empirical exemplar (<em>Sapaksha</em> like a hearth/kitchen) and absent in counter-examples (<em>Vipaksha</em> like a lake).
+                  </p>
+                  <div class="epistemic-tag-row">
+                    <span class="epistemic-tag">व्याप्ति: <strong id="tag-vyapti">धूम ➔ वह्नि (Smoke ➔ Fire)</strong></span>
+                    <span class="epistemic-tag">सपक्ष-दृष्टान्त: <strong id="tag-drishtanta">महानसः (Kitchen Hearth)</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 4: UPANAYA -->
+              <div class="step-card" id="nyaya-step-4" data-stage="4">
+                <div class="step-card-ribbon">4</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="sanskrit-term">४. उपनय (Upanaya)</span>
+                    <span class="term-translation">Subsumption / Application to Current Case</span>
+                  </div>
+                  <span class="step-state-badge">Pending</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="formula-line">
+                    <span class="formula-label">संस्कृत सूत्र:</span>
+                    <span class="formula-val" id="nyaya-sutra-4">तथा चायं पर्वतः (And so is this mountain)</span>
+                  </div>
+                  <p class="step-explanation" id="nyaya-desc-4">
+                    The application of the universal rule to the specific subject: The mountain bears that exact smoke which is inseparably pervaded by fire (<em>Vyapti-vishishta-paksha-dharmata</em>).
+                  </p>
+                  <div class="epistemic-tag-row">
+                    <span class="epistemic-tag">संबन्ध: <strong>व्याप्तिविशिष्टपक्षधर्मताज्ञानम्</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 5: NIGAMANA -->
+              <div class="step-card" id="nyaya-step-5" data-stage="5">
+                <div class="step-card-ribbon">5</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="sanskrit-term">५. निगमन (Nigamana)</span>
+                    <span class="term-translation">Final Validated Deduction (Q.E.D.)</span>
+                  </div>
+                  <span class="step-state-badge">Pending</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="formula-line">
+                    <span class="formula-label">संस्कृत सूत्र:</span>
+                    <span class="formula-val" id="nyaya-sutra-5">तस्मात् तथा (Therefore, it has fire)</span>
+                  </div>
+                  <p class="step-explanation" id="nyaya-desc-5">
+                    The proposition is formally proven and affirmed as indubitable truth. The hypothesis is now an established epistemic fact (<em>Pramiti</em>).
+                  </p>
+                  <div class="epistemic-tag-row">
+                    <span class="epistemic-tag success-tag">प्रमिति: <strong id="tag-pramiti">सिद्धम् (Rationally Established)</strong></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: PERMANENT MODERN SYMBOLIC AI / EXPERT SYSTEM EQUIVALENT -->
+          <div class="dashboard-col ai-col">
+            <div class="col-header-banner ai-banner">
+              <div class="banner-title-wrap">
+                <span class="banner-badge cyan-badge">MODERN COMPUTATIONAL AI</span>
+                <h3 class="col-heading">Symbolic AI & Expert Engine</h3>
+                <span class="col-sanskrit-tag">प्रतीकात्मक कृत्रिम बुद्धि / नियम-यन्त्रम्</span>
+              </div>
+              <div class="banner-status" id="ai-status-pill">
+                <span class="status-dot"></span>
+                <span class="status-text">Standby</span>
+              </div>
+            </div>
+
+            <div class="steps-container" id="ai-steps-list">
+              
+              <!-- STAGE 1: TARGET GOAL -->
+              <div class="step-card ai-step-card" id="ai-step-1" data-stage="1">
+                <div class="step-card-ribbon ai-ribbon">1</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="ai-term">Target Goal / Query Hypothesis</span>
+                    <span class="term-translation">Backward-Chaining Objective or Goal State</span>
+                  </div>
+                  <span class="step-state-badge ai-state">Awaiting</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="code-snippet">
+                    <span class="code-comment">// Goal Specification in Logic Programming / Prolog</span>
+                    <code id="ai-code-1">?- query(mountain, has_property(fire)).</code>
+                  </div>
+                  <p class="step-explanation" id="ai-desc-1">
+                    The inference engine registers an unverified query or target state in its working agenda. It initiates forward/backward search over its declarative knowledge base.
+                  </p>
+                  <div class="ai-metrics-row">
+                    <span class="ai-metric">Target Node: <code id="ai-metric-node">Entity(Mountain)</code></span>
+                    <span class="ai-metric">Target Predicate: <code id="ai-metric-pred">fire == true</code></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 2: FACT / SENSOR INPUT -->
+              <div class="step-card ai-step-card" id="ai-step-2" data-stage="2">
+                <div class="step-card-ribbon ai-ribbon">2</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="ai-term">Fact / Sensor Telemetry Assertion</span>
+                    <span class="term-translation">Ground-Truth Input into Working Memory</span>
+                  </div>
+                  <span class="step-state-badge ai-state">Awaiting</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="code-snippet">
+                    <span class="code-comment">// Sensor Ingestion Event -> Working Memory</span>
+                    <code id="ai-code-2">WorkingMemory.assertFact("sensor_event", { entity: "mountain", telemetry: "smoke", confidence: 1.0 });</code>
+                  </div>
+                  <p class="step-explanation" id="ai-desc-2">
+                    A physical sensor, perceptual model (computer vision), or log parser fires a feature event. The middle-term fact is asserted directly into the active knowledge graph.
+                  </p>
+                  <div class="ai-metrics-row">
+                    <span class="ai-metric">Trigger Feature: <code id="ai-metric-feature">smoke_detected == 1</code></span>
+                    <span class="ai-metric">Fact Source: <code>PerceptualStream.IoT</code></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 3: IF-THEN KNOWLEDGE BASE RULE -->
+              <div class="step-card ai-step-card" id="ai-step-3" data-stage="3">
+                <div class="step-card-ribbon ai-ribbon">3</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="ai-term">IF-THEN Knowledge Base Rule (Horn Clause)</span>
+                    <span class="term-translation">Universal Implication: ∀x (Smoke(x) → Fire(x))</span>
+                  </div>
+                  <span class="step-state-badge ai-state">Awaiting</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="code-snippet">
+                    <span class="code-comment">// Production Rule / Vyapti Definition in Rulebase</span>
+                    <code id="ai-code-3">RULE_042: IF has_indicator(?x, smoke) THEN assert_state(?x, fire, p=1.0) [Corroborated by KB_Corpus];</code>
+                  </div>
+                  <p class="step-explanation" id="ai-desc-3">
+                    The rule-base encodes the invariant law. In modern automated theorem proving, this is a definite clause backed by ontology constraints and verified training corpora.
+                  </p>
+                  <div class="ai-metrics-row">
+                    <span class="ai-metric">Rule ID: <code>RULE_KB_VYAPTI_01</code></span>
+                    <span class="ai-metric">Invariance Weight: <code>1.0 (Strict Implication)</code></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 4: PATTERN MATCHING & UNIFICATION -->
+              <div class="step-card ai-step-card" id="ai-step-4" data-stage="4">
+                <div class="step-card-ribbon ai-ribbon">4</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="ai-term">Pattern Matching & Variable Unification</span>
+                    <span class="term-translation">Rete Algorithm Node Activation / Variable Binding</span>
+                  </div>
+                  <span class="step-state-badge ai-state">Awaiting</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="code-snippet">
+                    <span class="code-comment">// Unification algorithm: ?x binds to entity 'mountain'</span>
+                    <code id="ai-code-4">Unify(Premise(?x), Fact("mountain")) -> θ = { ?x / "mountain" } -> Rule Activated.</code>
+                  </div>
+                  <p class="step-explanation" id="ai-desc-4">
+                    The inference engine’s Rete network matches the active fact with the rule’s antecedent. Variable substitution binds the universal law directly to the specific subject.
+                  </p>
+                  <div class="ai-metrics-row">
+                    <span class="ai-metric">Unification Set: <code id="ai-metric-unify">θ = { ?x / mountain }</code></span>
+                    <span class="ai-metric">Rete State: <code>Alpha-Beta Conflict Resolved</code></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STAGE 5: INFERENCE ENGINE CONCLUSION -->
+              <div class="step-card ai-step-card" id="ai-step-5" data-stage="5">
+                <div class="step-card-ribbon ai-ribbon">5</div>
+                <div class="step-card-header">
+                  <div class="step-title-group">
+                    <span class="ai-term">Inference Engine Conclusion & Action</span>
+                    <span class="term-translation">Committed Deduction & Autonomous Action</span>
+                  </div>
+                  <span class="step-state-badge ai-state">Awaiting</span>
+                </div>
+                <div class="step-card-body">
+                  <div class="code-snippet">
+                    <span class="code-comment">// Execution / Knowledge Graph Update</span>
+                    <code id="ai-code-5">WorkingMemory.commitFact("has_fire", "mountain"); ActionController.dispatch(FIRE_ALERT);</code>
+                  </div>
+                  <p class="step-explanation" id="ai-desc-5">
+                    The consequence is committed to the knowledge base as an indisputable truth. Downstream actuators, autonomous agents, or explainable audit logs are triggered.
+                  </p>
+                  <div class="ai-metrics-row">
+                    <span class="ai-metric success-tag">Result: <code id="ai-metric-result">Goal PROVEN (Deterministic)</code></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- LIVE SYMBOLIC REASONING TERMINAL / TRACE VIEWER -->
+        <div class="glass-card terminal-card">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot red-dot"></span>
+              <span class="dot yellow-dot"></span>
+              <span class="dot green-dot"></span>
+            </div>
+            <div class="terminal-title">
+              <span>HETULOGIC_EXECUTION_TRACE // PRAMANAX_CORE</span>
+            </div>
+            <div class="terminal-actions">
+              <button id="copy-trace-btn" class="terminal-btn" title="Copy Trace Log">Copy Trace</button>
+              <button id="clear-trace-btn" class="terminal-btn" title="Clear Console">Clear</button>
+            </div>
+          </div>
+          <div class="terminal-body" id="inference-log-terminal">
+            <div class="log-line system-line">[SYSTEM] Ready. Select a proposition scenario and click "Run Inference" to initiate Anumana.</div>
+            <div class="log-line info-line">[KB_STATUS] 4 Pramana Engines Loaded • Nyaya 5-Avayava Evaluator Initialized • Vaisheshika Ontology Graph Ready.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 2: PERMANENT IKS-TO-AI MAPPING CARDS                              -->
+    <!-- ========================================================================= -->
+    <section class="app-section" id="iks-ai-mapping">
+      <div class="section-container">
+        
+        <div class="section-header">
+          <div class="section-number-tag">
+            <span class="section-num">02</span>
+            <span class="section-sub-sanskrit">॥ प्राचीन-आधुनिक-विज्ञान-सङ्गमः ॥</span>
+          </div>
+          <h2 class="section-heading">
+            Permanent <span class="gold-gradient-text">IKS-to-AI Mapping</span>
+          </h2>
+          <p class="section-subheading">
+            How 2,500-year-old Nyaya epistemological principles directly power modern Artificial Intelligence, Symbolic Expert Systems, and Machine Learning pipelines.
+          </p>
+        </div>
+
+        <!-- 3 PERMANENT INTERACTIVE COMPARISON CARDS -->
+        <div class="mapping-cards-grid">
+          
+          <!-- CARD 1: VYAPTI <-> RULE-BASED EXPERT SYSTEMS -->
+          <div class="glass-card mapping-card" id="map-card-1">
+            <div class="mapping-card-top">
+              <div class="mapping-icon-pair">
+                <span class="icon-ancient">व्याप्ति</span>
+                <span class="icon-swap">⟷</span>
+                <span class="icon-modern">IF-THEN</span>
+              </div>
+              <div class="mapping-title-group">
+                <h3 class="mapping-card-title">1. Vyapti (व्याप्ति)</h3>
+                <span class="mapping-card-subtitle">Universal Invariable Concomitance ⟷ Rule-Based Expert Systems</span>
+              </div>
+            </div>
+
+            <div class="mapping-card-content">
+              <div class="mapping-dual-block">
+                <div class="dual-sub-block ancient-sub">
+                  <div class="block-label">
+                    <span class="dot-ancient"></span>
+                    <span>Nyaya Epistemology</span>
+                  </div>
+                  <p class="block-text">
+                    <strong>Vyapti</strong> is the inviolable relation of co-presence between the middle term (<em>Hetu</em>) and major term (<em>Sadhya</em>). "Wherever there is smoke, there is fire" without deviation (<em>Avyabhicharita</em>). It combines inductive observation with empirical falsification tests (<em>Upadhi-shunya</em>).
+                  </p>
+                  <div class="formula-chip">
+                    <code>व्याप्ति = नियतः सहचर-नियमः (Constant Co-presence)</code>
+                  </div>
+                </div>
+
+                <div class="dual-sub-block modern-sub">
+                  <div class="block-label">
+                    <span class="dot-modern"></span>
+                    <span>Modern AI & Expert Systems</span>
+                  </div>
+                  <p class="block-text">
+                    <strong>Knowledge Base Rules & Horn Clauses</strong> form the deterministic backbone of symbolic AI. A production rule <code>IF Condition(x) THEN Action(x)</code> or First-Order Logic clause <code>∀x (P(x) → Q(x))</code> functions precisely as Vyapti—encoding verified universal implications that fire upon fact unification.
+                  </p>
+                  <div class="formula-chip">
+                    <code>KB Rule: ∀x (Smoke(x) ∧ InvariantLaw → Fire(x))</code>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive Element: Vyapti Falsification Checker -->
+              <div class="card-interactive-drawer">
+                <div class="drawer-header">
+                  <span class="drawer-title">⚡ Interactive Epistemic Test: Vyapti vs. Upadhi (Conditionality)</span>
+                </div>
+                <div class="drawer-body">
+                  <p class="drawer-instruction">
+                    Nyaya insists that Vyapti is invalid if an unstated condition (<em>Upadhi</em>) exists. Test the reverse direction:
+                  </p>
+                  <div class="vyapti-tester">
+                    <button class="test-pill active" data-test="smoke-fire">Smoke ➔ Fire (Valid Vyapti)</button>
+                    <button class="test-pill" data-test="fire-smoke">Fire ➔ Smoke (Invalid / Upadhi)</button>
+                  </div>
+                  <div class="tester-result" id="vyapti-test-result">
+                    <span class="result-badge valid">VALID VYAPTI (व्याप्ति-सत्यम्)</span>
+                    <span class="result-text">Where there is smoke, fire is guaranteed. Counter-examples (Vipaksha like water reservoir) have no smoke.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mapping-card-footer">
+              <span class="footer-chip">Domain: Automated Theorem Proving</span>
+              <span class="footer-chip">Prolog & Datalog</span>
+              <span class="footer-chip">Rete Rule Engines</span>
+            </div>
+          </div>
+
+          <!-- CARD 2: HETU <-> FEATURE / CONDITION TRIGGER -->
+          <div class="glass-card mapping-card" id="map-card-2">
+            <div class="mapping-card-top">
+              <div class="mapping-icon-pair">
+                <span class="icon-ancient">हेतु</span>
+                <span class="icon-swap">⟷</span>
+                <span class="icon-modern">FEATURE</span>
+              </div>
+              <div class="mapping-title-group">
+                <h3 class="mapping-card-title">2. Hetu (हेतु / लिङ्ग)</h3>
+                <span class="mapping-card-subtitle">Logical Indicator / Middle Term ⟷ Feature & Condition Trigger</span>
+              </div>
+            </div>
+
+            <div class="mapping-card-content">
+              <div class="mapping-dual-block">
+                <div class="dual-sub-block ancient-sub">
+                  <div class="block-label">
+                    <span class="dot-ancient"></span>
+                    <span>Nyaya Epistemology</span>
+                  </div>
+                  <p class="block-text">
+                    The <strong>Hetu</strong> (also called <em>Linga</em> or Mark) is the empirical evidence observed on the locus (<em>Paksha</em>). A valid Hetu must fulfill the strict <strong>5-Fold Criterion (Pancha-Rupa Hetu)</strong>: present in subject, present in positive examples, absent in negative examples, uncontradicted, and uncounterbalanced.
+                  </p>
+                  <div class="formula-chip">
+                    <code>पक्षधर्मता + सपक्षसत्त्व + विपक्षासत्त्व + अबाधित + असत्प्रतिपक्ष</code>
+                  </div>
+                </div>
+
+                <div class="dual-sub-block modern-sub">
+                  <div class="block-label">
+                    <span class="dot-modern"></span>
+                    <span>Modern AI & Machine Learning</span>
+                  </div>
+                  <p class="block-text">
+                    <strong>Input Features & Sensor Activations</strong> serve as the algorithmic Hetu. In classification models, decision trees, and neural perceptual layers, a feature trigger (e.g., thermal sensor > 95°C, edge detection gradient) acts as the evidentiary signal that shifts probability distributions or fires deterministic conditional gates.
+                  </p>
+                  <div class="formula-chip">
+                    <code>Trigger: x_feature = f(raw_signal) > Threshold_θ</code>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive Element: The 5-Rupa Hetu Inspector -->
+              <div class="card-interactive-drawer">
+                <div class="drawer-header">
+                  <span class="drawer-title">🔍 The 5 Criteria for a Sound Hetu (AI Alignment Guardrails)</span>
+                </div>
+                <div class="drawer-body">
+                  <div class="criteria-grid">
+                    <div class="crit-item">
+                      <span class="crit-num">1</span>
+                      <span class="crit-name">Pakshadharmata</span>
+                      <span class="crit-ai">Feature present on target instance</span>
+                    </div>
+                    <div class="crit-item">
+                      <span class="crit-num">2</span>
+                      <span class="crit-name">Sapakshasattva</span>
+                      <span class="crit-ai">Feature present in positive training labels</span>
+                    </div>
+                    <div class="crit-item">
+                      <span class="crit-num">3</span>
+                      <span class="crit-name">Vipakshasattva-Abhava</span>
+                      <span class="crit-ai">Feature absent in negative/out-of-distribution cases</span>
+                    </div>
+                    <div class="crit-item">
+                      <span class="crit-num">4</span>
+                      <span class="crit-name">Abadhitatva</span>
+                      <span class="crit-ai">Not contradicted by higher-priority sensors</span>
+                    </div>
+                    <div class="crit-item">
+                      <span class="crit-num">5</span>
+                      <span class="crit-name">Asatpratipakshatva</span>
+                      <span class="crit-ai">No equal opposing evidence (No adversarial tie)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mapping-card-footer">
+              <span class="footer-chip">Feature Engineering</span>
+              <span class="footer-chip">Decision Tree Splits</span>
+              <span class="footer-chip">Perceptual Grounding</span>
+            </div>
+          </div>
+
+          <!-- CARD 3: NIGAMANA <-> INFERENCE ENGINE CONCLUSION -->
+          <div class="glass-card mapping-card" id="map-card-3">
+            <div class="mapping-card-top">
+              <div class="mapping-icon-pair">
+                <span class="icon-ancient">निगमन</span>
+                <span class="icon-swap">⟷</span>
+                <span class="icon-modern">OUTPUT</span>
+              </div>
+              <div class="mapping-title-group">
+                <h3 class="mapping-card-title">3. Nigamana (निगमन)</h3>
+                <span class="mapping-card-subtitle">Validated Deduction ⟷ Final Inference Output & XAI Trace</span>
+              </div>
+            </div>
+
+            <div class="mapping-card-content">
+              <div class="mapping-dual-block">
+                <div class="dual-sub-block ancient-sub">
+                  <div class="block-label">
+                    <span class="dot-ancient"></span>
+                    <span>Nyaya Epistemology</span>
+                  </div>
+                  <p class="block-text">
+                    <strong>Nigamana</strong> is the formal restatement of the initial proposition, now crowned with epistemological certainty (<em>Nirnaya</em>). Because all 4 preceding members have passed without fallacy (<em>Hetvabhasa</em>), the conclusion is non-hallucinatory, auditable, and universally communicable (<em>Pararthanumana</em>).
+                  </p>
+                  <div class="formula-chip">
+                    <code>निगमन = सर्वदोष-रहित-प्रमाण-सिद्धान्तः (Validated Truth)</code>
+                  </div>
+                </div>
+
+                <div class="dual-sub-block modern-sub">
+                  <div class="block-label">
+                    <span class="dot-modern"></span>
+                    <span>Modern AI & Explainability (XAI)</span>
+                  </div>
+                  <p class="block-text">
+                    <strong>Certified Inference & Autonomous Action Dispatch</strong>. In modern safety-critical AI (avionics, healthcare, autonomous vehicles), raw predictions are insufficient. Nigamana represents the audited, transparent step where the inference engine signs off on a decision with a complete provenance trace.
+                  </p>
+                  <div class="formula-chip">
+                    <code>Output: Commit(State) ∧ Dispatch(Audit_Trace_ID)</code>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive Element: Why 5 steps beat Aristotle's 3 steps -->
+              <div class="card-interactive-drawer">
+                <div class="drawer-header" style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="drawer-title">💡 Why Nyaya uses 5 Steps vs. Aristotle's 3 Steps</span>
+                  <button id="toggle-syllogism-btn" class="viz-btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;">Compare Models</button>
+                </div>
+                <div class="drawer-body">
+                  <p class="syllogism-comparison-text" id="syllogism-comparison-desc">
+                    Aristotle’s formal deductive syllogism (Major Premise → Minor Premise → Conclusion) is purely formal and can be factually false (e.g. "All winged things breathe fire"). <strong>Nyaya Anumana is both deductive and inductive</strong>—it demands an empirical verified exemplar (<em>Udaharana/Drishtanta</em>) and re-grounding (<em>Upanaya</em>) before certifying truth!
+                  </p>
+                  <div id="syllogism-model-box" style="display:none; margin-top:0.65rem; font-size:0.76rem; background:rgba(0,0,0,0.4); padding:0.6rem; border-radius:6px; border:1px solid rgba(255,255,255,0.08);">
+                    <div style="color:var(--cyan-light); font-weight:700; margin-bottom:4px;">Aristotle (Formal Deduction):</div>
+                    <code style="color:#94a3b8; display:block; margin-bottom:6px;">All men are mortal → Socrates is a man → Therefore, Socrates is mortal. (Lacks empirical verification clause)</code>
+                    <div style="color:var(--gold-light); font-weight:700; margin-bottom:4px;">Nyaya (Inductive-Deductive Synthesis):</div>
+                    <code style="color:#fde68a; display:block;">Pratijna → Hetu → Udaharana (Universal Rule + Kitchen Hearth Exemplar) → Upanaya (Subsumption) → Nigamana (Truth Q.E.D.)</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mapping-card-footer">
+              <span class="footer-chip">Explainable AI (XAI)</span>
+              <span class="footer-chip">Formal Verification</span>
+              <span class="footer-chip">Safety-Critical Guardrails</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 3: LOGIC LAB — ANUMANA 5-CARD SORTING GAME                        -->
+    <!-- ========================================================================= -->
+    <section class="app-section" id="logic-lab">
+      <div class="section-container">
+        
+        <div class="section-header">
+          <div class="section-number-tag">
+            <span class="section-num">03</span>
+            <span class="section-sub-sanskrit">॥ तर्कशाला: अनुमान-क्रम-परीक्षणम् ॥</span>
+          </div>
+          <h2 class="section-heading">
+            Logic Lab: <span class="amber-gradient-text">Anumana 5-Step Card Puzzle</span>
+          </h2>
+          <p class="section-subheading">
+            Interactive student activity: Reorder the 5 scrambled epistemological stages into the exact, valid Nyaya syllogistic sequence.
+          </p>
+        </div>
+
+        <!-- LAB DASHBOARD CONTAINER -->
+        <div class="glass-card lab-card">
+          
+          <div class="lab-question-banner">
+            <div class="question-badge">
+              <span class="q-icon">❓</span>
+              <span class="q-label">EPISTEMOLOGICAL CHALLENGE</span>
+            </div>
+            <h3 class="lab-challenge-title" id="lab-scenario-title">
+              Question: "Is there fire on the mountain?" (पर्वतो वह्निमान् न वा?)
+            </h3>
+            <p class="lab-challenge-instruction">
+              Rearrange the cards below from Step 1 to Step 5 using the <strong>▲ Up</strong> / <strong>▼ Down</strong> buttons or by <strong>dragging and dropping</strong> cards. Then click <strong>"Submit Answer"</strong> to validate your epistemic sequence.
+            </p>
+
+            <!-- Scenario Switcher -->
+            <div class="lab-scenario-selector">
+              <span class="scenario-label">Challenge Mode:</span>
+              <button class="scenario-btn active" data-scenario="mountain">Classical: Mountain Fire (धूम-वह्नि)</button>
+              <button class="scenario-btn" data-scenario="server">Modern: Server Overheat (यन्त्र-ताप)</button>
+              <button class="scenario-btn" data-scenario="autonomous">Robotics: Autonomous Brake (वाहन-निरोध)</button>
+            </div>
+          </div>
+
+          <!-- SCORE & STATUS BAR -->
+          <div class="lab-status-bar">
+            <div class="score-display">
+              <span class="score-label">Current Score:</span>
+              <span class="score-num" id="lab-score">0 / 5</span>
+              <span class="score-percent" id="lab-percent">(Not Submitted)</span>
+              <span class="attempts-pill">Attempts: <strong id="lab-attempts">0</strong></span>
+            </div>
+            
+            <div class="lab-controls">
+              <button id="lab-hint-btn" class="ghost-btn" title="Get an Epistemological Hint">
+                <span class="btn-icon">💡</span>
+                <span>Hint (सुझाव)</span>
+              </button>
+              <button id="reveal-solution-btn" class="ghost-btn" title="Auto-Reveal the Valid Nyaya Syllogism Sequence">
+                <span class="btn-icon">👁️</span>
+                <span>Reveal Sequence</span>
+              </button>
+              <button id="shuffle-cards-btn" class="secondary-btn">
+                <span class="btn-icon">🔀</span>
+                <span>Shuffle / Reset</span>
+              </button>
+              <button id="submit-order-btn" class="primary-btn glow-btn">
+                <span class="btn-icon">✓</span>
+                <span>Submit Answer</span>
+                <span class="btn-sanskrit-sub">उत्तर-परीक्षणम्</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Epistemic Hint Display Box -->
+          <div class="lab-hint-box" id="lab-hint-box" style="display: none;"></div>
+
+          <!-- THE 5 DRAGGABLE / REORDERABLE CARDS CONTAINER -->
+          <div class="cards-sorting-area" id="sorting-cards-container">
+            <!-- Cards will be populated by JavaScript -->
+          </div>
+
+          <!-- FEEDBACK & PEDAGOGICAL EXPLANATION BOX (Revealed upon submit) -->
+          <div class="lab-feedback-panel" id="lab-feedback-panel" style="display: none;">
+            <div class="feedback-header" id="feedback-header">
+              <div class="feedback-badge" id="feedback-badge">
+                <span class="feedback-icon" id="feedback-icon">✓</span>
+                <span class="feedback-title" id="feedback-title">Valid Nyaya Syllogism Established!</span>
+              </div>
+              <div class="score-stars" id="score-stars">★★★★★</div>
+            </div>
+
+            <div class="feedback-body">
+              <p class="feedback-summary" id="feedback-summary">
+                Perfect! You have reconstructed the flawless 5-stage Anumana sequence codified by Maharshi Akshapada Gautama.
+              </p>
+
+              <div class="sequence-breakdown-table">
+                <h4 class="breakdown-title">Epistemological Sequence Breakdown:</h4>
+                <div class="breakdown-rows" id="breakdown-rows-container">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <div class="pedagogical-insight-box">
+                <div class="insight-icon">💡</div>
+                <div class="insight-text">
+                  <strong>Why Sequence Matters in AI and Logic:</strong> In modern neural networks and LLMs, "hallucinations" occur when conclusions are asserted without strict middle-term grounding (Hetu) or verifiable universal rules (Vyapti). The Nyaya 5-member pipeline enforces inductive grounding before deduction, preventing spurious correlations.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 4: NYAYA & VAISHESHIKA KNOWLEDGE EXPLORER (PRAMANAX)               -->
+    <!-- ========================================================================= -->
+    <section class="app-section" id="pramanax-explorer">
+      <div class="section-container">
+        
+        <div class="section-header">
+          <div class="section-number-tag">
+            <span class="section-num">04</span>
+            <span class="section-sub-sanskrit">॥ न्याय-वैशेषिक-ज्ञान-कोशः ॥</span>
+          </div>
+          <h2 class="section-heading">
+            Nyaya & Vaisheshika <span class="cyan-gradient-text">Knowledge Explorer</span>
+          </h2>
+          <p class="section-subheading">
+            PramanaX: Explore the 4 Pramanas (Means of Knowledge), the 5 Hetvabhasa (Fallacies), and the 7 Vaisheshika Padarthas as Modern AI Knowledge Graph Nodes & Edges.
+          </p>
+        </div>
+
+        <!-- EXPLORER TABS NAVIGATION -->
+        <div class="explorer-tabs-bar">
+          <button class="explorer-tab-btn active" data-tab="tab-pramanas">
+            <span class="tab-icon">👁️</span>
+            <span class="tab-label">Nyaya: 4 Pramanas</span>
+            <span class="tab-sanskrit">चत्वारि प्रमाणानि</span>
+          </button>
+          <button class="explorer-tab-btn" data-tab="tab-fallacies">
+            <span class="tab-icon">⚠️</span>
+            <span class="tab-label">Nyaya: 5 Hetvabhasa (Fallacies)</span>
+            <span class="tab-sanskrit">पञ्च हेत्वाभासाः</span>
+          </button>
+          <button class="explorer-tab-btn" data-tab="tab-vaisheshika">
+            <span class="tab-icon">🕸️</span>
+            <span class="tab-label">Vaisheshika: 7 Padarthas (Ontology Graph)</span>
+            <span class="tab-sanskrit">सप्त पदार्थाः</span>
+          </button>
+        </div>
+
+        <!-- TAB CONTENT CONTAINER -->
+        <div class="explorer-content-wrapper">
+          
+          <!-- ================= TAB 1: 4 PRAMANAS ================= -->
+          <div class="tab-pane active" id="tab-pramanas">
+            <div class="tab-intro-card glass-card">
+              <h3 class="tab-intro-title">
+                The 4 Valid Pramanas (प्रमाणानि) ⟷ Modern AI Perceptual & Cognitive Layers
+              </h3>
+              <p class="tab-intro-desc">
+                In Nyaya epistemology, a <strong>Pramana</strong> is a valid instrument or faculty of true knowledge (<em>Prama</em>). Without valid Pramanas, any AI system—whether symbolic or deep learning—is prone to ungrounded hallucination.
+              </p>
+            </div>
+
+            <div class="pramana-grid">
+              
+              <!-- PRAMANA 1: PRATYAKSHA -->
+              <div class="glass-card pramana-card">
+                <div class="pramana-badge">PRAMANA 01</div>
+                <div class="pramana-header">
+                  <h4 class="pramana-title">१. प्रत्यक्ष (Pratyaksha)</h4>
+                  <span class="pramana-subtitle">Direct Sensory Perception</span>
+                </div>
+                <div class="pramana-sanskrit-quote">
+                  "इन्द्रियार्थसंनिकर्षोत्पन्नं ज्ञानमव्यपदेश्यमव्यभिचारि व्यवसायात्मकं प्रत्यक्षम्॥"
+                </div>
+                <p class="pramana-explanation">
+                  Knowledge generated from direct contact between senses (<em>Indriyas</em>) and objects. It must be non-verbal, non-deviant, and decisive.
+                </p>
+                <div class="pramana-ai-mapping">
+                  <span class="ai-mapping-label">Modern AI Equivalent:</span>
+                  <p class="ai-mapping-text">
+                    <strong>Computer Vision, LiDAR, Audio Spectrum & IoT Telemetry</strong>. Raw empirical sensory ingest directly capturing ground-truth environmental state before symbolic abstractions occur.
+                  </p>
+                  <div class="ai-spec-tag">Sensory Ingestion Pipeline</div>
+                </div>
+              </div>
+
+              <!-- PRAMANA 2: ANUMANA -->
+              <div class="glass-card pramana-card">
+                <div class="pramana-badge">PRAMANA 02</div>
+                <div class="pramana-header">
+                  <h4 class="pramana-title">२. अनुमान (Anumana)</h4>
+                  <span class="pramana-subtitle">Rational Inference / Deduction</span>
+                </div>
+                <div class="pramana-sanskrit-quote">
+                  "अथ तत्पूर्वकं त्रिविधमनुमानं पूर्ववच्छेषवत्सामान्यतो दृष्टं च॥"
+                </div>
+                <p class="pramana-explanation">
+                  Knowledge derived from prior perception through the invariant sign (<em>Hetu</em>) and universal rule (<em>Vyapti</em>). Divided into Purvavat, Sheshavat, and Samanyato-drishta.
+                </p>
+                <div class="pramana-ai-mapping">
+                  <span class="ai-mapping-label">Modern AI Equivalent:</span>
+                  <p class="ai-mapping-text">
+                    <strong>Automated Deduction, Machine Learning Classifiers, & Rete Rule Engines</strong>. Synthesizing unobserved variables from observed features via statistical patterns or formal logic.
+                  </p>
+                  <div class="ai-spec-tag">Inference & Reasoning Engines</div>
+                </div>
+              </div>
+
+              <!-- PRAMANA 3: UPAMANA -->
+              <div class="glass-card pramana-card">
+                <div class="pramana-badge">PRAMANA 03</div>
+                <div class="pramana-header">
+                  <h4 class="pramana-title">३. उपमान (Upamana)</h4>
+                  <span class="pramana-subtitle">Analogy & Structural Comparison</span>
+                </div>
+                <div class="pramana-sanskrit-quote">
+                  "प्रसिद्धसाधर्म्यात्साध्यसाधनमुपमानम्॥"
+                </div>
+                <p class="pramana-explanation">
+                  Knowledge of an unknown object established through its similarity or structural analogy to a known object (e.g. recognizing a wild gavaya because it resembles a domestic cow).
+                </p>
+                <div class="pramana-ai-mapping">
+                  <span class="ai-mapping-label">Modern AI Equivalent:</span>
+                  <p class="ai-mapping-text">
+                    <strong>Vector Embeddings, Cosine Similarity, & Few-Shot Learning</strong>. Mapping unfamiliar queries to the nearest known vector cluster in high-dimensional latent space (K-Nearest Neighbors).
+                  </p>
+                  <div class="ai-spec-tag">Vector Space & Embedding Projections</div>
+                </div>
+              </div>
+
+              <!-- PRAMANA 4: SHABDA -->
+              <div class="glass-card pramana-card">
+                <div class="pramana-badge">PRAMANA 04</div>
+                <div class="pramana-header">
+                  <h4 class="pramana-title">४. शब्द (Shabda / Aptavakya)</h4>
+                  <span class="pramana-subtitle">Verbal Testimony of a Trustworthy Source</span>
+                </div>
+                <div class="pramana-sanskrit-quote">
+                  "आप्तोपदेशः शब्दः॥"
+                </div>
+                <p class="pramana-explanation">
+                  The verbal or textual testimony of an authentic, verified authority (<em>Apta</em>)—one who possesses accurate knowledge and has no motivation to deceive.
+                </p>
+                <div class="pramana-ai-mapping">
+                  <span class="ai-mapping-label">Modern AI Equivalent:</span>
+                  <p class="ai-mapping-text">
+                    <strong>Retrieval-Augmented Generation (RAG), Cryptographically Signed Oracle Feeds, & Curated Knowledge Bases</strong>. Grounding AI responses in verified human databases rather than probabilistic guessing.
+                  </p>
+                  <div class="ai-spec-tag">Verified Knowledge Graphs & RAG</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- INTERACTIVE PRAMANA CLASSIFIER TOOL -->
+            <div class="glass-card fallacy-detective-card" style="margin-top: 1.8rem; border-color: rgba(6, 182, 212, 0.3);">
+              <div class="detective-header">
+                <span class="detective-icon">🔬</span>
+                <h4 class="detective-title">Interactive Pramana Classifier: Classify an AI Task</h4>
+              </div>
+              <p class="detective-desc">Select a modern AI engineering task below to identify which of the 4 Nyaya Pramanas (Means of Knowledge) is invoked:</p>
+              
+              <div class="detective-options" id="pramana-classifier-options">
+                <button class="detective-btn active" data-pramana-case="vision">
+                  Task 1: "Autonomous delivery rover detects an unexpected fire hydrant 2 meters ahead using stereo camera and LiDAR."
+                </button>
+                <button class="detective-btn" data-pramana-case="inference">
+                  Task 2: "Predictive maintenance engine diagnoses motor bearing degradation from acoustic harmonic vibration trends."
+                </button>
+                <button class="detective-btn" data-pramana-case="analogy">
+                  Task 3: "Few-shot computer vision classifies an exotic rare bird by measuring cosine distance in a 512-dim CLIP latent embedding."
+                </button>
+                <button class="detective-btn" data-pramana-case="testimony">
+                  Task 4: "Medical diagnostic LLM queries drug contraindications from the authoritative PubMed database via signed API."
+                </button>
+              </div>
+
+              <div class="detective-diagnosis-box" id="pramana-diagnosis" style="border-left-color: var(--cyan-light);">
+                <div class="diagnosis-badge" style="color: var(--cyan-light);">PRAMANA: प्रत्यक्ष (Pratyaksha - Direct Sensory Perception)</div>
+                <p class="diagnosis-text">
+                  Direct contact between instrument sensors and environmental physical state. In AI, computer vision, microphones, and LiDAR provide raw perceptual ground-truth (Pratyaksha) before symbolic reasoning occurs!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= TAB 2: 5 HETVABHASA (FALLACIES) ================= -->
+          <div class="tab-pane" id="tab-fallacies">
+            <div class="tab-intro-card glass-card">
+              <h3 class="tab-intro-title">
+                The 5 Hetvabhasa (हेत्वाभासाः) ⟷ AI Bugs, Bias & Hallucinations
+              </h3>
+              <p class="tab-intro-desc">
+                In Nyaya logic, <strong>Hetvabhasa</strong> denotes a defective, pseudo-reason that appears valid on the surface but collapses upon scrutiny. Indian logicians cataloged 5 master fallacies—every single one maps directly to a failure mode in modern Machine Learning and LLMs!
+              </p>
+            </div>
+
+            <div class="fallacies-grid">
+              
+              <!-- FALLACY 1 -->
+              <div class="glass-card fallacy-card">
+                <div class="fallacy-tag">FALLACY 01</div>
+                <h4 class="fallacy-name">१. सव्यभिचार (Savyabhichara)</h4>
+                <span class="fallacy-trans">Irregular / Discrepant Reason</span>
+                <p class="fallacy-desc">
+                  The Hetu leads to more than one conclusion; it is not inseparably tied to the Sadhya (e.g., "The mountain has fire because it is knowable"—knowability exists everywhere, even in cold lakes).
+                </p>
+                <div class="ai-bug-box">
+                  <span class="ai-bug-label">AI Failure Mode:</span>
+                  <strong class="ai-bug-title">Spurious Correlation & Hallucination</strong>
+                  <p class="ai-bug-text">
+                    A model learns a confounding shortcut (e.g., classifying a husky as a wolf because of snow in the background). The feature is not uniquely causal.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FALLACY 2 -->
+              <div class="glass-card fallacy-card">
+                <div class="fallacy-tag">FALLACY 02</div>
+                <h4 class="fallacy-name">२. विरुद्ध (Viruddha)</h4>
+                <span class="fallacy-trans">Contradictory Reason</span>
+                <p class="fallacy-desc">
+                  The Hetu actually proves the exact opposite of what the proposition intended (e.g., "Sound is eternal because it is produced"—production implies destruction).
+                </p>
+                <div class="ai-bug-box">
+                  <span class="ai-bug-label">AI Failure Mode:</span>
+                  <strong class="ai-bug-title">Data Poisoning & Inverted Gradient</strong>
+                  <p class="ai-bug-text">
+                    Adversarial attacks or inverted loss functions causing the model to reliably predict the exact inverse of safe operational behavior.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FALLACY 3 -->
+              <div class="glass-card fallacy-card">
+                <div class="fallacy-tag">FALLACY 03</div>
+                <h4 class="fallacy-name">३. सत्प्रतिपक्ष (Satpratipaksha)</h4>
+                <span class="fallacy-trans">Counterbalanced Reason</span>
+                <p class="fallacy-desc">
+                  The reason is countered by another equally valid reason proving the opposite proposition (an epistemic tie where both sides hold equal weight).
+                </p>
+                <div class="ai-bug-box">
+                  <span class="ai-bug-label">AI Failure Mode:</span>
+                  <strong class="ai-bug-title">Conflicting Constraints & Multi-Agent Deadlock</strong>
+                  <p class="ai-bug-text">
+                    Two safety guardrails or objective functions directly contradict each other, causing LLM output paralysis or decision oscillation.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FALLACY 4 -->
+              <div class="glass-card fallacy-card">
+                <div class="fallacy-tag">FALLACY 04</div>
+                <h4 class="fallacy-name">४. असिद्ध (Asiddha)</h4>
+                <span class="fallacy-trans">Unproved / Non-Existent Reason</span>
+                <p class="fallacy-desc">
+                  The Hetu itself has not been established as fact, or the locus does not exist (e.g., "The sky-lotus has fragrance because it is a lotus"—a sky-lotus does not exist).
+                </p>
+                <div class="ai-bug-box">
+                  <span class="ai-bug-label">AI Failure Mode:</span>
+                  <strong class="ai-bug-title">Out-of-Distribution (OOD) & Unfounded Premises</strong>
+                  <p class="ai-bug-text">
+                    An inference engine acts on nonexistent sensor telemetry, corrupt input buffers, or fabricated LLM assumptions.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FALLACY 5 -->
+              <div class="glass-card fallacy-card">
+                <div class="fallacy-tag">FALLACY 05</div>
+                <h4 class="fallacy-name">५. बाधित (Badhita)</h4>
+                <span class="fallacy-trans">Contradicted by Higher Pramana</span>
+                <p class="fallacy-desc">
+                  The conclusion is directly refuted by a more authoritative Pramana, such as direct sensory perception (e.g., "Fire is cold because it is a substance"—touch instantly refutes it).
+                </p>
+                <div class="ai-bug-box">
+                  <span class="ai-bug-label">AI Failure Mode:</span>
+                  <strong class="ai-bug-title">Ground-Truth Sensor Override & Safety Tripping</strong>
+                  <p class="ai-bug-text">
+                    A machine learning prediction attempts to assert that a runway is clear, but direct radar/vision sensors confirm an obstacle, instantly aborting the action.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- INTERACTIVE FALLACY DETECTIVE MINI-TOOL -->
+            <div class="glass-card fallacy-detective-card">
+              <div class="detective-header">
+                <span class="detective-icon">🕵️</span>
+                <h4 class="detective-title">Interactive Fallacy Detective: Test an AI Case</h4>
+              </div>
+              <p class="detective-desc">Select a modern AI error scenario below to see which ancient Nyaya Hetvabhasa it triggers:</p>
+              
+              <div class="detective-options">
+                <button class="detective-btn active" data-scenario="hallucination">
+                  Case A: "Autonomous car detects green light based on a puddle reflection, but radar detects oncoming traffic."
+                </button>
+                <button class="detective-btn" data-scenario="bias">
+                  Case B: "Model predicts a patient has good health because hospital bill is low, when in fact they lacked health insurance."
+                </button>
+                <button class="detective-btn" data-scenario="poison">
+                  Case C: "Adversarial sticker on a STOP sign causes classifier to label it as a 60 MPH speed limit sign."
+                </button>
+                <button class="detective-btn" data-scenario="asiddha">
+                  Case D: "Risk engine flags an account for suspicious login from 'Atlantis Island' based on corrupted GPS coordinates."
+                </button>
+                <button class="detective-btn" data-scenario="satpratipaksha">
+                  Case E: "Two safety guardrails fire contradictory directives on ambiguous text ('Disclose clause' vs 'Redact clause'), causing model paralysis."
+                </button>
+              </div>
+
+              <div class="detective-diagnosis-box" id="detective-diagnosis">
+                <div class="diagnosis-badge">DIAGNOSIS: बाधित (Badhita - Refuted by Perception)</div>
+                <p class="diagnosis-text">
+                  The model's inferential conclusion (safe to proceed) is directly overturned by direct sensory perception (Pratyaksha / Radar obstacle detection). In Nyaya, perception is the most fundamental Pramana and overrules inferential reasoning!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= TAB 3: 7 PADARTHAS (ONTOLOGY GRAPH) ================= -->
+          <div class="tab-pane" id="tab-vaisheshika">
+            <div class="tab-intro-card glass-card">
+              <h3 class="tab-intro-title">
+                Vaisheshika: The 7 Padarthas (पदार्थाः) ⟷ AI Knowledge Graphs & Ontologies
+              </h3>
+              <p class="tab-intro-desc">
+                Codified by Maharshi Kanada, the <strong>Vaisheshika Darshana</strong> decomposes the entire universe into 7 irreducible metaphysical categories (<em>Padarthas</em>: categories of knowable reality). Modern computer science re-invented this exact schema as <strong>Semantic Web Triples, RDF, OWL Ontologies, and Knowledge Graph Entities & Edges</strong>.
+              </p>
+            </div>
+
+            <!-- INTERACTIVE KNOWLEDGE GRAPH VISUALIZER -->
+            <div class="glass-card graph-visualizer-card">
+              <div class="graph-viz-header">
+                <div class="viz-title-group">
+                  <span class="viz-icon">🕸️</span>
+                  <h4 class="viz-title">Interactive Vaisheshika Knowledge Graph</h4>
+                  <span class="viz-subtitle">Click and drag nodes to inspect semantic triples</span>
+                </div>
+                <div class="viz-controls">
+                  <button id="reset-graph-btn" class="viz-btn">Reset View</button>
+                  <button id="toggle-graph-theme-btn" class="viz-btn">Toggle Mode (Vedic / AI)</button>
+                </div>
+              </div>
+
+              <!-- Interactive Canvas -->
+              <div class="canvas-container">
+                <canvas id="knowledge-graph-canvas" width="900" height="420"></canvas>
+                <div class="canvas-node-tooltip" id="canvas-node-tooltip"></div>
+              </div>
+
+              <!-- Active Node Inspector / Triple Viewer -->
+              <div class="graph-triple-bar">
+                <div class="triple-title">Active Knowledge Graph Triple (त्रिपुट-सम्बन्ध):</div>
+                <div class="triple-display" id="active-triple-display">
+                  <span class="triple-subject" id="triple-sub">(Mountain: Dravya / Substance)</span>
+                  <span class="triple-arrow">― [inheres_in: Samavaya] ➔</span>
+                  <span class="triple-object" id="triple-obj">(Fire: Guna / Quality)</span>
+                </div>
+                <div class="sparql-preview">
+                  <code id="triple-code-preview">SPARQL: ?subject :hasQuality ?quality FILTER(?quality = :Fire)</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7 PADARTHAS GRID EXPLANATION -->
+            <div class="padarthas-grid">
+              
+              <!-- 1. DRAVYA -->
+              <div class="glass-card padartha-card" data-padartha="dravya">
+                <div class="padartha-header">
+                  <span class="padartha-num">१</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">द्रव्य (Dravya)</h5>
+                    <span class="padartha-trans">Substance / Entity</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  The substrate in which qualities and actions reside (9 eternal substances: Earth, Water, Fire, Air, Ether, Time, Space, Self, Mind).
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>Node / Entity (Subject/Object)</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: Entity(:Server_Node_01) or :Mountain</code>
+                </div>
+              </div>
+
+              <!-- 2. GUNA -->
+              <div class="glass-card padartha-card" data-padartha="guna">
+                <div class="padartha-header">
+                  <span class="padartha-num">२</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">गुण (Guna)</h5>
+                    <span class="padartha-trans">Quality / Attribute</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  Static properties or values that inhere in substances (24 gunas including color, temperature, dimension, number).
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>Node Property / Literal Value</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: { temperature: "98°C", status: "Critical" }</code>
+                </div>
+              </div>
+
+              <!-- 3. KARMA -->
+              <div class="glass-card padartha-card" data-padartha="karma">
+                <div class="padartha-header">
+                  <span class="padartha-num">३</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">कर्म (Karma)</h5>
+                    <span class="padartha-trans">Action / Motion / Event</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  Dynamic actions causing conjunction or disjunction (upward motion, downward motion, contraction, expansion, locomotion).
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>State Change Event / Dynamic Edge</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: :Server_01 -[EMITS_HEAT_SPIKE]-> :Event</code>
+                </div>
+              </div>
+
+              <!-- 4. SAMANYA -->
+              <div class="glass-card padartha-card" data-padartha="samanya">
+                <div class="padartha-header">
+                  <span class="padartha-num">४</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">सामान्य (Samanya)</h5>
+                    <span class="padartha-trans">Generality / Universal / Class</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  The universal generic essence common to many individuals (e.g., *Cowness* in cows, *Serverhood* in servers).
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>Ontology Class / `rdf:type` Schema</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: :Server_01 a :ComputeClusterInstance</code>
+                </div>
+              </div>
+
+              <!-- 5. VISHESHA -->
+              <div class="glass-card padartha-card" data-padartha="vishesha">
+                <div class="padartha-header">
+                  <span class="padartha-num">५</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">विशेष (Vishesha)</h5>
+                    <span class="padartha-trans">Particularity / Individuation</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  The ultimate differentiator that makes an ultimate indivisible atom (<em>Paramanu</em>) unique from another.
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>Unique Identifier / UUID / Primary Key</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: UUID("urn:uuid:7c9e6679-7425-40de")</code>
+                </div>
+              </div>
+
+              <!-- 6. SAMAVAYA -->
+              <div class="glass-card padartha-card" data-padartha="samavaya">
+                <div class="padartha-header">
+                  <span class="padartha-num">६</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">समवाय (Samavaya)</h5>
+                    <span class="padartha-trans">Inseparable Inherence / Relation</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  The eternal, inseparable relation uniting substance and quality, part and whole, motion and actor.
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>Immutable Structural Edge (`owl:sameAs` / PartOf)</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: :Thread -[:INSEPARABLE_FROM]-> :Cloth</code>
+                </div>
+              </div>
+
+              <!-- 7. ABHAVA -->
+              <div class="glass-card padartha-card" data-padartha="abhava">
+                <div class="padartha-header">
+                  <span class="padartha-num">७</span>
+                  <div class="padartha-names">
+                    <h5 class="padartha-title">अभाव (Abhava)</h5>
+                    <span class="padartha-trans">Non-existence / Negation</span>
+                  </div>
+                </div>
+                <p class="padartha-desc">
+                  Added by later Vaisheshika masters: the real reality of absence (prior non-existence, posterior destruction, absolute absence, mutual exclusion).
+                </p>
+                <div class="padartha-kg-badge">
+                  <span class="kg-role">Graph Role:</span>
+                  <strong>Negation as Failure (NAF) / `NOT EXISTS` Query</strong>
+                </div>
+                <div class="padartha-example">
+                  <code>Example: NOT EXISTS { ?server :hasCoolantFlow true }</code>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SANSKRIT LOGIC GLOSSARY MODAL / SLIDE-OVER DRAWER -->
+    <div class="modal-overlay" id="glossary-modal">
+      <div class="glass-card glossary-modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-sanskrit-icon">॥</span>
+            <h3 class="modal-title">Sanskrit Logic (Nyaya-Vaisheshika) Lexicon</h3>
+          </div>
+          <button class="modal-close-btn" id="close-glossary-btn" aria-label="Close Modal">&times;</button>
+        </div>
+
+        <div class="modal-search-row">
+          <input 
+            type="text" 
+            id="glossary-search-input" 
+            class="custom-text-input" 
+            placeholder="Search philosophical terms (e.g., Vyapti, Hetu, Pramana, Dravya)..."
+          >
+        </div>
+
+        <div class="glossary-items-list" id="glossary-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SYLLOGISM REPORT EXPORT MODAL -->
+    <div class="modal-overlay" id="export-modal">
+      <div class="glass-card report-modal-card">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-sanskrit-icon">📜</span>
+            <h3 class="modal-title">PramanaX Epistemic Deduction Report</h3>
+          </div>
+          <button class="modal-close-btn" id="close-export-btn" aria-label="Close Modal">&times;</button>
+        </div>
+
+        <div class="report-content-preview">
+          <pre id="report-text-pre"></pre>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button id="copy-report-markdown-btn" class="secondary-btn">
+            <span class="btn-icon">📋</span>
+            <span>Copy Markdown</span>
+          </button>
+          <button id="download-report-btn" class="primary-btn glow-btn">
+            <span class="btn-icon">⬇️</span>
+            <span>Download .md</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="footer-logo">HETULOGIC // PRAMANAX</span>
+        <span class="footer-sub">Ancient Indian Logic Meets Modern AI</span>
+      </div>
+      <p class="footer-credits">
+        Dedicated to Maharshi Gautama (Nyaya) & Maharshi Kanada (Vaisheshika). Synthesizing Indian Knowledge Systems (IKS) with Symbolic Artificial Intelligence & Graph Epistemology.
+      </p>
+      <div class="footer-meta">
+        <span>© 2026 HetuLogic Open Epistemology</span>
+        <span>Pure Vanilla HTML5 • CSS3 • JavaScript</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript App -->
+  <script src="app.js"></script>
+</body>
+</html>
