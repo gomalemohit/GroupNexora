@@ -1,15 +1,14 @@
-  /**
- * HETULOGIC (PRAMANAX) - Ancient Indian Logic Meets Modern AI
- * Core Application Logic:
- *  1. Epistemic Sound Synthesizer (Web Audio API)
- *  2. Knowledge Base & 5-Stage Dynamic Anumana Simulator
- *  3. Modern Symbolic AI Expert System Synchronized Engine
- *  4. IKS-to-AI Interactive Comparison Cards & Vyapti Tester
- *  5. Logic Lab: Drag & Drop + Accessible Arrow Card Sorting Game
- *  6. Nyaya & Vaisheshika Explorer (4 Pramanas, 5 Fallacies, 7 Padarthas)
- *  7. Interactive Canvas Knowledge Graph with Physics & Triples
- *  8. Sanskrit Logic Lexicon & Search Modal
- *  9. Navigation ScrollSpy & Mobile Drawer
+/**
+ * HETULOGIC — ANCIENT INDIAN LOGIC & MODERN AI
+ * Core Modules:
+ *  1. EpistemicAudio: Web Audio API synthesizer with localStorage persistence
+ *  2. Toast Helper & ViewManager (Simulation Mode <-> Quiz Game Mode)
+ *  3. InferenceSimulator: Custom & Preset Problem Solver across Nyaya sectors
+ *  4. ReferenceGuide: Plain-English Terminology Cards with bidirectional linking
+ *  5. QuizGameEngine: One-question-at-a-time Quiz with Unlimited Attempts & Auto-Progression
+ *  6. LogicLabGame: 5-Step Syllogism Card Sorting Puzzle
+ *  7. Extended Explorer: Mapping Cards, Fallacy Detective & Parchment Knowledge Graph
+ *  8. Lexicon Modal & Navigation Setup
  */
 
 // =============================================================================
@@ -33,7 +32,7 @@ class EpistemicAudio {
         this.ctx = new AudioContext();
       }
     } catch (e) {
-      console.warn("Web Audio API not supported in this browser.", e);
+      console.warn("Web Audio API not supported.", e);
     }
   }
 
@@ -51,12 +50,11 @@ class EpistemicAudio {
     return this.soundEnabled;
   }
 
-  // Ancient resonant temple bell / tanpura harmonic tone for Sanskrit logic steps
   playVedicBell(stepNumber = 1) {
     if (!this.soundEnabled || !this.ctx) return;
     this.resumeCtx();
 
-    const baseFreqs = [216, 256, 324, 384, 432]; // Ancient Indian Shadja & Panchama harmonic tunings
+    const baseFreqs = [220, 261.63, 329.63, 392, 440];
     const freq = baseFreqs[(stepNumber - 1) % baseFreqs.length];
 
     const osc = this.ctx.createOscillator();
@@ -67,12 +65,12 @@ class EpistemicAudio {
     osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
 
     subOsc.type = "triangle";
-    subOsc.frequency.setValueAtTime(freq * 1.5, this.ctx.currentTime); // Perfect fifth overtone
+    subOsc.frequency.setValueAtTime(freq * 1.5, this.ctx.currentTime);
 
     const now = this.ctx.currentTime;
     gainNode.gain.setValueAtTime(0.001, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.2, now + 0.05);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+    gainNode.gain.exponentialRampToValueAtTime(0.14, now + 0.04);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
 
     osc.connect(gainNode);
     subOsc.connect(gainNode);
@@ -80,43 +78,40 @@ class EpistemicAudio {
 
     osc.start(now);
     subOsc.start(now);
-    osc.stop(now + 1.25);
-    subOsc.stop(now + 1.25);
+    osc.stop(now + 0.95);
+    subOsc.stop(now + 0.95);
   }
 
-  // Modern digital crisp AI unification blip
   playAIChime(stepNumber = 1) {
     if (!this.soundEnabled || !this.ctx) return;
     this.resumeCtx();
 
-    const aiPitches = [440, 554.37, 659.25, 880, 1108.73];
-    const freq = aiPitches[(stepNumber - 1) % aiPitches.length];
+    const pitches = [440, 523.25, 659.25, 783.99, 880];
+    const freq = pitches[(stepNumber - 1) % pitches.length];
 
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
 
     osc.type = "sine";
     osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(freq * 1.2, this.ctx.currentTime + 0.15);
 
     const now = this.ctx.currentTime;
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+    gain.gain.exponentialRampToValueAtTime(0.09, now + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
 
     osc.start(now);
-    osc.stop(now + 0.35);
+    osc.stop(now + 0.28);
   }
 
-  // Triumphant harmonic chime for Logic Lab 5/5 score
   playSuccessFanfare() {
     if (!this.soundEnabled || !this.ctx) return;
     this.resumeCtx();
 
-    const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
+    const notes = [261.63, 329.63, 392.0, 523.25];
     notes.forEach((freq, idx) => {
       setTimeout(() => {
         const osc = this.ctx.createOscillator();
@@ -125,99 +120,153 @@ class EpistemicAudio {
         osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
         const now = this.ctx.currentTime;
         gain.gain.setValueAtTime(0.001, now);
-        gain.gain.exponentialRampToValueAtTime(0.15, now + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+        gain.gain.exponentialRampToValueAtTime(0.12, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.85);
-      }, idx * 110);
+        osc.stop(now + 0.65);
+      }, idx * 95);
     });
   }
 }
 
 const audioSys = new EpistemicAudio();
 
-// Non-blocking toast feedback helper
-function showToast(message, variant = "cyan") {
+function showToast(message) {
   const container = document.getElementById("toast-container");
   if (!container) return;
   const toast = document.createElement("div");
-  toast.className = `toast-notification${variant === "gold" ? " toast-gold" : ""}`;
+  toast.className = "toast-notification";
   toast.textContent = message;
   container.appendChild(toast);
   setTimeout(() => {
     toast.style.opacity = "0";
-    toast.style.transform = "translateY(8px)";
-    toast.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+    toast.style.transition = "opacity 0.2s ease";
     setTimeout(() => toast.remove(), 220);
-  }, 2600);
+  }, 2400);
 }
 
 // =============================================================================
-// 2. KNOWLEDGE BASE DEFINITIONS (ANUMANA & MODERN AI DATASETS)
+// 2. VIEW SWITCHER (SIMULATION MODE <-> QUIZ GAME MODE)
+// =============================================================================
+class ViewManager {
+  constructor(onSimulationShown = null) {
+    this.onSimulationShown = onSimulationShown;
+    this.simBtn = document.getElementById("switch-sim-btn");
+    this.quizBtn = document.getElementById("switch-quiz-btn");
+    this.simView = document.getElementById("view-simulation");
+    this.quizView = document.getElementById("view-quiz");
+
+    this.subMcqBtn = document.getElementById("submode-mcq-btn");
+    this.subPuzzleBtn = document.getElementById("submode-puzzle-btn");
+    this.mcqPanel = document.getElementById("quiz-mcq-panel");
+    this.puzzlePanel = document.getElementById("quiz-puzzle-panel");
+
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    if (this.simBtn) {
+      this.simBtn.addEventListener("click", () => this.switchView("simulation"));
+    }
+    if (this.quizBtn) {
+      this.quizBtn.addEventListener("click", () => this.switchView("quiz"));
+    }
+    if (this.subMcqBtn) {
+      this.subMcqBtn.addEventListener("click", () => this.switchQuizSubmode("mcq"));
+    }
+    if (this.subPuzzleBtn) {
+      this.subPuzzleBtn.addEventListener("click", () => this.switchQuizSubmode("puzzle"));
+    }
+  }
+
+  switchView(viewName) {
+    const isQuiz = viewName === "quiz";
+
+    if (this.simView && this.quizView) {
+      this.simView.hidden = isQuiz;
+      this.quizView.hidden = !isQuiz;
+    }
+
+    if (this.simBtn && this.quizBtn) {
+      this.simBtn.classList.toggle("active", !isQuiz);
+      this.simBtn.setAttribute("aria-selected", String(!isQuiz));
+      this.quizBtn.classList.toggle("active", isQuiz);
+      this.quizBtn.setAttribute("aria-selected", String(isQuiz));
+    }
+
+    if (!isQuiz && typeof this.onSimulationShown === "function") {
+      requestAnimationFrame(() => this.onSimulationShown());
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    audioSys.playAIChime(isQuiz ? 3 : 1);
+  }
+
+  switchQuizSubmode(submode) {
+    const isPuzzle = submode === "puzzle";
+    if (this.mcqPanel && this.puzzlePanel) {
+      this.mcqPanel.style.display = isPuzzle ? "none" : "block";
+      this.puzzlePanel.style.display = isPuzzle ? "block" : "none";
+    }
+    if (this.subMcqBtn && this.subPuzzleBtn) {
+      this.subMcqBtn.classList.toggle("active", !isPuzzle);
+      this.subPuzzleBtn.classList.toggle("active", isPuzzle);
+    }
+    audioSys.playAIChime(2);
+  }
+}
+
+// =============================================================================
+// 3. KNOWLEDGE BASE & PROBLEM SOLVER SIMULATOR (LEFT PANEL)
 // =============================================================================
 const INFERENCE_PRESETS = {
   mountain: {
     id: "mountain",
     title: "There is fire on the mountain",
-    sanskritName: "पर्वतो वह्निमान्",
-    domain: "Classical Nyaya Epistemology (Akshapada Gautama)",
-    paksha: "पर्वतः (The Mountain - Locus)",
-    sadhya: "वह्निः (Fire - Predicate to prove)",
-    hetu: "धूमः (Smoke - Observed Sign)",
-    drishtanta: "महानसः (Kitchen Hearth - Corroborated Positive Instance)",
-    vipaksha: "महाह्रदः (Deep Lake - Negative Counter-Instance)",
+    domain: "Classical Nyaya Example",
+    paksha: "Mountain",
+    sadhya: "Fire",
+    hetu: "Smoke",
+    drishtanta: "Kitchen Hearth",
+    pratyakshaText: "Directly observed evidence: Smoke rising from the mountain ridge (matches AI camera/sensor input).",
+    anumanaText: "Using the reliable rule linking smoke to fire to deduce hidden fire (matches AI rule-based inference).",
     stages: [
       {
         step: 1,
-        nyayaSutra: "प्रतिज्ञा: पर्वतो वह्निमान्",
-        nyayaDesc: "The mountain possesses fire. The proposition (Pratijna) asserts the presence of the unobserved target property (Sadhya = Fire) on the specific subject/locus (Paksha = Mountain).",
-        nyayaTags: { paksha: "पर्वतः (Mountain)", sadhya: "वह्निः (Fire)" },
-        aiTerm: "Target Goal / Query Hypothesis",
-        aiCode: "?- query(mountain, has_property(fire)).",
-        aiDesc: "The Symbolic Engine registers a goal query in working memory. It queries whether Entity('mountain') satisfies the boolean predicate has_property('fire').",
-        aiMetrics: { node: "Entity(Mountain)", pred: "fire == true" }
+        statement: "The mountain has fire.",
+        desc: "This is the starting claim we want to prove true. We name the subject (Paksha: Mountain) and the target property (Sadhya: Fire).",
+        tags: { paksha: "Mountain", sadhya: "Fire" },
+        aiCode: "?- query(mountain, has_property(fire))."
       },
       {
         step: 2,
-        nyayaSutra: "हेतु: धूमवत्त्वात्",
-        nyayaDesc: "Because it possesses smoke. The Hetu (Linga / Mark) is directly perceived on the subject (Paksha-dharmata), providing the evidentiary ground for inference.",
-        nyayaTags: { hetu: "धूमः (Smoke)", status: "प्रत्यक्ष-सिद्ध (Direct Observation)" },
-        aiTerm: "Fact / Sensor Telemetry Assertion",
-        aiCode: 'WorkingMemory.assertFact("sensor_event", { entity: "mountain", telemetry: "smoke", confidence: 1.0 });',
-        aiDesc: "A physical sensor (computer vision / camera telemetry) fires a high-confidence feature event: smoke signature detected at Mountain coordinates.",
-        aiMetrics: { feature: "smoke_detected == 1.0", source: "PerceptualStream.Optical" }
+        statement: "Because there is smoke.",
+        desc: "The observable clue or evidence seen directly on the subject. Smoke acts as the logical indicator pointing toward fire.",
+        tags: { hetu: "Smoke", status: "Directly Observed" },
+        aiCode: 'WorkingMemory.assertFact("sensor_event", { entity: "mountain", sign: "smoke" });'
       },
       {
         step: 3,
-        nyayaSutra: "उदाहरण: यो यो धूमवान् स स वह्निमान्, यथा महानसः",
-        nyayaDesc: "Wherever there is smoke, there is fire, as in a kitchen hearth (Mahanasa). The universal invariant concomitance (Vyapti) is corroborated by undisputed positive examples and verified absence in water bodies (Mahahrada).",
-        nyayaTags: { vyapti: "धूम ➔ वह्नि (Smoke ➔ Fire)", drishtanta: "महानसः (Hearth)" },
-        aiTerm: "IF-THEN Knowledge Base Rule (Horn Clause)",
-        aiCode: "RULE_042: IF has_telemetry(?x, smoke) ∧ Vyapti(smoke, fire) THEN assert(?x, fire) [Weight: 1.0];",
-        aiDesc: "The deductive knowledge base loads the invariant Horn clause: universal implication linking smoke to combustion, verified across ground-truth training corpora.",
-        aiMetrics: { rule: "RULE_KB_COMBUSTION_01", weight: "1.0 (Strict Implication)" }
+        statement: "Wherever there is smoke, there is fire — as seen in a kitchen.",
+        desc: "States the universal rule (Vyapti) connecting the clue to the outcome, supported by a clear real-world example everyone agrees on.",
+        tags: { vyapti: "Smoke ➔ Fire", drishtanta: "Kitchen Hearth" },
+        aiCode: "RULE_042: IF has_sign(?x, smoke) THEN assert(?x, fire);"
       },
       {
         step: 4,
-        nyayaSutra: "उपनय: तथा चायं पर्वतः",
-        nyayaDesc: "And this mountain has smoke that is inseparably pervaded by fire. The universal rule is mapped to the individual case (Vyapti-vishishta-paksha-dharmata-jnanam).",
-        nyayaTags: { sambandha: "व्याप्तिविशिष्टपक्षधर्मताज्ञानम्" },
-        aiTerm: "Pattern Matching & Variable Unification",
-        aiCode: 'Unify(Rule_Premise(?x), Fact("mountain")) -> θ = { ?x / "mountain" } -> Activated in Agenda;',
-        aiDesc: "The Rete algorithm resolves variable bindings. Variable '?x' successfully unifies with entity 'mountain', satisfying all antecedent conditions for activation.",
-        aiMetrics: { unify: "θ = { ?x / mountain }", state: "Conflict Set Resolved" }
+        statement: "This mountain has smoke that always accompanies fire.",
+        desc: "Connects the general rule directly to our specific situation: the observed clue on the mountain matches the universal rule.",
+        tags: { sambandha: "Rule matched to Mountain" },
+        aiCode: 'Unify(RULE_042(?x), "mountain") -> θ = { ?x / "mountain" };'
       },
       {
         step: 5,
-        nyayaSutra: "निगमन: तस्मात् तथा",
-        nyayaDesc: "Therefore, the mountain possesses fire. The proposition is formally demonstrated and established as indubitable truth (Pramiti), free from all five fallacies (Hetvabhasa).",
-        nyayaTags: { pramiti: "सिद्धम् (Rationally Verified)" },
-        aiTerm: "Inference Engine Conclusion & Action",
-        aiCode: 'WorkingMemory.commitFact("has_fire", "mountain"); ActionController.dispatch(FIRE_ALERT);',
-        aiDesc: "Deduction finalized. The inference engine commits the verified state to the knowledge graph and dispatches an autonomous wildfire alert to emergency services.",
-        aiMetrics: { result: "Goal PROVEN (Deterministic 100%)" }
+        statement: "Therefore, the mountain has fire.",
+        desc: "The claim is now a confirmed conclusion. Because both the evidence and universal rule hold true without error, the answer is proven.",
+        tags: { pramiti: "Proven & Verified" },
+        aiCode: 'WorkingMemory.commitFact("has_fire", "mountain"); Action.dispatch(FIRE_ALERT);'
       }
     ]
   },
@@ -225,63 +274,48 @@ const INFERENCE_PRESETS = {
   server: {
     id: "server",
     title: "Server is overheating",
-    sanskritName: "यन्त्र-अतितापोत्पत्तिः",
-    domain: "Cloud Infrastructure & Predictive DevOps",
-    paksha: "अभिकलक-यन्त्रम् (Server-Node-07)",
-    sadhya: "अतितापः (Thermal Overheating Hazard)",
-    hetu: "तापमान-वृद्धिः (CPU Temp > 98°C)",
-    drishtanta: "भार-परीक्षण-केन्द्रम् (Stress-testing Benchmarks)",
-    vipaksha: "शीत-कक्षः (Sub-zero Liquid Cooling Chamber)",
+    domain: "Cloud Infrastructure & Monitoring",
+    paksha: "Server-07",
+    sadhya: "Overheating Hazard",
+    hetu: "CPU Temp > 98°C",
+    drishtanta: "Load Stress Test",
+    pratyakshaText: "Directly observed evidence: Hardware thermal sensor reports 98.4°C and maximum fan RPM.",
+    anumanaText: "Applying hardware reliability rules to infer imminent thermal throttling before system failure occurs.",
     stages: [
       {
         step: 1,
-        nyayaSutra: "प्रतिज्ञा: अयं सर्वर-नोडः अतिताप-युक्तः",
-        nyayaDesc: "Proposition: Server-Node-07 is undergoing critical overheating. The target state (Sadhya = Thermal Hazard) is hypothesized on the compute node (Paksha).",
-        nyayaTags: { paksha: "यन्त्रम् (Server-07)", sadhya: "अतितापः (Thermal Hazard)" },
-        aiTerm: "Target Goal / Query Hypothesis",
-        aiCode: "?- query(server_node_07, status(critical_overheat)).",
-        aiDesc: "The DevOps autonomous agent instantiates a diagnostic goal: Determine whether Server-Node-07 requires immediate thermal throttling or VM migration.",
-        aiMetrics: { node: "ServerNode(07)", pred: "thermal_hazard == true" }
+        statement: "Server-07 is overheating.",
+        desc: "We state the operational claim to verify: Server-07 (Paksha) is experiencing a thermal hazard (Sadhya).",
+        tags: { paksha: "Server-07", sadhya: "Overheating Hazard" },
+        aiCode: "?- query(server_07, status(critical_overheat))."
       },
       {
         step: 2,
-        nyayaSutra: "हेतु: तापमान-संवेदक-उल्लंघनात् (T > ९८°C)",
-        nyayaDesc: "Because its thermal sensor reads 98°C with fan speed saturation. The observed Hetu is a factual telemetry metric present on the compute instance.",
-        nyayaTags: { hetu: "संवेदक-दत्तम् (Temp > 98°C)", status: "प्रत्यक्ष-सिद्ध (IoT Telemetry)" },
-        aiTerm: "Fact / Sensor Telemetry Assertion",
-        aiCode: 'WorkingMemory.assertFact("telemetry", { host: "srv-07", core_temp_c: 98.4, rpm: 8500 });',
-        aiDesc: "Prometheus / BMC sensor stream pushes a threshold violation into the active event bus: Core temperature exceeds safe operating margin (98.4°C).",
-        aiMetrics: { feature: "core_temp > 95.0", source: "HardwareMonitoring.BMC" }
+        statement: "Because its CPU temperature exceeds 98°C at maximum fan speed.",
+        desc: "Direct sensor telemetry gives us clear evidence (Hetu) present on the server right now.",
+        tags: { hetu: "CPU Temp > 98°C", status: "Sensor Verified" },
+        aiCode: 'WorkingMemory.assertFact("telemetry", { host: "srv-07", temp_c: 98.4, fan_max: true });'
       },
       {
         step: 3,
-        nyayaSutra: "उदाहरण: यत्र यत्र तापमान-वृद्धिः तत्र अतिताप-नियमः",
-        nyayaDesc: "Wherever semiconductor junction temperature exceeds 95°C under continuous load, silicon thermal degradation is inevitable (Vyapti), as witnessed in stress test benches.",
-        nyayaTags: { vyapti: "ताप > ९५°C ➔ संक्षयः", drishtanta: "भार-परीक्षण (Stress Benchmark)" },
-        aiTerm: "IF-THEN Knowledge Base Rule (Horn Clause)",
-        aiCode: "RULE_DEVOPS_99: IF core_temp(?s) > 95.0 ∧ fan_max(?s) THEN assert(?s, state(overheat));",
-        aiDesc: "System reliability engineering rule: If silicon temperature exceeds maximum threshold and cooling is maxed out, catastrophic thermal throttling occurs.",
-        aiMetrics: { rule: "RULE_THERMAL_GOVERNOR", weight: "1.0 (Deterministic SRE Law)" }
+        statement: "Whenever a CPU exceeds 95°C under full cooling, overheating is occurring — as seen in stress benchmarks.",
+        desc: "States the universal engineering rule (Vyapti) backed by documented hardware stress-test records.",
+        tags: { vyapti: "Temp > 95°C ➔ Overheat", drishtanta: "Stress Test Logs" },
+        aiCode: "RULE_SRE_99: IF temp_c(?s) > 95 AND fan_max(?s) THEN assert(?s, overheat);"
       },
       {
         step: 4,
-        nyayaSutra: "उपनय: तथा चायं सर्वर-नोडः",
-        nyayaDesc: "And Server-Node-07 exhibits that exact junction temperature spike pervaded by thermal degradation (Upanaya: subsumption of the individual machine under the thermal law).",
-        nyayaTags: { sambandha: "संबन्ध-योजन (Rule-to-Node Binding)" },
-        aiTerm: "Pattern Matching & Variable Unification",
-        aiCode: 'Unify(core_temp(?s), "srv-07") -> θ = { ?s / srv-07 } -> Trigger Action Pipeline;',
-        aiDesc: "Rule engine unifies variable '?s' with 'srv-07'. Condition criteria satisfied with zero conflict; thermal mitigation rule enters execution agenda.",
-        aiMetrics: { unify: "θ = { ?s / srv-07 }", state: "Conflict Set Resolved" }
+        statement: "Server-07 has that exact high-temperature condition covered by the rule.",
+        desc: "Links the general hardware threshold rule specifically to Server-07.",
+        tags: { sambandha: "Rule matched to Server-07" },
+        aiCode: 'Unify(RULE_SRE_99(?s), "server_07") -> θ = { ?s / "server_07" };'
       },
       {
         step: 5,
-        nyayaSutra: "निगमन: तस्मात् अयं अतिताप-युक्तः",
-        nyayaDesc: "Therefore, Server-Node-07 is verified as critically overheating. The proposition is established with mathematical certainty; failsafe actions are sanctioned.",
-        nyayaTags: { pramiti: "सिद्धम् (Verified Thermal State)" },
-        aiTerm: "Inference Engine Conclusion & Action",
-        aiCode: 'ExecuteAction(EVACUATE_CONTAINERS, "srv-07"); ThrottleClockSpeed("srv-07", -500MHz);',
-        aiDesc: "Conclusion committed to infrastructure Knowledge Graph. Kubernetes cluster orchestrator migrates pods and applies CPU clock throttling.",
-        aiMetrics: { result: "Action Dispatched: Evacuate & Throttle" }
+        statement: "Therefore, Server-07 is confirmed as overheating.",
+        desc: "The diagnosis is logically proven, allowing the automated system to safely migrate workloads and throttle clock speed.",
+        tags: { pramiti: "Confirmed — Throttle & Migrate" },
+        aiCode: 'WorkingMemory.commitFact("overheat", "server_07"); Action.dispatch(THROTTLE_AND_MIGRATE);'
       }
     ]
   },
@@ -289,63 +323,48 @@ const INFERENCE_PRESETS = {
   packet_loss: {
     id: "packet_loss",
     title: "Network packet loss detected",
-    sanskritName: "जाल-दत्त-क्षति-अनुमानम्",
-    domain: "Cybersecurity & Routing Diagnostics",
-    paksha: "सञ्चार-मार्गः (BGP Gateway Router-X)",
-    sadhya: "दत्त-क्षति / प्रतिबन्धः (Network Congestion / Drop Attack)",
-    hetu: "पुनः-प्रेषण-वृद्धिः (TCP Retransmission Spike > 35%)",
-    drishtanta: "सञ्चय-कन्ठः (Congested Bottleneck Router)",
-    vipaksha: "स्थिर-तन्तुः (Isolated Fiber Loopback)",
+    domain: "Network Diagnostics",
+    paksha: "Gateway Router-X",
+    sadhya: "Packet Loss",
+    hetu: "TCP Retransmissions > 35%",
+    drishtanta: "Congested Transit Link",
+    pratyakshaText: "Directly observed evidence: Flow telemetry measures a 38% spike in TCP retransmission packets.",
+    anumanaText: "Deducing active packet drops on the link from retransmission spikes using network protocol rules.",
     stages: [
       {
         step: 1,
-        nyayaSutra: "प्रतिज्ञा: अयं सञ्चार-मार्गः दत्त-हानि-ग्रस्तः",
-        nyayaDesc: "Proposition: Gateway Router-X is suffering critical packet loss. The target predicate (Sadhya = Traffic Drop) is hypothesized on the ingress node (Paksha).",
-        nyayaTags: { paksha: "सञ्चार-मार्गः (Router-X)", sadhya: "दत्त-क्षतिः (Packet Drop)" },
-        aiTerm: "Target Goal / Query Hypothesis",
-        aiCode: "?- query(gateway_router_x, state(packet_loss_critical)).",
-        aiDesc: "Network telemetry agent initializes a diagnostics query to determine if ingress interface is dropping traffic due to buffer exhaustion or upstream DDoS.",
-        aiMetrics: { node: "Router(X)", pred: "loss_rate > 30%" }
+        statement: "Gateway Router-X is experiencing packet loss.",
+        desc: "States the network issue we need to diagnose on Router-X (Paksha).",
+        tags: { paksha: "Router-X", sadhya: "Packet Loss" },
+        aiCode: "?- query(router_x, state(packet_loss))."
       },
       {
         step: 2,
-        nyayaSutra: "हेतु: पुनः-प्रेषण-दर-वृद्धेः (Retransmit > ३५%)",
-        nyayaDesc: "Because TCP retransmission rate has spiked to 38% with exponential ACK timeouts. The Hetu is an observable network anomaly present on Router-X.",
-        nyayaTags: { hetu: "पुनः-प्रेषणम् (TCP Retransmit)", status: "प्रत्यक्ष-सिद्ध (Flow Telemetry)" },
-        aiTerm: "Fact / Sensor Telemetry Assertion",
-        aiCode: 'WorkingMemory.assertFact("flow_metric", { device: "router_x", retransmit_pct: 38.2 });',
-        aiDesc: "sFlow/NetFlow packet collectors report that TCP SYN/ACK retransmissions jumped past standard threshold (38.2%), asserted into working memory.",
-        aiMetrics: { feature: "retransmit_pct == 38.2", source: "Telemetry.NetFlow" }
+        statement: "Because TCP retransmission rates jumped above 35%.",
+        desc: "Observed network traffic data provides the clear clue (Hetu) showing packets are not arriving.",
+        tags: { hetu: "Retransmissions > 35%", status: "Telemetry Observed" },
+        aiCode: 'WorkingMemory.assertFact("netflow", { router: "router_x", retransmit_pct: 38.2 });'
       },
       {
         step: 3,
-        nyayaSutra: "उदाहरण: यत्र यत्र तीव्र-पुनःप्रेषणम् तत्र दत्त-हानिः",
-        nyayaDesc: "Wherever TCP retransmissions exceed 30%, severe link packet loss is invariably present (Vyapti), as corroborated in congested transit links.",
-        nyayaTags: { vyapti: "पुनःप्रेषण ➔ दत्त-हानि", drishtanta: "सञ्चय-कन्ठ (Congested Pipe)" },
-        aiTerm: "IF-THEN Knowledge Base Rule (Horn Clause)",
-        aiCode: "RULE_NET_07: IF retransmits(?r) > 30% ∧ rtt_jitter(?r) > 120ms THEN assert(?r, packet_loss);",
-        aiDesc: "RFC-compliant networking knowledge base encodes invariant implication: excessive retransmission combined with jitter guarantees packet drop.",
-        aiMetrics: { rule: "RULE_NETWORK_CONGESTION", weight: "0.99 (Empirical Telemetry Law)" }
+        statement: "Whenever retransmissions exceed 30% with high jitter, packet loss is occurring — as seen in congested links.",
+        desc: "Establishes the universal networking rule (Vyapti) with a standard real-world example.",
+        tags: { vyapti: "High Retransmit ➔ Drop", drishtanta: "Congested Link" },
+        aiCode: "RULE_NET_07: IF retransmit(?r) > 30 THEN assert(?r, packet_loss);"
       },
       {
         step: 4,
-        nyayaSutra: "उपनय: तथा चायं सञ्चार-मार्गः",
-        nyayaDesc: "And Gateway Router-X exhibits this exact retransmission surge pervaded by link drop (Upanaya: connecting the telemetry of Router-X to the universal rule).",
-        nyayaTags: { sambandha: "दत्त-संबन्ध-योजन (Fact Unification)" },
-        aiTerm: "Pattern Matching & Variable Unification",
-        aiCode: 'Unify(Rule_Antecedent(?r), "router_x") -> θ = { ?r / "router_x" } -> Fire Rule;',
-        aiDesc: "Unification algorithm matches Router-X telemetry against the premise of Rule_NET_07, resolving variable bindings with complete satisfaction.",
-        aiMetrics: { unify: "θ = { ?r / router_x }", state: "Active Transition" }
+        statement: "Router-X shows this exact retransmission pattern.",
+        desc: "Applies the universal congestion rule directly to Gateway Router-X.",
+        tags: { sambandha: "Rule matched to Router-X" },
+        aiCode: 'Unify(RULE_NET_07(?r), "router_x") -> θ = { ?r / "router_x" };'
       },
       {
         step: 5,
-        nyayaSutra: "निगमन: तस्मात् अयं दत्त-हानि-ग्रस्तः",
-        nyayaDesc: "Therefore, Gateway Router-X has critical packet loss. Established as verified fact; rerouting policies and traffic shaping are immediately authorized.",
-        nyayaTags: { pramiti: "सिद्धम् (Confirmed Packet Loss)" },
-        aiTerm: "Inference Engine Conclusion & Action",
-        aiCode: 'SDN_Controller.rerouteTraffic("router_x", "backup_gateway_y"); AlertOps("LINK_DEGRADATION");',
-        aiDesc: "Autonomous SDN orchestrator diverts mission-critical packet routes to alternate backup gateway and files automated incident ticket.",
-        aiMetrics: { result: "Action: Dynamic SDN Reroute Dispatched" }
+        statement: "Therefore, Gateway Router-X has confirmed packet loss.",
+        desc: "With the problem verified, the network controller can automatically shift traffic to a healthy backup route.",
+        tags: { pramiti: "Confirmed — Reroute Traffic" },
+        aiCode: 'WorkingMemory.commitFact("packet_loss", "router_x"); SDN.reroute("backup_gateway");'
       }
     ]
   },
@@ -353,63 +372,48 @@ const INFERENCE_PRESETS = {
   pneumonia: {
     id: "pneumonia",
     title: "Patient has acute pneumonia",
-    sanskritName: "रुग्ण-फुफ्फुस-शोथ-अनुमानम्",
-    domain: "Clinical Decision Support Systems (CDSS)",
-    paksha: "रुग्णः (Patient-402)",
-    sadhya: "फुफ्फुस-शोथः (Acute Pneumonia)",
-    hetu: "एक्स-रे श्वेत-छाया (Chest X-Ray Infiltration + Hypoxia)",
-    drishtanta: "सत्यापित-रोगी (Clinically Confirmed Cohort)",
-    vipaksha: "स्वस्थ-फुफ्फुस (Clear Healthy Lungs)",
+    domain: "Medical Decision Support AI",
+    paksha: "Patient-402",
+    sadhya: "Acute Pneumonia",
+    hetu: "Chest X-Ray Shadow & Low Oxygen",
+    drishtanta: "Verified Clinical Cases",
+    pratyakshaText: "Directly observed evidence: Chest scan reveals lung fluid shadow and pulse oximeter reads 90% SpO2.",
+    anumanaText: "Combining observable symptoms with established medical guidelines to confirm a diagnosis.",
     stages: [
       {
         step: 1,
-        nyayaSutra: "प्रतिज्ञा: अयं रोगी फुफ्फुस-शोथ-ग्रस्तः",
-        nyayaDesc: "Proposition: Patient-402 has acute pneumonia. The clinical diagnosis (Sadhya) is asserted on the admitted patient (Paksha).",
-        nyayaTags: { paksha: "रोगी (Patient-402)", sadhya: "फुफ्फुस-शोथः (Pneumonia)" },
-        aiTerm: "Target Goal / Query Hypothesis",
-        aiCode: "?- query(patient_402, diagnosis(acute_pneumonia)).",
-        aiDesc: "Diagnostic expert system instantiates a medical query to validate clinical suspicion of bacterial pneumonia.",
-        aiMetrics: { node: "Patient(402)", pred: "condition == pneumonia" }
+        statement: "Patient-402 has acute pneumonia.",
+        desc: "States the medical hypothesis to evaluate for the patient (Paksha).",
+        tags: { paksha: "Patient-402", sadhya: "Acute Pneumonia" },
+        aiCode: "?- query(patient_402, diagnosis(pneumonia))."
       },
       {
         step: 2,
-        nyayaSutra: "हेतु: एक्स-रे छाया-दर्शनात् + श्वास-कष्टात्",
-        nyayaDesc: "Because chest radiograph reveals bilateral consolidation and pulse oximetry shows SpO2 < 91% (Hetu: direct objective clinical signs).",
-        nyayaTags: { hetu: "एक्स-रे छाया + SpO2 < ९१%", status: "प्रत्यक्ष-सिद्ध (Radiology & Vitals)" },
-        aiTerm: "Fact / Sensor Telemetry Assertion",
-        aiCode: 'WorkingMemory.assertFact("vital_signs", { spo2: 90, cxr_infiltrate: true, fever_c: 39.1 });',
-        aiDesc: "EHR ingest pipeline asserts observed medical telemetry: high fever, hypoxia, and radiological alveolar consolidation.",
-        aiMetrics: { feature: "cxr_consolidation == 1", source: "EHR.Radiology & Vitals" }
+        statement: "Because chest X-ray shows lung infiltration alongside fever and low oxygen.",
+        desc: "Objective lab results and vital signs provide the direct clinical clue (Hetu).",
+        tags: { hetu: "X-Ray Shadow + Low SpO2", status: "Clinically Measured" },
+        aiCode: 'WorkingMemory.assertFact("ehr_vitals", { spo2: 90, cxr_infiltrate: true, fever: 39.1 });'
       },
       {
         step: 3,
-        nyayaSutra: "उदाहरण: यत्र यत्र फुफ्फुस-छाया तत्र शोथ-नियमः",
-        nyayaDesc: "Wherever alveolar consolidation coincides with fever and hypoxia, acute pneumonia is invariably indicated (Vyapti), as documented in medical case studies.",
-        nyayaTags: { vyapti: "छाया ➔ शोथ-नियमः", drishtanta: "सत्यापित-रोगी (Confirmed Cohort)" },
-        aiTerm: "IF-THEN Knowledge Base Rule (Horn Clause)",
-        aiCode: "RULE_MED_14: IF cxr_consolidation(?p) ∧ fever(?p) ∧ hypoxia(?p) THEN assert(?p, pneumonia);",
-        aiDesc: "Evidence-based clinical guidelines (Gold Standard Knowledge Base) declare universal diagnostic criteria for pulmonary inflammation.",
-        aiMetrics: { rule: "RULE_CLINICAL_GUIDELINE_2026", weight: "0.98 (Gold Standard)" }
+        statement: "Whenever lung infiltration appears with fever and low oxygen, acute pneumonia is present — as verified in clinical studies.",
+        desc: "States the evidence-based medical rule (Vyapti) backed by verified clinical records.",
+        tags: { vyapti: "Infiltration + Fever ➔ Pneumonia", drishtanta: "Clinical Cohort" },
+        aiCode: "RULE_MED_14: IF cxr_infiltrate(?p) AND hypoxia(?p) THEN assert(?p, pneumonia);"
       },
       {
         step: 4,
-        nyayaSutra: "उपनय: तथा चायं रोगी",
-        nyayaDesc: "And Patient-402 possesses these exact clinical markers pervaded by pneumonia (Upanaya: subsumption of the individual patient under medical law).",
-        nyayaTags: { sambandha: "लक्षण-योजन (Clinical Subsumption)" },
-        aiTerm: "Pattern Matching & Variable Unification",
-        aiCode: 'Unify(RULE_MED_14(?p), "patient_402") -> θ = { ?p / patient_402 } -> Rule Activated;',
-        aiDesc: "Rule engine unifies variables with Patient-402 records, confirming that all prerequisite antecedent medical criteria are satisfied.",
-        aiMetrics: { unify: "θ = { ?p / patient_402 }", state: "Verified Match" }
+        statement: "Patient-402 displays these exact clinical signs.",
+        desc: "Connects the verified medical rule directly to Patient-402's test results.",
+        tags: { sambandha: "Rule matched to Patient-402" },
+        aiCode: 'Unify(RULE_MED_14(?p), "patient_402") -> θ = { ?p / "patient_402" };'
       },
       {
         step: 5,
-        nyayaSutra: "निगमन: तस्मात् अयं रोगी फुफ्फुस-शोथ-ग्रस्तः",
-        nyayaDesc: "Therefore, Patient-402 is diagnosed with acute pneumonia. The conclusion is verified with medical rigor, allowing targeted antibiotic therapy.",
-        nyayaTags: { pramiti: "सिद्धम् (Confirmed Medical Diagnosis)" },
-        aiTerm: "Inference Engine Conclusion & Action",
-        aiCode: 'CDSS.commitDiagnosis("acute_pneumonia"); OrderPrescription("IV_Antibiotics", "patient_402");',
-        aiDesc: "Clinical Decision Support System signs off on diagnosis, schedules oxygen therapy, and recommends appropriate antibacterial regimen.",
-        aiMetrics: { result: "Diagnosis Confirmed: Protocol Dispatched" }
+        statement: "Therefore, Patient-402 is diagnosed with acute pneumonia.",
+        desc: "The clinical AI records an auditable diagnosis so doctors can begin targeted treatment immediately.",
+        tags: { pramiti: "Confirmed Diagnosis" },
+        aiCode: 'CDSS.commitDiagnosis("patient_402", "pneumonia"); CarePlan.suggestProtocol();'
       }
     ]
   },
@@ -417,73 +421,56 @@ const INFERENCE_PRESETS = {
   autonomous_brake: {
     id: "autonomous_brake",
     title: "Autonomous vehicle emergency brake",
-    sanskritName: "स्वायत्त-वाहन-आकस्मिक-निरोधः",
-    domain: "Autonomous Robotics & LiDAR Sensor Fusion",
-    paksha: "स्वायत्त-वाहनम् (RoboCar-Alpha)",
-    sadhya: "आकस्मिक-निरोधनम् (Emergency Collision Avoidance Brake)",
-    hetu: "मार्गे सहसा अवरोध-दर्शनम् (Pedestrian within 6m & Distance Shrinking)",
-    drishtanta: "परीक्षण-भूमि (Safety Test Proving Ground)",
-    vipaksha: "मुक्त-राजमार्गः (Clear Open Highway)",
+    domain: "Robotics & Self-Driving Safety",
+    paksha: "Autonomous Car",
+    sadhya: "Emergency Stop Required",
+    hetu: "Obstacle Within 5.4 Meters",
+    drishtanta: "Safety Proving Ground",
+    pratyakshaText: "Directly observed evidence: LiDAR and stereo cameras detect an obstacle 5.4 meters ahead closing rapidly.",
+    anumanaText: "Applying deterministic collision-physics rules to trigger an immediate safety stop.",
     stages: [
       {
         step: 1,
-        nyayaSutra: "प्रतिज्ञा: स्वायत्त-वाहनेन आकस्मिक-निरोधः कर्तव्यः",
-        nyayaDesc: "Proposition: RoboCar-Alpha must execute an immediate emergency stop. The safety action (Sadhya) is asserted for the vehicle (Paksha).",
-        nyayaTags: { paksha: "वाहनम् (RoboCar-Alpha)", sadhya: "निरोधनम् (Emergency Brake)" },
-        aiTerm: "Target Goal / Query Hypothesis",
-        aiCode: "?- query(robocar_alpha, action(emergency_brake_required)).",
-        aiDesc: "The vehicle trajectory safety executive queries whether trajectory continuation presents an imminent collision hazard.",
-        aiMetrics: { node: "RoboCar(Alpha)", pred: "brake_action == required" }
+        statement: "The autonomous vehicle must execute an emergency brake.",
+        desc: "States the critical safety decision (Sadhya) being evaluated for the vehicle (Paksha).",
+        tags: { paksha: "Autonomous Car", sadhya: "Emergency Stop" },
+        aiCode: "?- query(vehicle_alpha, action(emergency_brake))."
       },
       {
         step: 2,
-        nyayaSutra: "हेतु: समीपे अवरोध-प्रत्यक्षात् (दूरे < ६ मी.)",
-        nyayaDesc: "Because multi-modal LiDAR and radar detect an obstacle at 5.4 meters with closing velocity of 12 m/s (Hetu: direct sensor perception).",
-        nyayaTags: { hetu: "लीडार-संकेतः (LiDAR < 6m)", status: "प्रत्यक्ष-सिद्ध (Sensor Fusion)" },
-        aiTerm: "Fact / Sensor Telemetry Assertion",
-        aiCode: 'WorkingMemory.assertFact("fusion_track", { id: "obstacle_9", distance_m: 5.4, rel_speed: -12.0 });',
-        aiDesc: "Perception stack fuses camera bounding box and LiDAR point cloud into an obstacle track vector asserted into the active world model.",
-        aiMetrics: { feature: "distance < 6.0m ∧ closing", source: "Perception.LiDAR_Fusion" }
+        statement: "Because forward LiDAR detects a pedestrian 5.4 meters ahead with closing speed.",
+        desc: "Real-time sensor fusion supplies the direct physical evidence (Hetu).",
+        tags: { hetu: "LiDAR Obstacle < 6m", status: "Sensor Fused" },
+        aiCode: 'WorkingMemory.assertFact("lidar_track", { distance_m: 5.4, closing_mps: 12.0 });'
       },
       {
         step: 3,
-        nyayaSutra: "उदाहरण: यत्र यत्र अन्तराल-लोपः तत्र निरोध-नियमः",
-        nyayaDesc: "Wherever time-to-collision drops below 0.6 seconds, maximum friction braking is universally mandatory to preserve life (Vyapti), as proved on safety test tracks.",
-        nyayaTags: { vyapti: "सन्निकर्ष ➔ निरोध-नियमः", drishtanta: "परीक्षण-मार्ग (Proving Ground)" },
-        aiTerm: "IF-THEN Knowledge Base Rule (Horn Clause)",
-        aiCode: "RULE_AV_01: IF TTC(?v, ?obs) < 0.6s THEN execute_override(?v, MAX_EMERGENCY_BRAKE);",
-        aiDesc: "Deterministic safety guardrail certified under ISO 26262: If Time-To-Collision < 600ms, immediately command maximum braking deceleration.",
-        aiMetrics: { rule: "RULE_COLLISION_AVOIDANCE", weight: "1.0 (Critical Guardrail)" }
+        statement: "Whenever time-to-collision drops under 0.6 seconds, full braking is required — as proven on safety test tracks.",
+        desc: "States the inviolable safety rule (Vyapti) verified in physics testing.",
+        tags: { vyapti: "TTC < 0.6s ➔ Full Brake", drishtanta: "Safety Test Track" },
+        aiCode: "RULE_AV_01: IF ttc(?v) < 0.6 THEN dispatch_override(?v, MAX_BRAKE);"
       },
       {
         step: 4,
-        nyayaSutra: "उपनय: तथा चायं स्वायत्त-वाहन-मार्गः",
-        nyayaDesc: "And RoboCar-Alpha faces this exact critical distance breach pervaded by the collision prevention law (Upanaya: mapping current telemetry to the rule).",
-        nyayaTags: { sambandha: "सन्निकर्ष-योजन (Rule Mapping)" },
-        aiTerm: "Pattern Matching & Variable Unification",
-        aiCode: 'Unify(RULE_AV_01(?v), "robocar_alpha") -> θ = { ?v / robocar_alpha } -> Override Engaged;',
-        aiDesc: "Real-time microcontroller pattern-matches input telemetry; condition predicates evaluate TRUE; emergency interrupt takes control.",
-        aiMetrics: { unify: "θ = { ?v / robocar_alpha }", state: "Priority Override" }
+        statement: "The autonomous vehicle is currently inside that critical stopping window.",
+        desc: "Connects the safety guardrail directly to the car's live distance reading.",
+        tags: { sambandha: "Rule matched to Vehicle" },
+        aiCode: 'Unify(RULE_AV_01(?v), "vehicle_alpha") -> θ = { ?v / "vehicle_alpha" };'
       },
       {
         step: 5,
-        nyayaSutra: "निगमन: तस्मात् आकस्मिक-निरोधः सिद्धः",
-        nyayaDesc: "Therefore, RoboCar-Alpha executes emergency stop. The deduction is certified in under 12 milliseconds, averting physical collision.",
-        nyayaTags: { pramiti: "सिद्धम् (Collision Averted)" },
-        aiTerm: "Inference Engine Conclusion & Action",
-        aiCode: 'ActuatorController.applyTorque(MAX_HYDRAULIC_BRAKE); PublishTelemetry("SAFE_STOP_ACHIEVED");',
-        aiDesc: "CAN bus commands hydraulic brake calipers at 100% pressure. Vehicle comes to complete halt safely; collision successfully prevented.",
-        aiMetrics: { result: "Action: 100% Emergency Deceleration" }
+        statement: "Therefore, the autonomous vehicle triggers maximum emergency braking.",
+        desc: "Deduction completes in milliseconds and commands the braking system to avert a collision.",
+        tags: { pramiti: "Safety Stop Executed" },
+        aiCode: 'Actuator.applyBrakes(100); Log.record("COLLISION_AVERTED");'
       }
     ]
   }
 };
 
-// =============================================================================
-// 3. SIMULATOR CONTROLLER (SECTION 1)
-// =============================================================================
 class InferenceSimulator {
-  constructor() {
+  constructor(onStageHighlight = null) {
+    this.onStageHighlight = onStageHighlight;
     this.currentPresetKey = "mountain";
     this.currentStep = 0;
     this.isRunning = false;
@@ -508,15 +495,17 @@ class InferenceSimulator {
     this.stepperNodes = document.querySelectorAll(".stepper-node");
 
     this.nyayaStatusPill = document.getElementById("nyaya-status-pill");
-    this.aiStatusPill = document.getElementById("ai-status-pill");
     this.bridgeBar = document.getElementById("epistemic-bridge-bar");
     this.bridgeNyayaLabel = document.getElementById("bridge-nyaya-label");
     this.bridgeAiLabel = document.getElementById("bridge-ai-label");
+
+    this.pratyakshaTextEl = document.getElementById("sector-pratyaksha-text");
+    this.anumanaTextEl = document.getElementById("sector-anumana-text");
+
     this.logTerminal = document.getElementById("inference-log-terminal");
     this.copyTraceBtn = document.getElementById("copy-trace-btn");
     this.clearTraceBtn = document.getElementById("clear-trace-btn");
 
-    // Export Report Modal elements
     this.exportReportBtn = document.getElementById("export-report-btn");
     this.exportModal = document.getElementById("export-modal");
     this.closeExportBtn = document.getElementById("close-export-btn");
@@ -526,7 +515,6 @@ class InferenceSimulator {
   }
 
   bindEvents() {
-    // Preset dropdown
     if (this.presetSelect) {
       this.presetSelect.addEventListener("change", (e) => {
         const val = e.target.value;
@@ -539,7 +527,6 @@ class InferenceSimulator {
       });
     }
 
-    // Preset chips
     this.presetChips.forEach(chip => {
       chip.addEventListener("click", () => {
         const presetKey = chip.getAttribute("data-preset");
@@ -549,12 +536,11 @@ class InferenceSimulator {
       });
     });
 
-    // Custom proposition input
     if (this.customInput) {
       this.customInput.addEventListener("input", () => {
         const typed = this.customInput.value.trim();
-        const currentPreset = INFERENCE_PRESETS[this.currentPresetKey];
-        if (!currentPreset || typed !== currentPreset.title) {
+        const activeData = INFERENCE_PRESETS[this.currentPresetKey];
+        if (!activeData || typed !== activeData.title) {
           if (this.presetSelect) this.presetSelect.value = "custom";
           this.syncPresetChips("custom");
         }
@@ -567,22 +553,14 @@ class InferenceSimulator {
       });
     }
 
-    // Engine Control Buttons
-    if (this.runBtn) {
-      this.runBtn.addEventListener("click", () => this.toggleRunInference());
-    }
-    if (this.stepBtn) {
-      this.stepBtn.addEventListener("click", () => this.stepInference());
-    }
-    if (this.stepPrevBtn) {
-      this.stepPrevBtn.addEventListener("click", () => this.stepPrevInference());
-    }
-    if (this.resetBtn) {
-      this.resetBtn.addEventListener("click", () => this.resetInference());
-    }
+    if (this.runBtn) this.runBtn.addEventListener("click", () => this.toggleRunInference());
+    if (this.stepBtn) this.stepBtn.addEventListener("click", () => this.stepInference());
+    if (this.stepPrevBtn) this.stepPrevBtn.addEventListener("click", () => this.stepPrevInference());
+    if (this.resetBtn) this.resetBtn.addEventListener("click", () => this.resetInference());
 
-    // Keyboard Navigation Shortcuts
     window.addEventListener("keydown", (e) => {
+      const simView = document.getElementById("view-simulation");
+      if (simView && simView.hidden) return;
       if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
       if (document.querySelector(".modal-overlay.open")) {
         if (e.key === "Escape") {
@@ -603,7 +581,6 @@ class InferenceSimulator {
       }
     });
 
-    // Speed Controls
     this.speedBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         this.speedBtns.forEach(b => b.classList.remove("active"));
@@ -612,7 +589,6 @@ class InferenceSimulator {
       });
     });
 
-    // Stepper node click jump
     this.stepperNodes.forEach(node => {
       node.addEventListener("click", () => {
         const step = parseInt(node.getAttribute("data-step"), 10);
@@ -620,22 +596,16 @@ class InferenceSimulator {
       });
     });
 
-    // Terminal Trace actions
-    if (this.copyTraceBtn) {
-      this.copyTraceBtn.addEventListener("click", () => this.copyTraceLog());
-    }
+    if (this.copyTraceBtn) this.copyTraceBtn.addEventListener("click", () => this.copyTraceLog());
     if (this.clearTraceBtn) {
       this.clearTraceBtn.addEventListener("click", () => {
         if (this.logTerminal) {
-          this.logTerminal.innerHTML = '<div class="log-line system-line">[SYSTEM] Console cleared. Engine ready.</div>';
+          this.logTerminal.innerHTML = '<div class="log-line system-line">[Ready] Log cleared.</div>';
         }
       });
     }
 
-    // Export Report Events
-    if (this.exportReportBtn) {
-      this.exportReportBtn.addEventListener("click", () => this.openExportModal());
-    }
+    if (this.exportReportBtn) this.exportReportBtn.addEventListener("click", () => this.openExportModal());
     if (this.closeExportBtn) {
       this.closeExportBtn.addEventListener("click", () => {
         if (this.exportModal) this.exportModal.classList.remove("open");
@@ -646,12 +616,8 @@ class InferenceSimulator {
         if (e.target === this.exportModal) this.exportModal.classList.remove("open");
       });
     }
-    if (this.copyReportBtn) {
-      this.copyReportBtn.addEventListener("click", () => this.copyReport());
-    }
-    if (this.downloadReportBtn) {
-      this.downloadReportBtn.addEventListener("click", () => this.downloadReport());
-    }
+    if (this.copyReportBtn) this.copyReportBtn.addEventListener("click", () => this.copyReport());
+    if (this.downloadReportBtn) this.downloadReportBtn.addEventListener("click", () => this.downloadReport());
   }
 
   syncPresetChips(presetKey) {
@@ -679,25 +645,21 @@ class InferenceSimulator {
       this.customInput.value = data.title;
     }
 
-    // Update Stage UI contents with preset data
+    if (this.pratyakshaTextEl) this.pratyakshaTextEl.textContent = data.pratyakshaText;
+    if (this.anumanaTextEl) this.anumanaTextEl.textContent = data.anumanaText;
+
     for (let i = 1; i <= 5; i++) {
       const stage = data.stages[i - 1];
       if (!stage) continue;
 
-      // Nyaya column
-      const nyayaSutraEl = document.getElementById(`nyaya-sutra-${i}`);
-      const nyayaDescEl = document.getElementById(`nyaya-desc-${i}`);
-      if (nyayaSutraEl) nyayaSutraEl.textContent = stage.nyayaSutra;
-      if (nyayaDescEl) nyayaDescEl.textContent = stage.nyayaDesc;
-
-      // AI column
+      const stmtEl = document.getElementById(`nyaya-sutra-${i}`);
+      const descEl = document.getElementById(`nyaya-desc-${i}`);
       const aiCodeEl = document.getElementById(`ai-code-${i}`);
-      const aiDescEl = document.getElementById(`ai-desc-${i}`);
+      if (stmtEl) stmtEl.textContent = stage.statement;
+      if (descEl) descEl.textContent = stage.desc;
       if (aiCodeEl) aiCodeEl.textContent = stage.aiCode;
-      if (aiDescEl) aiDescEl.textContent = stage.aiDesc;
     }
 
-    // Specific Nyaya tags
     const tagPaksha = document.getElementById("tag-paksha");
     const tagSadhya = document.getElementById("tag-sadhya");
     const tagHetu = document.getElementById("tag-hetu");
@@ -710,39 +672,17 @@ class InferenceSimulator {
     if (tagPaksha) tagPaksha.textContent = data.paksha;
     if (tagSadhya) tagSadhya.textContent = data.sadhya;
     if (tagHetu) tagHetu.textContent = data.hetu;
-    if (tagHetuStatus) tagHetuStatus.textContent = data.stages[1]?.nyayaTags?.status || "प्रत्यक्ष-सिद्ध (Observed)";
-    if (tagVyapti) tagVyapti.textContent = data.stages[2]?.nyayaTags?.vyapti || "Hetu ➔ Sadhya";
+    if (tagHetuStatus) tagHetuStatus.textContent = data.stages[1]?.tags?.status || "Observed";
+    if (tagVyapti) tagVyapti.textContent = data.stages[2]?.tags?.vyapti || "Clue ➔ Result";
     if (tagDrishtanta) tagDrishtanta.textContent = data.drishtanta;
-    if (tagSambandha) tagSambandha.textContent = data.stages[3]?.nyayaTags?.sambandha || "व्याप्तिविशिष्टपक्षधर्मताज्ञानम्";
-    if (tagPramiti) tagPramiti.textContent = data.stages[4]?.nyayaTags?.pramiti || "सिद्धम् (Established)";
+    if (tagSambandha) tagSambandha.textContent = data.stages[3]?.tags?.sambandha || "Rule matched";
+    if (tagPramiti) tagPramiti.textContent = data.stages[4]?.tags?.pramiti || "Verified";
 
-    // AI Metrics
-    const nodeMetric = document.getElementById("ai-metric-node");
-    const predMetric = document.getElementById("ai-metric-pred");
-    const featureMetric = document.getElementById("ai-metric-feature");
-    const sourceMetric = document.getElementById("ai-metric-source");
-    const ruleMetric = document.getElementById("ai-metric-rule");
-    const weightMetric = document.getElementById("ai-metric-weight");
-    const unifyMetric = document.getElementById("ai-metric-unify");
-    const stateMetric = document.getElementById("ai-metric-state");
-    const resultMetric = document.getElementById("ai-metric-result");
-
-    if (nodeMetric && data.stages[0]?.aiMetrics?.node) nodeMetric.textContent = data.stages[0].aiMetrics.node;
-    if (predMetric && data.stages[0]?.aiMetrics?.pred) predMetric.textContent = data.stages[0].aiMetrics.pred;
-    if (featureMetric && data.stages[1]?.aiMetrics?.feature) featureMetric.textContent = data.stages[1].aiMetrics.feature;
-    if (sourceMetric && data.stages[1]?.aiMetrics?.source) sourceMetric.textContent = data.stages[1].aiMetrics.source;
-    if (ruleMetric && data.stages[2]?.aiMetrics?.rule) ruleMetric.textContent = data.stages[2].aiMetrics.rule;
-    if (weightMetric && data.stages[2]?.aiMetrics?.weight) weightMetric.textContent = data.stages[2].aiMetrics.weight;
-    if (unifyMetric && data.stages[3]?.aiMetrics?.unify) unifyMetric.textContent = data.stages[3].aiMetrics.unify;
-    if (stateMetric && data.stages[3]?.aiMetrics?.state) stateMetric.textContent = data.stages[3].aiMetrics.state;
-    if (resultMetric && data.stages[4]?.aiMetrics?.result) resultMetric.textContent = data.stages[4].aiMetrics.result;
-
-    this.log(`[KB_LOAD] Loaded Knowledge Domain: ${data.domain}`);
-    this.log(`[PREMISE] Target Proposition: "${data.title}" (Paksha: ${data.paksha}, Sadhya: ${data.sadhya})`);
+    this.log(`[Loaded] Scenario: "${data.title}" (${data.domain})`);
   }
 
   parseCustomProposition(rawText) {
-    const clean = (rawText || "Custom Hypothesis").trim();
+    const clean = (rawText || "Custom Scenario").trim();
     let proposition = clean;
     let reason = "observed empirical sign";
 
@@ -752,7 +692,7 @@ class InferenceSimulator {
       reason = reasonSplit[2].trim();
     }
 
-    let subject = "TargetEntity";
+    let subject = "Subject";
     let predicate = proposition;
 
     const thereIsMatch = proposition.match(/^there\s+(?:is|are)\s+(.+?)\s+(?:on|in|at)\s+(?:the\s+)?(.+)$/i);
@@ -766,11 +706,11 @@ class InferenceSimulator {
       predicate = isMatch[2].trim();
     } else {
       const words = proposition.split(/\s+/);
-      subject = words[0] || "TargetEntity";
-      predicate = words.slice(1).join(" ") || "TargetState";
+      subject = words[0] || "Subject";
+      predicate = words.slice(1).join(" ") || "target condition";
     }
 
-    const toSlug = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "") || "entity";
+    const toSlug = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "") || "item";
     return {
       proposition,
       subject,
@@ -783,77 +723,66 @@ class InferenceSimulator {
   }
 
   setupCustomPreset(customText = null) {
-    const raw = (customText !== null ? customText : (this.customInput ? this.customInput.value : "")).trim() || "Custom Hypothesis";
-    const parsed = this.parseCustomProposition(raw);
+    const raw = (customText !== null ? customText : (this.customInput ? this.customInput.value : "")).trim() || "Custom Scenario";
+    const p = this.parseCustomProposition(raw);
     this.resetInference();
     this.currentPresetKey = "custom";
     if (this.presetSelect) this.presetSelect.value = "custom";
     this.syncPresetChips("custom");
 
-    const customData = {
+    const isClause = /\b(is|are|was|were|has|have|had|can|will|exceeds|exceeded|stopped|failed|dropped|detected)\b/i.test(p.reason) || p.reason.split(/\s+/).length >= 3;
+    const hetuStatement = isClause ? `Because ${p.reason}.` : `Because of ${p.reason}.`;
+    const lowercaseLead = p.proposition.replace(/^(The|A|An)\s+/i, (m) => m.toLowerCase());
+
+    INFERENCE_PRESETS.custom = {
       id: "custom",
       title: raw,
-      domain: "User-Defined Epistemic Query",
-      paksha: `पक्ष (${parsed.subject})`,
-      sadhya: `साध्य (${parsed.predicate})`,
-      hetu: `हेतु (${parsed.reason})`,
-      drishtanta: "Verified Ground-Truth Exemplar (Sapaksha)",
-      vipaksha: "Absence of Sign in Negative Cases (Vipaksha)",
+      domain: "Custom Logical Problem",
+      paksha: p.subject,
+      sadhya: p.predicate,
+      hetu: p.reason,
+      drishtanta: "Verified Real-World Case",
+      pratyakshaText: `Directly observed evidence: "${p.reason}" noticed for "${p.subject}" (matches AI sensor/data input).`,
+      anumanaText: `Using the pattern linking "${p.reason}" to "${p.predicate}" to solve whether "${p.proposition}" holds true.`,
       stages: [
         {
           step: 1,
-          nyayaSutra: `प्रतिज्ञा: "${parsed.proposition}" इति साध्य-प्रतिज्ञा`,
-          nyayaDesc: `Proposition: Establishing that subject "${parsed.subject}" possesses the target state "${parsed.predicate}".`,
-          nyayaTags: { paksha: parsed.subject, sadhya: parsed.predicate },
-          aiTerm: "Target Goal / Query Hypothesis",
-          aiCode: `?- query(${parsed.subSlug}, state(${parsed.predSlug})).`,
-          aiDesc: `Instantiating target goal query for entity '${parsed.subSlug}' in working memory agenda.`,
-          aiMetrics: { node: `Entity(${parsed.subject})`, pred: `${parsed.predSlug} == true` }
+          statement: p.proposition,
+          desc: `We state the claim to test: does "${p.subject}" have the condition "${p.predicate}"?`,
+          tags: { paksha: p.subject, sadhya: p.predicate },
+          aiCode: `?- query(${p.subSlug}, state(${p.predSlug})).`
         },
         {
           step: 2,
-          nyayaSutra: `हेतु: "${parsed.reason}" उपलब्धेः (Observed Sign)`,
-          nyayaDesc: `Because "${parsed.reason}" is directly observed on "${parsed.subject}" (Paksha-dharmata).`,
-          nyayaTags: { hetu: parsed.reason, status: "प्रत्यक्ष-सिद्ध (Observed Ground)" },
-          aiTerm: "Fact / Sensor Telemetry Assertion",
-          aiCode: `WorkingMemory.assertFact("observation", { entity: "${parsed.subSlug}", sign: "${parsed.reasonSlug}", confidence: 1.0 });`,
-          aiDesc: `Direct perceptual/telemetry ingestion asserts evidence '${parsed.reasonSlug}' into working memory.`,
-          aiMetrics: { feature: `${parsed.reasonSlug} == true`, source: "CustomObservationStream" }
+          statement: hetuStatement,
+          desc: `This is our observed clue (Hetu) detected directly on "${p.subject}".`,
+          tags: { hetu: p.reason, status: "Directly Observed" },
+          aiCode: `WorkingMemory.assertFact("observation", { entity: "${p.subSlug}", sign: "${p.reasonSlug}" });`
         },
         {
           step: 3,
-          nyayaSutra: `उदाहरण: यत्र यत्र "${parsed.reason}" तत्र "${parsed.predicate}" (Vyapti)`,
-          nyayaDesc: `Wherever "${parsed.reason}" is invariantly present, "${parsed.predicate}" follows (Vyapti), verified on positive exemplars.`,
-          nyayaTags: { vyapti: `${parsed.reason} ➔ ${parsed.predicate}`, drishtanta: "Sapaksha Corpus" },
-          aiTerm: "IF-THEN Knowledge Base Rule (Horn Clause)",
-          aiCode: `RULE_CUSTOM: IF has_sign(?x, ${parsed.reasonSlug}) ∧ Vyapti(${parsed.reasonSlug}, ${parsed.predSlug}) THEN assert(?x, ${parsed.predSlug});`,
-          aiDesc: "Definite Horn clause loaded from declarative knowledge base linking observed sign to conclusion.",
-          aiMetrics: { rule: "RULE_USER_VYAPTI", weight: "1.0 (Strict Implication)" }
+          statement: `Wherever "${p.reason}" occurs, "${p.predicate}" consistently follows — as confirmed in past verified cases.`,
+          desc: `States the universal rule (Vyapti) connecting the clue to the outcome with an agreed example.`,
+          tags: { vyapti: `${p.reason} ➔ ${p.predicate}`, drishtanta: "Verified Past Case" },
+          aiCode: `RULE_CUSTOM: IF has_sign(?x, ${p.reasonSlug}) THEN assert(?x, ${p.predSlug});`
         },
         {
           step: 4,
-          nyayaSutra: `उपनय: तथा चायं "${parsed.subject}" (Subsumption)`,
-          nyayaDesc: `And "${parsed.subject}" exhibits "${parsed.reason}" which is inseparably pervaded by "${parsed.predicate}".`,
-          nyayaTags: { sambandha: "व्याप्तिविशिष्टपक्षधर्मताज्ञानम्" },
-          aiTerm: "Pattern Matching & Variable Unification",
-          aiCode: `Unify(RULE_CUSTOM(?x), "${parsed.subSlug}") -> θ = { ?x / "${parsed.subSlug}" } -> Activated;`,
-          aiDesc: `Rete pattern matcher binds variable ?x to entity '${parsed.subSlug}' and activates deduction.`,
-          aiMetrics: { unify: `θ = { ?x / ${parsed.subSlug} }`, state: "Conflict Set Resolved" }
+          statement: `"${p.subject}" currently matches "${p.reason}", fitting that universal rule.`,
+          desc: `Applies the general rule specifically to "${p.subject}".`,
+          tags: { sambandha: `Rule matched to ${p.subject}` },
+          aiCode: `Unify(RULE_CUSTOM(?x), "${p.subSlug}") -> θ = { ?x / "${p.subSlug}" };`
         },
         {
           step: 5,
-          nyayaSutra: `निगमन: तस्मात् "${parsed.proposition}" सिद्धम्`,
-          nyayaDesc: `Therefore, "${parsed.proposition}" is formally proven and certified without fallacy (Pramiti).`,
-          nyayaTags: { pramiti: "सिद्धम् (Rationally Proven)" },
-          aiTerm: "Inference Engine Conclusion & Action",
-          aiCode: `WorkingMemory.commitFact("${parsed.predSlug}", "${parsed.subSlug}"); ActionController.emit("PROVEN");`,
-          aiDesc: "Verified state committed to knowledge graph; downstream audit log & action dispatched.",
-          aiMetrics: { result: `Goal PROVEN (${parsed.subSlug})` }
+          statement: `Therefore, ${lowercaseLead}.`,
+          desc: `The claim is now logically concluded and ready for action.`,
+          tags: { pramiti: "Proven & Verified" },
+          aiCode: `WorkingMemory.commitFact("${p.predSlug}", "${p.subSlug}"); Action.emit("PROVEN");`
         }
       ]
     };
 
-    INFERENCE_PRESETS.custom = customData;
     this.loadPreset("custom");
   }
 
@@ -863,9 +792,9 @@ class InferenceSimulator {
       this.stepInterval = null;
       this.isRunning = false;
       if (this.runBtn) {
-        this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Resume</span><span class="btn-sanskrit-sub">अनुवर्तनम्</span>';
+        this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Resume</span>';
       }
-      this.log(`[PAUSE] Inference paused at Step ${this.currentStep}.`);
+      this.log(`[Paused] Analysis paused at Step ${this.currentStep}.`);
     } else {
       this.ensureCustomInputSynced();
       if (this.currentStep >= 5) {
@@ -883,13 +812,13 @@ class InferenceSimulator {
     this.isRunning = true;
 
     if (this.runBtn) {
-      this.runBtn.innerHTML = '<span class="btn-icon">⏸️</span><span class="btn-text">Pause</span><span class="btn-sanskrit-sub">विरामः</span>';
-      this.runBtn.disabled = false;
+      this.runBtn.innerHTML = '<span class="btn-icon">⏸</span><span class="btn-text">Pause</span>';
     }
 
     this.setStatusActive(true);
     if (this.currentStep === 0) {
-      this.log(`[ANUMANA_START] Initiating 5-Member Nyaya Syllogism for: "${INFERENCE_PRESETS[this.currentPresetKey].title}"`);
+      const activeData = INFERENCE_PRESETS[this.currentPresetKey] || INFERENCE_PRESETS.mountain;
+      this.log(`[Start] Solving "${activeData.title}" across 5 Nyaya steps...`);
     }
 
     this.stepInterval = setInterval(() => {
@@ -901,10 +830,9 @@ class InferenceSimulator {
         this.stepInterval = null;
         this.isRunning = false;
         if (this.runBtn) {
-          this.runBtn.innerHTML = '<span class="btn-icon">⚡</span><span class="btn-text">Run Inference</span><span class="btn-sanskrit-sub">अनुमान चालन</span>';
-          this.runBtn.disabled = false;
+          this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Solve</span>';
         }
-        this.log(`[ANUMANA_COMPLETE] Nigamana reached. All 5 members verified. Epistemic certainty established.`);
+        this.log("[Complete] Nigamana reached. Logical proof finished.");
       }
     }, this.speedMs);
   }
@@ -914,8 +842,7 @@ class InferenceSimulator {
       clearInterval(this.stepInterval);
       this.isRunning = false;
       if (this.runBtn) {
-        this.runBtn.innerHTML = '<span class="btn-icon">⚡</span><span class="btn-text">Run Inference</span><span class="btn-sanskrit-sub">अनुमान चालन</span>';
-        this.runBtn.disabled = false;
+        this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Solve</span>';
       }
     }
 
@@ -933,8 +860,7 @@ class InferenceSimulator {
       clearInterval(this.stepInterval);
       this.isRunning = false;
       if (this.runBtn) {
-        this.runBtn.innerHTML = '<span class="btn-icon">⚡</span><span class="btn-text">Run Inference</span><span class="btn-sanskrit-sub">अनुमान चालन</span>';
-        this.runBtn.disabled = false;
+        this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Solve</span>';
       }
     }
 
@@ -953,106 +879,72 @@ class InferenceSimulator {
       this.isRunning = false;
     }
     if (this.runBtn) {
-      this.runBtn.innerHTML = '<span class="btn-icon">⚡</span><span class="btn-text">Run Inference</span><span class="btn-sanskrit-sub">अनुमान चालन</span>';
-      this.runBtn.disabled = false;
+      this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Solve</span>';
     }
     this.resetInference();
     this.setStatusActive(true);
     for (let s = 1; s <= targetStep; s++) {
       this.currentStep = s;
-      this.renderStep(s, false); // Don't re-chime on jump
+      this.renderStep(s, false);
     }
     audioSys.playVedicBell(targetStep);
   }
 
   renderStep(stepNum, withSound = true) {
-    const stageNames = ["Pratijna", "Hetu", "Udaharana", "Upanaya", "Nigamana"];
-    const stageSanskrit = ["प्रतिज्ञा", "हेतु", "उदाहरण", "उपनय", "निगमन"];
-    const aiStages = ["Goal Setup", "Fact Ingestion", "Horn Rule Match", "Rete Unification", "Assertion Commit"];
+    const stageTerms = ["pratijna", "hetu", "udaharana", "upanaya", "nigamana"];
+    const stageTitles = ["Pratijna (Proposition)", "Hetu (Reason)", "Udaharana (Rule & Example)", "Upanaya (Application)", "Nigamana (Conclusion)"];
+    const aiStages = ["Target Goal Query", "Sensor Fact Input", "IF-THEN Rule", "Pattern Unification", "Engine Output"];
 
     if (this.bridgeBar && this.bridgeNyayaLabel && this.bridgeAiLabel) {
       this.bridgeBar.classList.add("active");
-      this.bridgeNyayaLabel.textContent = `Stage ${stepNum}/5: ${stageSanskrit[stepNum - 1]} (${stageNames[stepNum - 1]})`;
-      this.bridgeAiLabel.textContent = `Symbolic AI: ${aiStages[stepNum - 1]}`;
+      this.bridgeNyayaLabel.textContent = `Step ${stepNum}/5: ${stageTitles[stepNum - 1]}`;
+      this.bridgeAiLabel.textContent = `AI: ${aiStages[stepNum - 1]}`;
     }
 
-    // Update progress bar
     if (this.progressBar) {
-      const pct = (stepNum / 5) * 100;
-      this.progressBar.style.width = `${pct}%`;
+      this.progressBar.style.width = `${(stepNum / 5) * 100}%`;
     }
 
-    // Update stepper node badges
     this.stepperNodes.forEach(node => {
       const s = parseInt(node.getAttribute("data-step"), 10);
-      if (s < stepNum) {
-        node.classList.remove("active");
-        node.classList.add("completed");
-      } else if (s === stepNum) {
-        node.classList.add("active");
-        node.classList.remove("completed");
-      } else {
-        node.classList.remove("active", "completed");
-      }
+      node.classList.toggle("completed", s < stepNum);
+      node.classList.toggle("active", s === stepNum);
     });
 
-    // Update step cards in both Nyaya & AI columns
     for (let i = 1; i <= 5; i++) {
       const nyayaCard = document.getElementById(`nyaya-step-${i}`);
-      const aiCard = document.getElementById(`ai-step-${i}`);
+      if (!nyayaCard) continue;
+      const badge = nyayaCard.querySelector(".step-state-badge");
 
       if (i < stepNum) {
-        if (nyayaCard) {
-          nyayaCard.classList.remove("active-stage");
-          nyayaCard.classList.add("completed-stage");
-          const badge = nyayaCard.querySelector(".step-state-badge");
-          if (badge) badge.textContent = "Verified ✓";
-        }
-        if (aiCard) {
-          aiCard.classList.remove("active-stage");
-          aiCard.classList.add("completed-stage");
-          const badge = aiCard.querySelector(".step-state-badge");
-          if (badge) badge.textContent = "Resolved ✓";
-        }
+        nyayaCard.classList.remove("active-stage");
+        nyayaCard.classList.add("completed-stage");
+        if (badge) badge.textContent = "Verified ✓";
       } else if (i === stepNum) {
-        if (nyayaCard) {
-          nyayaCard.classList.add("active-stage");
-          nyayaCard.classList.remove("completed-stage");
-          const badge = nyayaCard.querySelector(".step-state-badge");
-          if (badge) badge.textContent = "Active Stage";
-          nyayaCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }
-        if (aiCard) {
-          aiCard.classList.add("active-stage");
-          aiCard.classList.remove("completed-stage");
-          const badge = aiCard.querySelector(".step-state-badge");
-          if (badge) badge.textContent = "Active Evaluation";
-        }
+        nyayaCard.classList.add("active-stage");
+        nyayaCard.classList.remove("completed-stage");
+        if (badge) badge.textContent = "Active";
       } else {
-        if (nyayaCard) {
-          nyayaCard.classList.remove("active-stage", "completed-stage");
-          const badge = nyayaCard.querySelector(".step-state-badge");
-          if (badge) badge.textContent = "Pending";
-        }
-        if (aiCard) {
-          aiCard.classList.remove("active-stage", "completed-stage");
-          const badge = aiCard.querySelector(".step-state-badge");
-          if (badge) badge.textContent = "Awaiting";
-        }
+        nyayaCard.classList.remove("active-stage", "completed-stage");
+        if (badge) badge.textContent = "Pending";
       }
     }
 
-    // Audio Feedback
-    if (withSound) {
-      audioSys.playVedicBell(stepNum);
-      setTimeout(() => audioSys.playAIChime(stepNum), 150);
+    if (typeof this.onStageHighlight === "function") {
+      this.onStageHighlight(stageTerms[stepNum - 1], false);
     }
 
-    // Log to terminal trace
+    if (withSound) {
+      audioSys.playVedicBell(stepNum);
+      setTimeout(() => audioSys.playAIChime(stepNum), 120);
+    }
+
     const data = INFERENCE_PRESETS[this.currentPresetKey] || INFERENCE_PRESETS.mountain;
     const stageData = data.stages[stepNum - 1];
-    this.log(`[STAGE_${stepNum}] ${stageSanskrit[stepNum - 1]} (${stageNames[stepNum - 1]}): ${stageData.nyayaSutra}`);
-    this.log(`       ↳ AI Equivalent [${aiStages[stepNum - 1]}]: ${stageData.aiCode}`, "sub-log");
+    if (stageData) {
+      this.log(`[Step ${stepNum}] ${stageTitles[stepNum - 1]}: ${stageData.statement}`);
+      this.log(`   ↳ AI Equivalent: ${stageData.aiCode}`, "sub-log");
+    }
   }
 
   resetInference() {
@@ -1064,58 +956,34 @@ class InferenceSimulator {
     this.currentStep = 0;
 
     if (this.runBtn) {
-      this.runBtn.innerHTML = '<span class="btn-icon">⚡</span><span class="btn-text">Run Inference</span><span class="btn-sanskrit-sub">अनुमान चालन</span>';
-      this.runBtn.disabled = false;
+      this.runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Solve</span>';
     }
-
     if (this.progressBar) this.progressBar.style.width = "0%";
 
-    this.stepperNodes.forEach(node => {
-      node.classList.remove("active", "completed");
-    });
+    this.stepperNodes.forEach(node => node.classList.remove("active", "completed"));
 
     for (let i = 1; i <= 5; i++) {
       const nyayaCard = document.getElementById(`nyaya-step-${i}`);
-      const aiCard = document.getElementById(`ai-step-${i}`);
       if (nyayaCard) {
         nyayaCard.classList.remove("active-stage", "completed-stage");
         const b = nyayaCard.querySelector(".step-state-badge");
         if (b) b.textContent = "Pending";
-      }
-      if (aiCard) {
-        aiCard.classList.remove("active-stage", "completed-stage");
-        const b = aiCard.querySelector(".step-state-badge");
-        if (b) b.textContent = "Awaiting";
       }
     }
 
     this.setStatusActive(false);
     if (this.bridgeBar && this.bridgeNyayaLabel && this.bridgeAiLabel) {
       this.bridgeBar.classList.remove("active");
-      this.bridgeNyayaLabel.textContent = "न्याय: Standby";
-      this.bridgeAiLabel.textContent = "Symbolic AI: Awaiting Query";
+      this.bridgeNyayaLabel.textContent = "Nyaya Step: Standby";
+      this.bridgeAiLabel.textContent = "Symbolic AI: Ready to Solve";
     }
   }
 
   setStatusActive(active) {
-    if (this.nyayaStatusPill) {
-      if (active) {
-        this.nyayaStatusPill.classList.add("active");
-        this.nyayaStatusPill.querySelector(".status-text").textContent = "Inferring...";
-      } else {
-        this.nyayaStatusPill.classList.remove("active");
-        this.nyayaStatusPill.querySelector(".status-text").textContent = "Standby";
-      }
-    }
-    if (this.aiStatusPill) {
-      if (active) {
-        this.aiStatusPill.classList.add("active");
-        this.aiStatusPill.querySelector(".status-text").textContent = "Rete Engine Active";
-      } else {
-        this.aiStatusPill.classList.remove("active");
-        this.aiStatusPill.querySelector(".status-text").textContent = "Standby";
-      }
-    }
+    if (!this.nyayaStatusPill) return;
+    this.nyayaStatusPill.classList.toggle("active", active);
+    const label = this.nyayaStatusPill.querySelector(".status-text");
+    if (label) label.textContent = active ? "Solving" : "Ready";
   }
 
   log(msg, customClass = "system-line") {
@@ -1130,134 +998,60 @@ class InferenceSimulator {
 
   copyTraceLog() {
     if (!this.logTerminal) return;
-    const text = this.logTerminal.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      showToast("✓ Execution Trace copied to clipboard!", "cyan");
-      if (this.copyTraceBtn) {
-        const orig = this.copyTraceBtn.textContent;
-        this.copyTraceBtn.textContent = "Copied ✓";
-        setTimeout(() => { this.copyTraceBtn.textContent = orig; }, 1600);
-      }
-    }).catch(err => {
-      console.error("Could not copy text: ", err);
-      showToast("⚠️ Clipboard access blocked by browser.", "gold");
+    navigator.clipboard.writeText(this.logTerminal.innerText).then(() => {
+      showToast("✓ Reasoning trace copied to clipboard.");
+    }).catch(() => {
+      showToast("⚠️ Clipboard access unavailable in this browser.");
     });
   }
 
   openExportModal() {
     const data = INFERENCE_PRESETS[this.currentPresetKey] || INFERENCE_PRESETS.mountain;
-    const now = new Date();
-    const dateStr = now.toISOString().replace("T", " ").substring(0, 19) + " UTC";
+    const dateStr = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
 
-    const reportMarkdown = `# PRAMANAX INFERENCE AUDIT REPORT
+    const reportMarkdown = `# HetuLogic Reasoning Report
 Generated: ${dateStr}
-Framework: HetuLogic (Nyaya-Vaisheshika ⇌ Symbolic AI)
 Domain: ${data.domain}
-Active Proposition: "${data.title}"
+Problem Statement: "${data.title}"
 
-=============================================================================
-I. NYAYA PANCHA-AVAYAVA (पञ्चावयव अनुमान - 5-Member Deductive Syllogism)
-=============================================================================
-1. PRATIJNA (प्रतिज्ञा - Thesis / Hypothesis):
-   • Sanskrit Formula: ${data.stages[0].nyayaSutra}
-   • Subject (Paksha / पक्ष): ${data.paksha}
-   • Target Predicate (Sadhya / साध्य): ${data.sadhya}
-   • Epistemic Role: ${data.stages[0].nyayaDesc}
+## 1. Epistemic Sectors
+- Pratyaksha (Observation): ${data.pratyakshaText}
+- Anumana (Inference): ${data.anumanaText}
 
-2. HETU (हेतु - Observed Sign / Ground):
-   • Sanskrit Formula: ${data.stages[1].nyayaSutra}
-   • Observable Mark (Linga / लिङ्ग): ${data.hetu}
-   • Epistemic Status: ${data.stages[1].nyayaTags.status}
-   • Grounding: ${data.stages[1].nyayaDesc}
-
-3. UDAHARANA (उदाहरण - Universal Rule / Vyapti & Exemplar):
-   • Sanskrit Formula: ${data.stages[2].nyayaSutra}
-   • Invariant Concomitance (Vyapti): ${data.stages[2].nyayaTags.vyapti || "Hetu ➔ Sadhya"}
-   • Positive Corroboration (Sapaksha / सपक्ष): ${data.drishtanta}
-   • Negative Counter-Check (Vipaksha / विपक्ष): ${data.vipaksha || "Negative class absence"}
-   • Falsification: Free from unstated conditions (Upadhi-rahita)
-
-4. UPANAYA (उपनय - Subsumption / Application):
-   • Sanskrit Formula: ${data.stages[3].nyayaSutra}
-   • Cognitive Nexus: Vyapti-vishishta-paksha-dharmata-jnanam
-   • Application: ${data.stages[3].nyayaDesc}
-
-5. NIGAMANA (निगमन - Certified Deduction):
-   • Sanskrit Formula: ${data.stages[4].nyayaSutra}
-   • Epistemic Status: Pramiti-Siddham (Rationally Certified Q.E.D.)
-   • Conclusion: ${data.stages[4].nyayaDesc}
-
-=============================================================================
-II. MODERN SYMBOLIC AI & EXPERT SYSTEM EQUIVALENCE TRACE
-=============================================================================
-• Target Goal Specification:
-  ${data.stages[0].aiCode}
-  ↳ Semantics: ${data.stages[0].aiDesc}
-
-• Ground Fact / Ingestion Event:
-  ${data.stages[1].aiCode}
-  ↳ Semantics: ${data.stages[1].aiDesc}
-
-• Production Rule / Horn Clause:
-  ${data.stages[2].aiCode}
-  ↳ Semantics: ${data.stages[2].aiDesc}
-
-• Pattern Matching & Rete Variable Unification:
-  ${data.stages[3].aiCode}
-  ↳ Semantics: ${data.stages[3].aiDesc}
-
-• Committed Deduction & Actuator Execution:
-  ${data.stages[4].aiCode}
-  ↳ Semantics: ${data.stages[4].aiDesc}
-
-=============================================================================
-III. HETVABHASA (FALLACY) AUDIT CHECKLIST
-=============================================================================
-[✓] Savyabhichara (Irregular Reason / Hallucination): PASSED (Invariant Co-presence verified)
-[✓] Viruddha (Contradictory Reason / Poisoning):     PASSED (Premise affirms conclusion)
-[✓] Satpratipaksha (Counterbalanced Conflict):       PASSED (No equal opposing thesis)
-[✓] Asiddha (Unproved Premise / OOD):               PASSED (Sensory telemetry established)
-[✓] Badhita (Contradicted by Perception):           PASSED (Direct Pratyaksha alignment)
-
-CERTIFICATION: Sound inference established. Free from hallucinations.
+## 2. 5-Step Nyaya Proof & Modern AI Mapping
+1. Pratijna (Proposition): ${data.stages[0].statement}
+   - AI Query: ${data.stages[0].aiCode}
+2. Hetu (Reason / Sign): ${data.stages[1].statement}
+   - AI Fact Input: ${data.stages[1].aiCode}
+3. Udaharana (Universal Rule & Example): ${data.stages[2].statement}
+   - AI Rule: ${data.stages[2].aiCode}
+4. Upanaya (Application): ${data.stages[3].statement}
+   - AI Unification: ${data.stages[3].aiCode}
+5. Nigamana (Conclusion): ${data.stages[4].statement}
+   - AI Output: ${data.stages[4].aiCode}
 `;
 
-    if (this.reportPre) {
-      this.reportPre.textContent = reportMarkdown;
-    }
-    if (this.exportModal) {
-      this.exportModal.classList.add("open");
-    }
+    if (this.reportPre) this.reportPre.textContent = reportMarkdown;
+    if (this.exportModal) this.exportModal.classList.add("open");
     audioSys.playAIChime(1);
   }
 
   copyReport() {
     if (!this.reportPre) return;
-    const text = this.reportPre.textContent;
-    navigator.clipboard.writeText(text).then(() => {
-      showToast("✓ PramanaX Markdown Report copied to clipboard!", "gold");
-      if (this.copyReportBtn) {
-        const label = this.copyReportBtn.querySelector("span:last-child");
-        if (label) {
-          const orig = label.textContent;
-          label.textContent = "Copied ✓";
-          setTimeout(() => { label.textContent = orig; }, 1600);
-        }
-      }
-    }).catch(err => {
-      console.error("Could not copy report: ", err);
-      showToast("⚠️ Clipboard access blocked by browser.", "gold");
+    navigator.clipboard.writeText(this.reportPre.textContent).then(() => {
+      showToast("✓ Reasoning report copied as Markdown.");
+    }).catch(() => {
+      showToast("⚠️ Clipboard access unavailable.");
     });
   }
 
   downloadReport() {
     if (!this.reportPre) return;
-    const text = this.reportPre.textContent;
-    const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+    const blob = new Blob([this.reportPre.textContent], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `PramanaX_Audit_${this.currentPresetKey}_${Date.now()}.md`;
+    a.download = `HetuLogic_Report_${this.currentPresetKey}_${Date.now()}.md`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1267,219 +1061,695 @@ CERTIFICATION: Sound inference established. Free from hallucinations.
 }
 
 // =============================================================================
-// 4. SECTION 2: IKS-TO-AI MAPPING CARDS & VYAPTI FALSIFICATION TESTER
+// 4. TERMINOLOGY REFERENCE GUIDE (RIGHT PANEL) + CROSS-PANEL INTERACTIVITY
 // =============================================================================
-function initMappingCards() {
-  const vyaptiPills = document.querySelectorAll(".vyapti-tester .test-pill");
-  const vyaptiResultBox = document.getElementById("vyapti-test-result");
+const REFERENCE_TERMS = [
+  {
+    id: "pratyaksha",
+    term: "Pratyaksha",
+    subtitle: "Direct Perception",
+    category: "epistemology",
+    catLabel: "Way of Knowing",
+    plainDef: "Knowledge gained directly through your senses or physical measurement—seeing smoke, hearing an alarm, or reading a temperature sensor.",
+    aiLink: "Matches Computer Vision, LiDAR, microphones, and live IoT telemetry."
+  },
+  {
+    id: "anumana",
+    term: "Anumana",
+    subtitle: "Logical Inference",
+    category: "epistemology",
+    catLabel: "Way of Knowing",
+    plainDef: "Figuring out something you cannot directly see by combining a visible clue with a trusted rule from experience.",
+    aiLink: "Matches deductive AI inference engines and predictive machine learning models."
+  },
+  {
+    id: "pratijna",
+    term: "Pratijna",
+    subtitle: "Proposition / Claim",
+    category: "syllogism",
+    catLabel: "Step 1",
+    plainDef: "The clear opening statement you want to prove—for example, 'The mountain has fire.'",
+    aiLink: "Matches the Target Goal or Query submitted to an AI reasoning engine."
+  },
+  {
+    id: "hetu",
+    term: "Hetu",
+    subtitle: "Reason / Observed Sign",
+    category: "syllogism",
+    catLabel: "Step 2",
+    plainDef: "The visible evidence or clue that supports your claim—for example, 'Because there is smoke.'",
+    aiLink: "Matches the active input feature, signal, or condition trigger in an AI system."
+  },
+  {
+    id: "udaharana",
+    term: "Udaharana",
+    subtitle: "Rule with Real Example",
+    category: "syllogism",
+    catLabel: "Step 3",
+    plainDef: "States a general rule backed by a familiar, real-world example—such as 'Wherever there is smoke, there is fire, like in a kitchen.'",
+    aiLink: "Matches an IF-THEN Knowledge Base rule validated against verified training data."
+  },
+  {
+    id: "upanaya",
+    term: "Upanaya",
+    subtitle: "Application to Current Case",
+    category: "syllogism",
+    catLabel: "Step 4",
+    plainDef: "Connects the general rule directly to the specific situation in front of you—showing that this mountain has that exact type of smoke.",
+    aiLink: "Matches Pattern Matching and Variable Unification in rule engines."
+  },
+  {
+    id: "nigamana",
+    term: "Nigamana",
+    subtitle: "Final Conclusion",
+    category: "syllogism",
+    catLabel: "Step 5",
+    plainDef: "The final verified answer after every step and example checks out—'Therefore, the mountain has fire.'",
+    aiLink: "Matches the final audited output and action dispatched by an Explainable AI system."
+  },
+  {
+    id: "vyapti",
+    term: "Vyapti",
+    subtitle: "Unbreakable Rule / Connection",
+    category: "ontology",
+    catLabel: "Core Concept",
+    plainDef: "A dependable relationship where one clue always accompanies another outcome without exception (smoke always comes from fire).",
+    aiLink: "Matches strict IF-THEN logical rules and reliable causal features."
+  },
+  {
+    id: "paksha",
+    term: "Paksha & Sadhya",
+    subtitle: "Subject & Target Property",
+    category: "ontology",
+    catLabel: "Core Concept",
+    plainDef: "Paksha is the thing you are investigating (the mountain), while Sadhya is the hidden property you are trying to prove (fire).",
+    aiLink: "Matches the Entity/Node (Paksha) and the Target Prediction Label (Sadhya)."
+  },
+  {
+    id: "upamana",
+    term: "Upamana",
+    subtitle: "Comparison / Analogy",
+    category: "epistemology",
+    catLabel: "Way of Knowing",
+    plainDef: "Recognizing something unfamiliar by comparing its features to something you already know well.",
+    aiLink: "Matches Vector Embeddings, Cosine Similarity, and Few-Shot Learning."
+  },
+  {
+    id: "shabda",
+    term: "Shabda",
+    subtitle: "Trusted Testimony",
+    category: "epistemology",
+    catLabel: "Way of Knowing",
+    plainDef: "Knowledge learned from a reliable, verified expert, document, or authoritative source.",
+    aiLink: "Matches Retrieval-Augmented Generation (RAG) and verified Knowledge Bases."
+  },
+  {
+    id: "hetvabhasa",
+    term: "Hetvabhasa & Padarthas",
+    subtitle: "Fallacies & Categories",
+    category: "ontology",
+    catLabel: "Core Concept",
+    plainDef: "Hetvabhasa are misleading clues that cause wrong conclusions; Padarthas (Vaisheshika) are the 7 basic building blocks used to organize reality.",
+    aiLink: "Matches AI hallucinations/bias (Hetvabhasa) and Knowledge Graph schemas (Padarthas)."
+  }
+];
 
-  vyaptiPills.forEach(pill => {
-    pill.addEventListener("click", () => {
-      vyaptiPills.forEach(p => p.classList.remove("active"));
-      pill.classList.add("active");
-      const test = pill.getAttribute("data-test");
+class ReferenceGuide {
+  constructor() {
+    this.listEl = document.getElementById("reference-cards-list");
+    this.searchInput = document.getElementById("ref-search-input");
+    this.filterPills = document.querySelectorAll("#ref-filter-pills .ref-pill");
+    this.countPill = document.getElementById("ref-count-pill");
+    this.activeBanner = document.getElementById("ref-active-banner");
 
-      if (test === "smoke-fire") {
-        vyaptiResultBox.innerHTML = `
-          <span class="result-badge valid">VALID VYAPTI (व्याप्ति-सत्यम्)</span>
-          <span class="result-text">Where there is smoke, fire is unconditionally guaranteed. Counter-instances (Vipaksha like deep lakes) never possess smoke without fire.</span>
-        `;
-        audioSys.playAIChime(1);
-      } else {
-        vyaptiResultBox.innerHTML = `
-          <span class="result-badge invalid">INVALID VYAPTI / उपाधि-दोष (Upadhi Error)</span>
-          <span class="result-text">"Where there is fire, there is smoke" FAILS. A glowing red-hot iron ball has fire but NO smoke. Smoke requires an extra unstated condition (Upadhi): moist fuel (आर्ध्रेन्धन-संयोग).</span>
-        `;
-        audioSys.playAIChime(4);
-      }
-    });
-  });
+    this.activeCategory = "all";
+    this.searchQuery = "";
+    this.activeTermId = null;
 
-  // Interactive 5-Rupa Hetu Inspector in Card 2
-  const critButtons = document.querySelectorAll("#hetu-criteria-list .crit-item");
-  const critDetailBox = document.getElementById("hetu-crit-detail");
-  const hetuCriteriaDetails = {
-    pakshadharmata: {
-      title: "पक्षधर्मता (Pakshadharmata)",
-      desc: "The observed mark (Hetu = Smoke) must genuinely exist in the subject (Paksha = Mountain), preventing ungrounded hallucinations (Asiddha)."
-    },
-    sapakshasattva: {
-      title: "सपक्षसत्त्व (Sapakshasattva)",
-      desc: "The indicator must exist in known positive exemplars (Sapaksha = Kitchen hearth), verifying positive feature correlation in training data."
-    },
-    vipaksha: {
-      title: "विपक्षासत्त्व (Vipakshasattva-Abhava)",
-      desc: "The indicator must be completely absent from negative counter-examples (Vipaksha = Lake), eliminating spurious correlations and OOD false positives."
-    },
-    abadhitatva: {
-      title: "अबाधितत्व (Abadhitatva)",
-      desc: "The inference cannot be contradicted by a stronger direct Pramana (e.g., direct touch or safety LiDAR sensor override)."
-    },
-    asatpratipaksha: {
-      title: "असत्प्रतिपक्षत्व (Asatpratipakshatva)",
-      desc: "There must be no equally valid opposing reason proving the inverse conclusion (prevents multi-agent guardrail deadlocks)."
+    this.render();
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    if (this.searchInput) {
+      this.searchInput.addEventListener("input", (e) => {
+        this.searchQuery = e.target.value.toLowerCase().trim();
+        this.render();
+      });
     }
-  };
 
-  critButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      critButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const key = btn.getAttribute("data-crit");
-      const detail = hetuCriteriaDetails[key];
-      if (detail && critDetailBox) {
-        critDetailBox.innerHTML = `
-          <span class="result-badge valid">${detail.title}</span>
-          <span class="result-text">${detail.desc}</span>
-        `;
-        audioSys.playAIChime(1);
-      }
+    this.filterPills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        this.filterPills.forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        this.activeCategory = pill.getAttribute("data-cat") || "all";
+        this.render();
+      });
     });
-  });
 
-  // Toggle Syllogism Model View in Card 3
-  const toggleSyllogismBtn = document.getElementById("toggle-syllogism-btn");
-  const syllogismBox = document.getElementById("syllogism-model-box");
-  if (toggleSyllogismBtn && syllogismBox) {
-    toggleSyllogismBtn.addEventListener("click", () => {
-      const isHidden = syllogismBox.style.display === "none";
-      syllogismBox.style.display = isHidden ? "block" : "none";
-      toggleSyllogismBtn.textContent = isHidden ? "Hide Formal Comparison" : "Compare Models";
-      audioSys.playAIChime(1);
+    // Left Panel -> Right Panel interactive linking
+    const leftSources = document.querySelectorAll(".interactive-term-source");
+    leftSources.forEach(el => {
+      const termId = el.getAttribute("data-term");
+      if (!termId) return;
+
+      el.addEventListener("mouseenter", () => this.highlightTerm(termId, false));
+      el.addEventListener("click", () => {
+        this.highlightTerm(termId, true);
+        audioSys.playAIChime(1);
+      });
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          this.highlightTerm(termId, true);
+        }
+      });
+    });
+  }
+
+  render() {
+    if (!this.listEl) return;
+
+    const filtered = REFERENCE_TERMS.filter(item => {
+      const catMatch = this.activeCategory === "all" || item.category === this.activeCategory;
+      const q = this.searchQuery;
+      const textMatch = !q ||
+        item.term.toLowerCase().includes(q) ||
+        item.subtitle.toLowerCase().includes(q) ||
+        item.plainDef.toLowerCase().includes(q) ||
+        item.aiLink.toLowerCase().includes(q);
+      return catMatch && textMatch;
+    });
+
+    if (this.countPill) {
+      this.countPill.textContent = `${filtered.length} Term${filtered.length === 1 ? "" : "s"}`;
+    }
+
+    if (filtered.length === 0) {
+      this.listEl.innerHTML = `<div style="padding:1.5rem; text-align:center; color:#7C6B62;">No matching terms found. Try clearing your filter.</div>`;
+      return;
+    }
+
+    this.listEl.innerHTML = filtered.map(item => `
+      <article class="ref-card${this.activeTermId === item.id ? " highlighted" : ""}" data-ref-term="${item.id}" tabindex="0">
+        <div class="ref-card-top">
+          <h3 class="ref-term-title">${item.term} — ${item.subtitle}</h3>
+          <span class="ref-cat-badge">${item.catLabel}</span>
+        </div>
+        <p class="ref-plain-def">${item.plainDef}</p>
+        <div class="ref-ai-link"><strong>In AI:</strong> ${item.aiLink}</div>
+      </article>
+    `).join("");
+
+    // Right Panel -> Left Panel interactive linking
+    this.listEl.querySelectorAll(".ref-card").forEach(card => {
+      const termId = card.getAttribute("data-ref-term");
+      const activateFromRight = () => {
+        this.highlightTerm(termId, false);
+        this.pulseLeftSource(termId);
+        audioSys.playAIChime(2);
+      };
+      card.addEventListener("click", activateFromRight);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activateFromRight();
+        }
+      });
+    });
+  }
+
+  highlightTerm(termId, shouldScrollRight = true) {
+    this.activeTermId = termId;
+    const item = REFERENCE_TERMS.find(t => t.id === termId);
+    if (!item) return;
+
+    if (this.activeCategory !== "all" && item.category !== this.activeCategory) {
+      this.activeCategory = "all";
+      this.filterPills.forEach(p => p.classList.toggle("active", p.getAttribute("data-cat") === "all"));
+      this.render();
+    }
+
+    if (this.searchQuery) {
+      this.searchQuery = "";
+      if (this.searchInput) this.searchInput.value = "";
+      this.render();
+    }
+
+    if (this.listEl) {
+      this.listEl.querySelectorAll(".ref-card").forEach(card => {
+        const isMatch = card.getAttribute("data-ref-term") === termId;
+        card.classList.toggle("highlighted", isMatch);
+        if (isMatch && shouldScrollRight) {
+          card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      });
+    }
+
+    if (this.activeBanner) {
+      this.activeBanner.innerHTML = `<strong>Spotlight:</strong> ${item.term} (${item.subtitle}) — ${item.plainDef}`;
+    }
+  }
+
+  pulseLeftSource(termId) {
+    document.querySelectorAll(".interactive-term-source").forEach(el => {
+      const match = el.getAttribute("data-term") === termId;
+      el.classList.toggle("source-active", match);
+      if (match) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     });
   }
 }
 
 // =============================================================================
-// 5. SECTION 3: LOGIC LAB (ANUMANA 5-CARD SORTING GAME)
+// 5. QUIZ GAME MODE (1 QUESTION AT A TIME, UNLIMITED ATTEMPTS, AUTO-ADVANCE)
+// =============================================================================
+const QUIZ_QUESTIONS = [
+  {
+    category: "Nyaya Epistemology",
+    question: "In Nyaya logic, which term refers to knowledge gained directly through sensory observation—such as seeing smoke or reading a live temperature sensor in AI?",
+    options: [
+      "Pratyaksha (Direct Perception)",
+      "Anumana (Logical Inference)",
+      "Nigamana (Final Conclusion)",
+      "Upanaya (Application)"
+    ],
+    correctIndex: 0,
+    wrongHints: [
+      "",
+      "Close, but Anumana uses clues and rules to deduce hidden things rather than direct observation.",
+      "Nigamana is the final step at the end of a proof, not the initial direct observation.",
+      "Upanaya connects a general rule to a specific case—try looking for the term meaning direct perception."
+    ],
+    successExplanation: "Pratyaksha is direct sensory observation. In modern AI, it corresponds to raw input from cameras, LiDAR, or hardware sensors."
+  },
+  {
+    category: "5-Step Nyaya Proof",
+    question: "You state your opening hypothesis: 'Server-07 is overheating.' Which step of the 5-part Nyaya syllogism is this?",
+    options: [
+      "Hetu (Observed Reason)",
+      "Pratijna (Proposition)",
+      "Udaharana (Rule & Example)",
+      "Nigamana (Conclusion)"
+    ],
+    correctIndex: 1,
+    wrongHints: [
+      "Hetu gives the clue or reason ('because...'). Here we are only stating the opening claim.",
+      "",
+      "Udaharana states the universal rule along with a familiar example—try the step for an opening claim.",
+      "Nigamana is the proven final conclusion at Step 5, whereas this is the opening claim at Step 1."
+    ],
+    successExplanation: "Pratijna is Step 1: stating the proposition you intend to prove, just like registering a Target Goal Query in Symbolic AI."
+  },
+  {
+    category: "Nyaya & AI Features",
+    question: "In the statement 'The mountain has fire because there is smoke,' what role does smoke play, and what is its AI equivalent?",
+    options: [
+      "Paksha — matches the final AI output action",
+      "Vyapti — matches a database backup",
+      "Hetu — matches an observable input feature or sensor trigger",
+      "Sadhya — matches an unverified assumption"
+    ],
+    correctIndex: 2,
+    wrongHints: [
+      "Paksha is the subject being examined (the mountain), not the clue.",
+      "Vyapti is the universal rule linking clues to conclusions, not the clue itself.",
+      "",
+      "Sadhya is the hidden target property we want to prove (fire), not the clue we already observe."
+    ],
+    successExplanation: "Smoke is the Hetu (the observed clue or sign). In AI, Hetu maps directly to input features or sensor triggers."
+  },
+  {
+    category: "Universal Rules & AI",
+    question: "What does 'Vyapti' represent in Nyaya logic, and how is it written in a modern rule-based AI system?",
+    options: [
+      "An unbreakable rule linking a clue to a result — written as an IF-THEN Knowledge Base rule",
+      "A single lucky guess — written as a random seed",
+      "A contradictory error — written as a syntax bug",
+      "A direct camera snapshot — written as a raw pixel buffer"
+    ],
+    correctIndex: 0,
+    wrongHints: [
+      "",
+      "Vyapti is never a guess; it is an invariable relationship tested against positive and negative examples.",
+      "Contradictory errors are fallacies (Hetvabhasa), whereas Vyapti is a valid universal rule.",
+      "Raw sensor snapshots correspond to Pratyaksha, not a universal rule."
+    ],
+    successExplanation: "Vyapti is a universal, exception-free relationship—exactly how expert systems store IF-THEN production rules."
+  },
+  {
+    category: "Nyaya vs. Aristotle",
+    question: "Why does the 3rd step of Nyaya (Udaharana) require a concrete real-world example like a kitchen hearth?",
+    options: [
+      "To make the argument longer for ceremonial speeches",
+      "To ground the universal rule in real-world evidence so the AI or thinker doesn't build false conclusions on abstract rules",
+      "Because ancient thinkers did not understand mathematics",
+      "To replace the need for a final conclusion"
+    ],
+    correctIndex: 1,
+    wrongHints: [
+      "Every step in Nyaya serves a strict logical check, never mere decoration.",
+      "",
+      "Indian logicians developed rigorous formal rules; the example serves an important empirical purpose.",
+      "Nigamana (Step 5) is still needed to finalize the conclusion after applying the rule."
+    ],
+    successExplanation: "Requiring a verified real-world example (Udaharana) combines deductive logic with real-world evidence, helping prevent AI hallucinations."
+  },
+  {
+    category: "Step 4: Application",
+    question: "Which Nyaya step matches 'Pattern Matching & Variable Unification' in a Symbolic AI engine?",
+    options: [
+      "Upanaya — applying the universal rule directly to the specific case in front of us",
+      "Pratijna — stating the initial question",
+      "Abhava — detecting missing data",
+      "Pratyaksha — reading raw sensor inputs"
+    ],
+    correctIndex: 0,
+    wrongHints: [
+      "",
+      "Pratijna only introduces the claim; it doesn't bind the general rule to the current entity.",
+      "Abhava refers to absence or non-existence in Vaisheshika ontology.",
+      "Pratyaksha captures direct observations before applying general rules."
+    ],
+    successExplanation: "Upanaya (Step 4) maps the general rule onto our specific subject—identical to variable unification in rule engines."
+  },
+  {
+    category: "Logical Fallacies & AI Safety",
+    question: "An autonomous car thinks a puddle reflection is a green light, even though its radar clearly detects a solid obstacle ahead. Which Nyaya fallacy is this?",
+    options: [
+      "Badhita — an inferred guess overruled by direct observation",
+      "Asiddha — a missing subject",
+      "Upamana — comparing two similar animals",
+      "Nigamana — a valid conclusion"
+    ],
+    correctIndex: 0,
+    wrongHints: [
+      "",
+      "The road and obstacle physically exist here, so it's not an ungrounded imaginary subject.",
+      "Upamana is a valid way of learning by comparison, not a logical error.",
+      "Nigamana refers to a valid final conclusion, whereas this is a dangerous error."
+    ],
+    successExplanation: "Badhita happens when an indirect inference contradicts direct observation (Pratyaksha). In both Nyaya and AI safety, live sensors override guesses."
+  },
+  {
+    category: "Knowledge Graphs",
+    question: "In Vaisheshika philosophy, 'Dravya' (like a Mountain) and 'Guna' (like Heat) map directly to what parts of a modern AI Knowledge Graph?",
+    options: [
+      "Entities (Nodes) and their Properties (Attributes)",
+      "Random noise and dropout layers",
+      "Keyboard shortcuts and scrollbars",
+      "Compiler syntax warnings"
+    ],
+    correctIndex: 0,
+    wrongHints: [
+      "",
+      "Dravya and Guna organize structured knowledge rather than neural network noise.",
+      "Think about how a Knowledge Graph stores objects and their traits.",
+      "These terms describe real-world structure, not programming compiler errors."
+    ],
+    successExplanation: "Vaisheshika categorizes objects (Dravya) and qualities (Guna) just like modern Knowledge Graphs store Entity Nodes and Node Properties."
+  }
+];
+
+class QuizGameEngine {
+  constructor(onBackToSim = null) {
+    this.onBackToSim = onBackToSim;
+    this.currentIndex = 0;
+    this.currentAttempts = 0;
+    this.totalAttempts = 0;
+    this.firstTryCount = 0;
+    this.solvedCount = 0;
+    this.isTransitioning = false;
+    this.autoAdvanceTimer = null;
+
+    this.cacheDOM();
+    this.bindEvents();
+    this.renderQuestion();
+  }
+
+  cacheDOM() {
+    this.categoryBadge = document.getElementById("quiz-category-badge");
+    this.counterEl = document.getElementById("quiz-question-counter");
+    this.attemptsEl = document.getElementById("quiz-current-attempts");
+    this.solvedEl = document.getElementById("quiz-solved-count");
+    this.progressFill = document.getElementById("quiz-progress-fill");
+    this.questionText = document.getElementById("quiz-question-text");
+    this.optionsGrid = document.getElementById("quiz-options-grid");
+    this.feedbackBanner = document.getElementById("quiz-feedback-banner");
+    this.feedbackIcon = document.getElementById("quiz-feedback-icon");
+    this.feedbackTitle = document.getElementById("quiz-feedback-title");
+    this.feedbackMsg = document.getElementById("quiz-feedback-msg");
+    this.manualNextBtn = document.getElementById("quiz-manual-next-btn");
+    this.restartBtn = document.getElementById("quiz-restart-btn");
+
+    this.activeArea = document.getElementById("quiz-active-area");
+    this.completeArea = document.getElementById("quiz-complete-area");
+    this.finalTotalEl = document.getElementById("quiz-final-total");
+    this.finalSolvedEl = document.getElementById("quiz-final-solved");
+    this.finalFirstTryEl = document.getElementById("quiz-final-first-try");
+    this.finalAttemptsEl = document.getElementById("quiz-final-attempts");
+    this.playAgainBtn = document.getElementById("quiz-play-again-btn");
+    this.backSimBtn = document.getElementById("quiz-back-sim-btn");
+  }
+
+  bindEvents() {
+    if (this.restartBtn) this.restartBtn.addEventListener("click", () => this.restartQuiz());
+    if (this.playAgainBtn) this.playAgainBtn.addEventListener("click", () => this.restartQuiz());
+    if (this.manualNextBtn) {
+      this.manualNextBtn.addEventListener("click", () => {
+        this.clearAdvanceTimer();
+        this.advanceQuestion();
+      });
+    }
+    if (this.backSimBtn) {
+      this.backSimBtn.addEventListener("click", () => {
+        if (typeof this.onBackToSim === "function") this.onBackToSim();
+      });
+    }
+  }
+
+  clearAdvanceTimer() {
+    if (this.autoAdvanceTimer) {
+      clearTimeout(this.autoAdvanceTimer);
+      this.autoAdvanceTimer = null;
+    }
+  }
+
+  restartQuiz() {
+    this.clearAdvanceTimer();
+    this.currentIndex = 0;
+    this.currentAttempts = 0;
+    this.totalAttempts = 0;
+    this.firstTryCount = 0;
+    this.solvedCount = 0;
+    this.isTransitioning = false;
+
+    if (this.activeArea) this.activeArea.style.display = "block";
+    if (this.completeArea) this.completeArea.style.display = "none";
+
+    this.renderQuestion();
+    audioSys.playAIChime(1);
+  }
+
+  renderQuestion() {
+    this.clearAdvanceTimer();
+    this.isTransitioning = false;
+    this.currentAttempts = 0;
+
+    const total = QUIZ_QUESTIONS.length;
+    const q = QUIZ_QUESTIONS[this.currentIndex];
+    if (!q) return;
+
+    if (this.categoryBadge) this.categoryBadge.textContent = q.category;
+    if (this.counterEl) this.counterEl.textContent = `Question ${this.currentIndex + 1} of ${total}`;
+    if (this.attemptsEl) this.attemptsEl.textContent = "0";
+    if (this.solvedEl) this.solvedEl.textContent = `${this.solvedCount} / ${total}`;
+    if (this.progressFill) {
+      this.progressFill.style.width = `${((this.currentIndex + 1) / total) * 100}%`;
+    }
+    if (this.questionText) this.questionText.textContent = q.question;
+
+    if (this.feedbackBanner) {
+      this.feedbackBanner.style.display = "none";
+      this.feedbackBanner.classList.remove("feedback-wrong", "feedback-correct");
+    }
+    if (this.manualNextBtn) this.manualNextBtn.style.display = "none";
+
+    if (this.optionsGrid) {
+      const letters = ["A", "B", "C", "D"];
+      this.optionsGrid.innerHTML = "";
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "quiz-option-btn";
+        btn.setAttribute("data-opt-index", idx);
+        btn.innerHTML = `
+          <span class="quiz-option-letter">${letters[idx]}</span>
+          <span class="quiz-option-label"></span>
+        `;
+        btn.querySelector(".quiz-option-label").textContent = optText;
+        btn.addEventListener("click", () => this.handleAnswer(idx, btn));
+        this.optionsGrid.appendChild(btn);
+      });
+    }
+  }
+
+  handleAnswer(selectedIndex, btnEl) {
+    if (this.isTransitioning) return;
+
+    const q = QUIZ_QUESTIONS[this.currentIndex];
+    if (!q) return;
+
+    // Ignore re-clicking an already eliminated wrong option
+    if (btnEl.classList.contains("wrong-attempt")) return;
+
+    this.currentAttempts++;
+    this.totalAttempts++;
+    if (this.attemptsEl) this.attemptsEl.textContent = String(this.currentAttempts);
+
+    if (selectedIndex === q.correctIndex) {
+      // Correct! Show brief confirmation and auto-advance
+      this.isTransitioning = true;
+      this.solvedCount++;
+      if (this.currentAttempts === 1) {
+        this.firstTryCount++;
+      }
+
+      if (this.solvedEl) {
+        this.solvedEl.textContent = `${this.solvedCount} / ${QUIZ_QUESTIONS.length}`;
+      }
+
+      btnEl.classList.add("correct-attempt");
+      if (this.optionsGrid) {
+        this.optionsGrid.querySelectorAll(".quiz-option-btn").forEach(b => {
+          b.disabled = true;
+        });
+      }
+
+      if (this.feedbackBanner) {
+        this.feedbackBanner.style.display = "flex";
+        this.feedbackBanner.classList.remove("feedback-wrong");
+        this.feedbackBanner.classList.add("feedback-correct");
+        if (this.feedbackIcon) this.feedbackIcon.textContent = "✓";
+        const isLast = this.currentIndex >= QUIZ_QUESTIONS.length - 1;
+        if (this.feedbackTitle) {
+          this.feedbackTitle.textContent = isLast
+            ? "Correct! Finishing quiz..."
+            : "Correct! Advancing to the next question...";
+        }
+        if (this.feedbackMsg) this.feedbackMsg.textContent = q.successExplanation;
+      }
+
+      if (this.manualNextBtn) {
+        this.manualNextBtn.style.display = "inline-flex";
+      }
+
+      audioSys.playSuccessFanfare();
+      this.autoAdvanceTimer = setTimeout(() => {
+        this.advanceQuestion();
+      }, 1750);
+    } else {
+      // Incorrect -> Unlimited tries: highlight wrong attempt gently, provide hint, keep other options unlocked
+      btnEl.classList.add("wrong-attempt");
+      btnEl.disabled = true;
+
+      if (this.feedbackBanner) {
+        this.feedbackBanner.style.display = "flex";
+        this.feedbackBanner.classList.remove("feedback-correct");
+        this.feedbackBanner.classList.add("feedback-wrong");
+        if (this.feedbackIcon) this.feedbackIcon.textContent = "!";
+        if (this.feedbackTitle) {
+          this.feedbackTitle.textContent = "Not quite — keep trying! (Unlimited attempts)";
+        }
+        if (this.feedbackMsg) {
+          this.feedbackMsg.textContent = q.wrongHints[selectedIndex] || "Take another look at the clues in the question and try a different option.";
+        }
+      }
+
+      audioSys.playVedicBell(2);
+    }
+  }
+
+  advanceQuestion() {
+    if (this.currentIndex < QUIZ_QUESTIONS.length - 1) {
+      this.currentIndex++;
+      this.renderQuestion();
+    } else {
+      this.showCompletion();
+    }
+  }
+
+  showCompletion() {
+    this.clearAdvanceTimer();
+    const total = QUIZ_QUESTIONS.length;
+    if (this.activeArea) this.activeArea.style.display = "none";
+    if (this.completeArea) this.completeArea.style.display = "block";
+
+    if (this.finalTotalEl) this.finalTotalEl.textContent = String(total);
+    if (this.finalSolvedEl) this.finalSolvedEl.textContent = `${this.solvedCount} / ${total}`;
+    if (this.finalFirstTryEl) this.finalFirstTryEl.textContent = `${this.firstTryCount} / ${total}`;
+    if (this.finalAttemptsEl) this.finalAttemptsEl.textContent = String(this.totalAttempts);
+
+    launchConfetti();
+    audioSys.playSuccessFanfare();
+  }
+}
+
+function launchConfetti() {
+  const colors = ["#9E3B24", "#B8860B", "#266A3E", "#D4A017", "#2C221E"];
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement("div");
+    p.className = "confetti-particle";
+    p.style.setProperty("--color", colors[Math.floor(Math.random() * colors.length)]);
+    p.style.setProperty("--x", `${(Math.random() - 0.5) * 560}px`);
+    p.style.setProperty("--y", `${(Math.random() - 1) * 340 - 40}px`);
+    p.style.setProperty("--rot", `${Math.random() * 720}deg`);
+    p.style.left = "50%";
+    p.style.top = "50%";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1650);
+  }
+}
+
+// =============================================================================
+// 6. LOGIC LAB: 5-STEP SYLLOGISM CARD SORTING PUZZLE (QUIZ SUB-MODE B)
 // =============================================================================
 const LAB_SCENARIOS = {
   mountain: {
     id: "mountain",
-    title: 'Question: "Is there fire on the mountain?" (पर्वतो वह्निमान् न वा?)',
-    instruction: "Rearrange the cards below from Step 1 to Step 5 using the ▲ Up / ▼ Down buttons or by dragging and dropping cards. Then click 'Submit Answer' to validate your epistemic sequence.",
+    title: 'Question: "Is there fire on the mountain?"',
+    instruction: "Arrange these 5 statements from Step 1 to Step 5 using the ▲ / ▼ buttons or drag-and-drop, then click Submit Answer.",
     correctOrder: [
-      {
-        id: "step1",
-        stepNum: 1,
-        text: 'The mountain has fire.',
-        sanskrit: '१. प्रतिज्ञा: पर्वतो वह्निमान् (Proposition)',
-        role: 'Pratijna (Thesis to be proved)'
-      },
-      {
-        id: "step2",
-        stepNum: 2,
-        text: 'Because there is smoke.',
-        sanskrit: '२. हेतु: धूमवत्त्वात् (Observed Reason)',
-        role: 'Hetu (Empirical Sign / Mark)'
-      },
-      {
-        id: "step3",
-        stepNum: 3,
-        text: 'Wherever there is smoke, there is fire (like in a kitchen).',
-        sanskrit: '३. उदाहरण: यो यो धूमवान् स स वह्निमान्, यथा महानसः (Universal Rule)',
-        role: 'Udaharana (Vyapti + Verified Drishtanta)'
-      },
-      {
-        id: "step4",
-        stepNum: 4,
-        text: 'The mountain has smoke that is pervaded by fire.',
-        sanskrit: '४. उपनय: तथा चायं पर्वतः (Subsumption / Application)',
-        role: 'Upanaya (Rule applied to current locus)'
-      },
-      {
-        id: "step5",
-        stepNum: 5,
-        text: 'Therefore, the mountain has fire.',
-        sanskrit: '५. निगमन: तस्मात् तथा (Validated Deduction)',
-        role: 'Nigamana (Epistemic Q.E.D.)'
-      }
+      { id: "step1", stepNum: 1, text: "The mountain has fire.", sanskrit: "1. Pratijna (Proposition)", role: "Opening Claim" },
+      { id: "step2", stepNum: 2, text: "Because there is smoke.", sanskrit: "2. Hetu (Observed Sign)", role: "Observed Clue" },
+      { id: "step3", stepNum: 3, text: "Wherever there is smoke, there is fire (like in a kitchen).", sanskrit: "3. Udaharana (Rule & Example)", role: "Universal Rule" },
+      { id: "step4", stepNum: 4, text: "The mountain has smoke that is pervaded by fire.", sanskrit: "4. Upanaya (Application)", role: "Applying the Rule" },
+      { id: "step5", stepNum: 5, text: "Therefore, the mountain has fire.", sanskrit: "5. Nigamana (Conclusion)", role: "Proven Conclusion" }
     ]
   },
-
   server: {
     id: "server",
-    title: 'Question: "Is the cloud server overheating?" (सर्वर-नोडः अतिताप-युक्तः न वा?)',
-    instruction: "Assemble the diagnostic rule trace from Hypothesis to Automated Throttling Action.",
+    title: 'Question: "Is Server-07 overheating?"',
+    instruction: "Order the diagnostic steps from opening hypothesis to automated cooling action.",
     correctOrder: [
-      {
-        id: "step1",
-        stepNum: 1,
-        text: 'Server-Node-07 is undergoing thermal throttling hazard.',
-        sanskrit: '१. प्रतिज्ञा: सर्वर-नोडः अतिताप-युक्तः (Target Goal)',
-        role: 'Pratijna (SRE Diagnostic Goal)'
-      },
-      {
-        id: "step2",
-        stepNum: 2,
-        text: 'Because its CPU core temperature exceeds 98°C with saturated cooling fans.',
-        sanskrit: '२. हेतु: तापमान-संवेदक-उल्लंघनात् (Telemetry Metric)',
-        role: 'Hetu (Hardware Monitoring Fact)'
-      },
-      {
-        id: "step3",
-        stepNum: 3,
-        text: 'Whenever silicon temperature exceeds 95°C under continuous load, thermal shutdown is inevitable (like in stress benchmark tests).',
-        sanskrit: '३. उदाहरण: ताप-वृद्धि-व्याप्ति-नियमः (Production Rule)',
-        role: 'Udaharana (Universal SRE Horn Clause)'
-      },
-      {
-        id: "step4",
-        stepNum: 4,
-        text: 'And Server-Node-07 has that exact critical thermal spike governed by this reliability law.',
-        sanskrit: '४. उपनय: यन्त्रे नियम-योजनम् (Variable Unification)',
-        role: 'Upanaya (Rete Node Match)'
-      },
-      {
-        id: "step5",
-        stepNum: 5,
-        text: 'Therefore, Server-Node-07 is confirmed as overheating; execute container migration and clock throttle.',
-        sanskrit: '५. निगमन: तस्मात् अतिताप-सिद्धान्तः (Action Commit)',
-        role: 'Nigamana (Autonomous Actuator Execution)'
-      }
+      { id: "step1", stepNum: 1, text: "Server-07 is overheating.", sanskrit: "1. Pratijna (Goal)", role: "Diagnostic Goal" },
+      { id: "step2", stepNum: 2, text: "Because CPU temperature exceeds 98°C with fans at maximum.", sanskrit: "2. Hetu (Sensor Evidence)", role: "Sensor Telemetry" },
+      { id: "step3", stepNum: 3, text: "Whenever CPU temperature exceeds 95°C under full cooling, overheating occurs (like in stress benchmarks).", sanskrit: "3. Udaharana (Rule & Example)", role: "Reliability Rule" },
+      { id: "step4", stepNum: 4, text: "Server-07 currently has that exact high-temperature condition.", sanskrit: "4. Upanaya (Application)", role: "Rule Match" },
+      { id: "step5", stepNum: 5, text: "Therefore, Server-07 is confirmed as overheating and should throttle.", sanskrit: "5. Nigamana (Conclusion)", role: "Final Action" }
     ]
   },
-
   autonomous: {
     id: "autonomous",
-    title: 'Question: "Must the autonomous vehicle trigger emergency braking?" (वाहन-निरोधः कर्तव्यः न वा?)',
-    instruction: "Arrange the real-time sensor-fusion decision pipeline into the valid Nyaya sequence.",
+    title: 'Question: "Must the autonomous car trigger emergency braking?"',
+    instruction: "Arrange the safety reasoning steps from sensor clue to braking command.",
     correctOrder: [
-      {
-        id: "step1",
-        stepNum: 1,
-        text: 'RoboCar-Alpha must trigger emergency braking immediately.',
-        sanskrit: '१. प्रतिज्ञा: आकस्मिक-निरोधः कर्तव्यः (Safety Goal)',
-        role: 'Pratijna (Autonomous Decision Target)'
-      },
-      {
-        id: "step2",
-        stepNum: 2,
-        text: 'Because forward LiDAR detects an unexpected pedestrian at 5.4 meters.',
-        sanskrit: '२. हेतु: समीपे अवरोध-प्रत्यक्षात् (Perceptual Track)',
-        role: 'Hetu (Fused Sensor Observation)'
-      },
-      {
-        id: "step3",
-        stepNum: 3,
-        text: 'Whenever time-to-collision is under 0.6 seconds, maximum emergency friction braking is universally mandatory (demonstrated on test proving grounds).',
-        sanskrit: '३. उदाहरण: सन्निकर्ष-निरोध-नियमः (Safety Guardrail)',
-        role: 'Udaharana (Universal Safety Invariant)'
-      },
-      {
-        id: "step4",
-        stepNum: 4,
-        text: 'And RoboCar-Alpha faces this exact critical distance breach governed by collision prevention physics.',
-        sanskrit: '४. उपनय: सन्निकर्ष-योजनम् (Subsumption)',
-        role: 'Upanaya (Trajectory State Binding)'
-      },
-      {
-        id: "step5",
-        stepNum: 5,
-        text: 'Therefore, RoboCar-Alpha applies 100% hydraulic brake torque to prevent collision.',
-        sanskrit: '५. निगमन: निरोध-सिद्धिः (Verified Safety Command)',
-        role: 'Nigamana (Certified Braking Output)'
-      }
+      { id: "step1", stepNum: 1, text: "The autonomous vehicle must execute an emergency brake.", sanskrit: "1. Pratijna (Safety Goal)", role: "Decision Target" },
+      { id: "step2", stepNum: 2, text: "Because forward LiDAR detects an obstacle at 5.4 meters.", sanskrit: "2. Hetu (Sensor Clue)", role: "LiDAR Observation" },
+      { id: "step3", stepNum: 3, text: "Whenever time-to-collision drops below 0.6s, full braking is required (proven on test tracks).", sanskrit: "3. Udaharana (Safety Rule)", role: "Physics Guardrail" },
+      { id: "step4", stepNum: 4, text: "The vehicle is inside that critical stopping distance.", sanskrit: "4. Upanaya (Application)", role: "State Binding" },
+      { id: "step5", stepNum: 5, text: "Therefore, apply maximum emergency brake torque.", sanskrit: "5. Nigamana (Conclusion)", role: "Safety Command" }
     ]
   }
 };
@@ -1514,29 +1784,18 @@ class LogicLabGame {
   }
 
   bindEvents() {
-    // Scenario Switchers
     this.scenarioBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         this.scenarioBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        const key = btn.getAttribute("data-scenario");
-        this.loadScenario(key);
+        this.loadScenario(btn.getAttribute("data-scenario"));
       });
     });
 
-    // Submit & Shuffle & Hint & Reveal
-    if (this.submitBtn) {
-      this.submitBtn.addEventListener("click", () => this.evaluateAnswer());
-    }
-    if (this.shuffleBtn) {
-      this.shuffleBtn.addEventListener("click", () => this.shuffleCards(true));
-    }
-    if (this.revealBtn) {
-      this.revealBtn.addEventListener("click", () => this.revealSolution());
-    }
-    if (this.hintBtn) {
-      this.hintBtn.addEventListener("click", () => this.toggleHint());
-    }
+    if (this.submitBtn) this.submitBtn.addEventListener("click", () => this.evaluateAnswer());
+    if (this.shuffleBtn) this.shuffleBtn.addEventListener("click", () => this.shuffleCards(true));
+    if (this.revealBtn) this.revealBtn.addEventListener("click", () => this.revealSolution());
+    if (this.hintBtn) this.hintBtn.addEventListener("click", () => this.toggleHint());
   }
 
   loadScenario(key) {
@@ -1546,7 +1805,6 @@ class LogicLabGame {
     if (this.titleEl) this.titleEl.textContent = scenario.title;
     if (this.instructionEl) this.instructionEl.textContent = scenario.instruction;
 
-    // Reset status, attempts & score
     this.hasSubmitted = false;
     this.attempts = 0;
     if (this.attemptsEl) this.attemptsEl.textContent = "0";
@@ -1555,17 +1813,14 @@ class LogicLabGame {
     if (this.feedbackPanel) this.feedbackPanel.style.display = "none";
     if (this.hintBox) this.hintBox.style.display = "none";
 
-    // Shuffle fresh cards
     this.cards = JSON.parse(JSON.stringify(scenario.correctOrder));
     this.shuffleCards(false);
   }
 
   shuffleCards(withSound = false) {
-    // Fisher-Yates shuffle
     const arr = [...this.cards];
     let isSame = true;
 
-    // Ensure it's not accidentally in the perfect 1-2-3-4-5 order
     while (isSame && arr.length > 1) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1594,52 +1849,43 @@ class LogicLabGame {
       card.className = "sortable-card";
       card.setAttribute("draggable", "true");
       card.setAttribute("data-index", index);
-      card.setAttribute("data-step-id", item.id);
 
-      // Check validation classes if already submitted
       if (this.hasSubmitted) {
-        if (item.stepNum === index + 1) {
-          card.classList.add("card-correct");
-        } else {
-          card.classList.add("card-incorrect");
-        }
+        card.classList.add(item.stepNum === index + 1 ? "card-correct" : "card-incorrect");
       }
 
       card.innerHTML = `
         <div class="card-left-group">
           <span class="drag-handle" title="Drag to reorder">⠿</span>
-          <div class="slot-position-badge">Slot ${index + 1}</div>
+          <div class="slot-position-badge">Step ${index + 1}</div>
           <div class="card-text-group">
-            <span class="card-premise-text">${item.text}</span>
-            <span class="card-sanskrit-preview">${item.sanskrit}</span>
+            <span class="card-premise-text"></span>
+            <span class="card-sanskrit-preview"></span>
           </div>
         </div>
         <div class="card-arrow-controls">
-          <button class="arrow-btn move-up" title="Move Up" ${index === 0 ? "disabled" : ""}>▲</button>
-          <button class="arrow-btn move-down" title="Move Down" ${index === this.cards.length - 1 ? "disabled" : ""}>▼</button>
+          <button type="button" class="arrow-btn move-up" title="Move Up" ${index === 0 ? "disabled" : ""}>▲</button>
+          <button type="button" class="arrow-btn move-down" title="Move Down" ${index === this.cards.length - 1 ? "disabled" : ""}>▼</button>
         </div>
       `;
 
-      // Up / Down Button Handlers
-      const upBtn = card.querySelector(".move-up");
-      const downBtn = card.querySelector(".move-down");
+      card.querySelector(".card-premise-text").textContent = item.text;
+      card.querySelector(".card-sanskrit-preview").textContent = item.sanskrit;
 
-      upBtn.addEventListener("click", (e) => {
+      card.querySelector(".move-up").addEventListener("click", (e) => {
         e.stopPropagation();
         this.swap(index, index - 1);
       });
 
-      downBtn.addEventListener("click", (e) => {
+      card.querySelector(".move-down").addEventListener("click", (e) => {
         e.stopPropagation();
         this.swap(index, index + 1);
       });
 
-      // HTML5 Drag & Drop Listeners
       card.addEventListener("dragstart", (e) => {
         this.draggedIndex = index;
         card.classList.add("dragging");
         e.dataTransfer.effectAllowed = "move";
-        e.dataTransfer.setData("text/plain", index);
       });
 
       card.addEventListener("dragend", () => {
@@ -1649,21 +1895,17 @@ class LogicLabGame {
 
       card.addEventListener("dragover", (e) => {
         e.preventDefault();
-        e.dataTransfer.dropEffect = "move";
         card.classList.add("drag-over");
       });
 
-      card.addEventListener("dragleave", () => {
-        card.classList.remove("drag-over");
-      });
+      card.addEventListener("dragleave", () => card.classList.remove("drag-over"));
 
       card.addEventListener("drop", (e) => {
         e.preventDefault();
         card.classList.remove("drag-over");
-        const targetIndex = index;
-        if (this.draggedIndex !== null && this.draggedIndex !== targetIndex) {
+        if (this.draggedIndex !== null && this.draggedIndex !== index) {
           const moved = this.cards.splice(this.draggedIndex, 1)[0];
-          this.cards.splice(targetIndex, 0, moved);
+          this.cards.splice(index, 0, moved);
           this.renderCards();
           audioSys.playAIChime(1);
         }
@@ -1675,9 +1917,7 @@ class LogicLabGame {
 
   swap(i, j) {
     if (i < 0 || i >= this.cards.length || j < 0 || j >= this.cards.length) return;
-    const temp = this.cards[i];
-    this.cards[i] = this.cards[j];
-    this.cards[j] = temp;
+    [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
     this.renderCards();
     audioSys.playAIChime(1);
   }
@@ -1686,73 +1926,72 @@ class LogicLabGame {
     this.hasSubmitted = true;
     if (!isReveal) {
       this.attempts++;
-      if (this.attemptsEl) this.attemptsEl.textContent = this.attempts.toString();
+      if (this.attemptsEl) this.attemptsEl.textContent = String(this.attempts);
     }
-    let score = 0;
 
+    let score = 0;
     this.cards.forEach((card, index) => {
-      if (card.stepNum === index + 1) {
-        score++;
-      }
+      if (card.stepNum === index + 1) score++;
     });
 
     const percent = Math.round((score / 5) * 100);
     if (this.scoreEl) this.scoreEl.textContent = `${score} / 5`;
-    if (this.scorePercentEl) this.scorePercentEl.textContent = isReveal ? "(Solution Revealed)" : `(${percent}% Valid Sequence)`;
+    if (this.scorePercentEl) {
+      this.scorePercentEl.textContent = isReveal ? "(Solution Revealed)" : `(${percent}% Correct)`;
+    }
 
-    // Re-render cards with green/red highlight classes
     this.renderCards();
 
-    // Populate feedback panel
     if (this.feedbackPanel) {
       this.feedbackPanel.style.display = "block";
       const icon = document.getElementById("feedback-icon");
       const title = document.getElementById("feedback-title");
       const stars = document.getElementById("score-stars");
       const summary = document.getElementById("feedback-summary");
-      const breakdownContainer = document.getElementById("breakdown-rows-container");
+      const breakdown = document.getElementById("breakdown-rows-container");
 
       if (score === 5) {
         audioSys.playSuccessFanfare();
-        this.launchConfetti();
-        icon.textContent = "✓";
-        icon.style.background = "var(--emerald-success)";
-        title.textContent = isReveal ? "Classical Nyaya Sequence Revealed" : "Flawless Epistemic Proof! 5/5 Valid Nyaya Anumana Sequence";
-        title.style.color = "var(--emerald-success)";
-        stars.textContent = "★★★★★";
-        summary.innerHTML = isReveal 
-          ? `Here is the canonical sequence codified in the <em>Nyaya Sutras</em> by Maharshi Akshapada Gautama. Study each stage and its epistemological role below!`
-          : `<strong>Outstanding!</strong> You have successfully constructed the inviolable 5-member deductive-inductive syllogism (<em>Pancha-Avayava</em>). 
-             The proposition (Pratijna) was introduced, grounded by the empirical sign (Hetu), certified by universal invariant law with positive exemplars (Udaharana/Vyapti), 
-             subsumed to the specific locus (Upanaya), and formally established with non-fallacious certainty (Nigamana).`;
+        launchConfetti();
+        if (icon) {
+          icon.textContent = "✓";
+          icon.style.background = "var(--emerald)";
+        }
+        if (title) {
+          title.textContent = isReveal ? "Correct 5-Step Nyaya Sequence" : "Perfect 5/5! Valid Nyaya Sequence";
+          title.style.color = "var(--emerald)";
+        }
+        if (stars) stars.textContent = "★★★★★";
+        if (summary) {
+          summary.textContent = "Well done! You arranged the proposition, clue, universal rule with example, application, and final conclusion in exact order.";
+        }
       } else {
-        audioSys.playVedicBell(4);
-        icon.textContent = "!";
-        icon.style.background = "var(--gold-primary)";
-        title.textContent = `Sequence Needs Calibration: ${score}/5 Valid Stages Positioned (Attempt #${this.attempts})`;
-        title.style.color = "var(--gold-light)";
-        stars.textContent = "★".repeat(score) + "☆".repeat(5 - score);
-        summary.innerHTML = `
-          You have placed ${score} of the 5 epistemic members correctly. The cards highlighted in <span style="color:var(--crimson-error); font-weight:700;">red</span> 
-          are out of order. Nyaya demands an exact sequence: you cannot apply an invariant rule (Upanaya) before establishing the universal law (Udaharana), 
-          nor can you declare deduction (Nigamana) before demonstrating the middle term (Hetu)!
-        `;
+        audioSys.playVedicBell(3);
+        if (icon) {
+          icon.textContent = "!";
+          icon.style.background = "var(--terracotta)";
+        }
+        if (title) {
+          title.textContent = `${score} of 5 Steps in Right Place — Try Adjusting Red Cards`;
+          title.style.color = "var(--terracotta)";
+        }
+        if (stars) stars.textContent = "★".repeat(score) + "☆".repeat(5 - score);
+        if (summary) {
+          summary.textContent = "You have unlimited tries! Cards in red are out of order—remember: Claim ➔ Clue ➔ Rule + Example ➔ Application ➔ Conclusion.";
+        }
       }
 
-      // Populate detailed breakdown table
-      if (breakdownContainer) {
+      if (breakdown) {
         const scenario = LAB_SCENARIOS[this.currentScenarioKey];
-        breakdownContainer.innerHTML = scenario.correctOrder.map(item => `
+        breakdown.innerHTML = scenario.correctOrder.map(item => `
           <div class="breakdown-row-item">
             <span class="breakdown-step-num">#${item.stepNum}</span>
-            <span class="breakdown-sanskrit">${item.sanskrit.split(":")[0]}</span>
+            <span class="breakdown-sanskrit">${item.sanskrit}</span>
             <span class="breakdown-role">${item.role}</span>
             <span class="breakdown-text">"${item.text}"</span>
           </div>
         `).join("");
       }
-
-      this.feedbackPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }
 
@@ -1764,40 +2003,21 @@ class LogicLabGame {
     audioSys.playAIChime(2);
   }
 
-  launchConfetti() {
-    const colors = ["#f59e0b", "#fbbf24", "#22d3ee", "#6366f1", "#10b981", "#ffffff"];
-    for (let i = 0; i < 45; i++) {
-      const p = document.createElement("div");
-      p.className = "confetti-particle";
-      p.style.setProperty("--color", colors[Math.floor(Math.random() * colors.length)]);
-      p.style.setProperty("--x", `${(Math.random() - 0.5) * 600}px`);
-      p.style.setProperty("--y", `${(Math.random() - 1) * 360 - 40}px`);
-      p.style.setProperty("--rot", `${Math.random() * 720}deg`);
-      p.style.left = "50%";
-      p.style.top = "50%";
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 1700);
-    }
-  }
-
   toggleHint() {
     if (!this.hintBox) return;
     if (this.hintBox.style.display === "none") {
-      const scenario = LAB_SCENARIOS[this.currentScenarioKey];
       let hintText = "";
-
       if (this.cards[0].stepNum !== 1) {
-        hintText = `💡 <strong>Hint for Slot 1 (Pratijna)</strong>: In Nyaya logic, you must always open with the <em>Pratijna</em> (the proposition to be proved). Look for the statement that formulates the primary claim without saying "because" or "therefore"!`;
+        hintText = "<strong>Hint for Step 1 (Pratijna):</strong> Start with the opening claim you want to prove—without words like 'because' or 'therefore'.";
       } else if (this.cards[1].stepNum !== 2) {
-        hintText = `💡 <strong>Hint for Slot 2 (Hetu)</strong>: Slot 1 is set! Next comes the <em>Hetu</em> (the observed sign or empirical reason). Look for the card beginning with "Because..."!`;
+        hintText = "<strong>Hint for Step 2 (Hetu):</strong> Step 1 is correct! Next comes the observed clue or reason—look for the card starting with 'Because...'.";
       } else if (this.cards[2].stepNum !== 3) {
-        hintText = `💡 <strong>Hint for Slot 3 (Udaharana)</strong>: Next is the universal invariant rule (<em>Vyapti</em>) with a verified example (e.g. "Wherever there is smoke, there is fire... like in a kitchen")!`;
+        hintText = "<strong>Hint for Step 3 (Udaharana):</strong> Next is the universal rule backed by a real-world example (e.g., 'Wherever there is...').";
       } else if (this.cards[3].stepNum !== 4) {
-        hintText = `💡 <strong>Hint for Slot 4 (Upanaya)</strong>: Step 4 is <em>Upanaya</em> (subsumption: affirming that this specific case possesses that exact pervaded mark)!`;
+        hintText = "<strong>Hint for Step 4 (Upanaya):</strong> Connect that general rule specifically to the current situation before concluding.";
       } else {
-        hintText = `💡 <strong>Hint for Slot 5 (Nigamana)</strong>: Finally, Step 5 is <em>Nigamana</em> (the formal Q.E.D. deduction: "Therefore...")!`;
+        hintText = "<strong>Hint for Step 5 (Nigamana):</strong> Finish with the final proven conclusion starting with 'Therefore...'.";
       }
-
       this.hintBox.innerHTML = hintText;
       this.hintBox.style.display = "block";
       audioSys.playAIChime(1);
@@ -1808,8 +2028,86 @@ class LogicLabGame {
 }
 
 // =============================================================================
-// 6. SECTION 4: NYAYA & VAISHESHIKA KNOWLEDGE EXPLORER (PRAMANAX)
+// 7. EXTENDED EXPLORER: MAPPING CARDS, FALLACY DETECTIVE & KNOWLEDGE GRAPH
 // =============================================================================
+function initMappingCards() {
+  const vyaptiPills = document.querySelectorAll(".vyapti-tester .test-pill");
+  const vyaptiResultBox = document.getElementById("vyapti-test-result");
+
+  vyaptiPills.forEach(pill => {
+    pill.addEventListener("click", () => {
+      vyaptiPills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const test = pill.getAttribute("data-test");
+
+      if (test === "smoke-fire") {
+        vyaptiResultBox.innerHTML = `
+          <span class="result-badge valid">VALID RULE</span>
+          <span class="result-text">Smoke reliably indicates fire. Clear lakes (negative cases) never produce smoke.</span>
+        `;
+        audioSys.playAIChime(1);
+      } else {
+        vyaptiResultBox.innerHTML = `
+          <span class="result-badge invalid">INVALID REVERSE RULE</span>
+          <span class="result-text">Fire does NOT always produce smoke (for example, a glowing red-hot iron ball has fire with no smoke).</span>
+        `;
+        audioSys.playVedicBell(2);
+      }
+    });
+  });
+
+  const critButtons = document.querySelectorAll("#hetu-criteria-list .crit-item");
+  const critDetailBox = document.getElementById("hetu-crit-detail");
+  const hetuCriteriaDetails = {
+    pakshadharmata: {
+      title: "Pakshadharmata",
+      desc: "The clue must genuinely exist in the specific case being tested, preventing ungrounded guesses."
+    },
+    sapakshasattva: {
+      title: "Sapakshasattva",
+      desc: "The clue should appear in positive examples where the target condition is known to exist (like smoke in a kitchen)."
+    },
+    vipaksha: {
+      title: "Vipaksha-Abhava",
+      desc: "The clue must be absent from negative cases (like a lake), preventing misleading coincidences."
+    },
+    abadhitatva: {
+      title: "Abadhitatva",
+      desc: "The clue cannot lead to a conclusion that contradicts direct physical evidence or safety sensors."
+    },
+    asatpratipaksha: {
+      title: "Asatpratipakshatva",
+      desc: "No equally strong opposing evidence can exist pointing to the opposite answer."
+    }
+  };
+
+  critButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      critButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const detail = hetuCriteriaDetails[btn.getAttribute("data-crit")];
+      if (detail && critDetailBox) {
+        critDetailBox.innerHTML = `
+          <span class="result-badge valid">${detail.title}</span>
+          <span class="result-text">${detail.desc}</span>
+        `;
+        audioSys.playAIChime(1);
+      }
+    });
+  });
+
+  const toggleSyllogismBtn = document.getElementById("toggle-syllogism-btn");
+  const syllogismBox = document.getElementById("syllogism-model-box");
+  if (toggleSyllogismBtn && syllogismBox) {
+    toggleSyllogismBtn.addEventListener("click", () => {
+      const isHidden = syllogismBox.style.display === "none";
+      syllogismBox.style.display = isHidden ? "block" : "none";
+      toggleSyllogismBtn.textContent = isHidden ? "Hide Comparison" : "Compare Models";
+      audioSys.playAIChime(1);
+    });
+  }
+}
+
 function initExplorerTabs(onVaisheshikaShown = null) {
   const tabBtns = document.querySelectorAll(".explorer-tab-btn");
   const tabPanes = document.querySelectorAll(".tab-pane");
@@ -1822,9 +2120,7 @@ function initExplorerTabs(onVaisheshikaShown = null) {
       btn.classList.add("active");
       const tabId = btn.getAttribute("data-tab");
       const targetPane = document.getElementById(tabId);
-      if (targetPane) {
-        targetPane.classList.add("active");
-      }
+      if (targetPane) targetPane.classList.add("active");
       if (tabId === "tab-vaisheshika" && typeof onVaisheshikaShown === "function") {
         requestAnimationFrame(() => onVaisheshikaShown());
       }
@@ -1832,68 +2128,28 @@ function initExplorerTabs(onVaisheshikaShown = null) {
     });
   });
 
-  // Interactive Pramana Classifier Tool (Tab 1)
-  const pramanaBtns = document.querySelectorAll("#pramana-classifier-options .detective-btn");
-  const pramanaDiagnosisBox = document.getElementById("pramana-diagnosis");
-  const pramanaCases = {
-    vision: {
-      badge: "PRAMANA: प्रत्यक्ष (Pratyaksha - Direct Sensory Perception)",
-      text: "Direct contact between instrument sensors and environmental physical state. In AI, computer vision, microphones, and LiDAR provide raw perceptual ground-truth (Pratyaksha) before symbolic reasoning occurs!"
-    },
-    inference: {
-      badge: "PRAMANA: अनुमान (Anumana - Rational Deduction / Machine Learning)",
-      text: "Deriving unobserved state (bearing degradation) from an observed sign (acoustic vibration harmonics) via invariant correlation (Vyapti). This is the exact domain of machine learning and deductive inference!"
-    },
-    analogy: {
-      badge: "PRAMANA: उपमान (Upamana - Analogy & Embedding Similarity)",
-      text: "Knowledge established through structural similarity between an unknown instance and a known prototype. Vector embeddings, cosine distance, and few-shot K-NN learning operate directly on Upamana!"
-    },
-    testimony: {
-      badge: "PRAMANA: शब्द / आप्तवाक्य (Shabda - Verified Authority / RAG)",
-      text: "Knowledge acquired from an authentic, trustworthy authority (Aptavakya). In modern AI, this maps directly to Retrieval-Augmented Generation (RAG) and cryptographically verified knowledge bases!"
-    }
-  };
-
-  pramanaBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      pramanaBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const key = btn.getAttribute("data-pramana-case");
-      const data = pramanaCases[key];
-      if (data && pramanaDiagnosisBox) {
-        pramanaDiagnosisBox.innerHTML = `
-          <div class="diagnosis-badge" style="color: var(--cyan-light);">${data.badge}</div>
-          <p class="diagnosis-text">${data.text}</p>
-        `;
-        audioSys.playAIChime(2);
-      }
-    });
-  });
-
-  // Fallacy Detective Interactive Tool
   const detectiveBtns = document.querySelectorAll(".detective-btn");
   const diagnosisBox = document.getElementById("detective-diagnosis");
-
   const fallacyScenarios = {
     hallucination: {
-      badge: "DIAGNOSIS: बाधित (Badhita - Refuted by Stronger Pramana)",
-      text: "The model's inferential conclusion (safe to proceed) is directly overturned by direct sensory perception (Pratyaksha / Radar obstacle detection). In Nyaya, perception is the most fundamental Pramana and overrules inferential guessing!"
+      badge: "Diagnosis: Badhita (Overruled by Direct Observation)",
+      text: "The AI's guess is directly disproven by immediate sensor reality (Pratyaksha). In Nyaya logic, direct perception always overrides indirect inference."
     },
     bias: {
-      badge: "DIAGNOSIS: सव्यभिचार (Savyabhichara - Irregular / Confounding Reason)",
-      text: "Low hospital bills do NOT invariably co-occur with good health (it could signify lack of insurance, rural isolation, or poverty). The Hetu is irregular and commits the fallacy of spurious correlation / ML model bias!"
+      badge: "Diagnosis: Savyabhichara (Inconsistent Clue)",
+      text: "Low medical bills do not reliably indicate good health—patients without insurance also have low bills. This causes unfair model bias."
     },
     poison: {
-      badge: "DIAGNOSIS: विरुद्ध (Viruddha - Contradictory Reason / Inverted Gradient)",
-      text: "The adversarial patch causes the feature extractor to prove the exact contradiction of reality: interpreting a full stop as a high-speed command. The reason directly disproves the intended proposition!"
+      badge: "Diagnosis: Viruddha (Contradictory Clue)",
+      text: "The adversarial sticker causes the model to predict the exact opposite of reality—turning a STOP command into a high-speed command."
     },
     asiddha: {
-      badge: "DIAGNOSIS: असिद्ध (Asiddha - Unproved / Non-Existent Ground)",
-      text: "The Hetu itself does not exist in reality: 'Atlantis Island' is an imaginary locus (Ashraya-Asiddha) caused by corrupted telemetry. An inference engine cannot derive valid conclusions from fictitious or out-of-distribution inputs!"
+      badge: "Diagnosis: Asiddha (Unproven / False Ground)",
+      text: "The location 'Atlantis Island' does not exist in reality—acting on corrupt telemetry produces groundless conclusions."
     },
     satpratipaksha: {
-      badge: "DIAGNOSIS: सत्प्रतिपक्ष (Satpratipaksha - Counterbalanced Conflict)",
-      text: "Two independent inference rules fire opposing conclusions with identical evidentiary weight ('Disclose' vs 'Redact'). Without a higher-order tiebreaker or authoritative Pramana, the system stalls in decision deadlock!"
+      badge: "Diagnosis: Satpratipaksha (Tied Opposing Evidence)",
+      text: "Two equally strong rules fire opposite outputs ('Share' vs. 'Block'), leaving the AI system stuck without a tiebreaker."
     }
   };
 
@@ -1901,8 +2157,7 @@ function initExplorerTabs(onVaisheshikaShown = null) {
     btn.addEventListener("click", () => {
       detectiveBtns.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      const scen = btn.getAttribute("data-scenario");
-      const data = fallacyScenarios[scen];
+      const data = fallacyScenarios[btn.getAttribute("data-scenario")];
       if (data && diagnosisBox) {
         diagnosisBox.innerHTML = `
           <div class="diagnosis-badge">${data.badge}</div>
@@ -1914,9 +2169,6 @@ function initExplorerTabs(onVaisheshikaShown = null) {
   });
 }
 
-// =============================================================================
-// 7. INTERACTIVE KNOWLEDGE GRAPH VISUALIZER (CANVAS PHYSICS SIMULATOR)
-// =============================================================================
 class VaisheshikaGraphVisualizer {
   constructor() {
     this.canvas = document.getElementById("knowledge-graph-canvas");
@@ -1993,16 +2245,44 @@ class VaisheshikaGraphVisualizer {
     observer.observe(this.canvas);
   }
 
+  initNodes() {
+    const cx = this.width / 2;
+    const cy = this.height / 2;
+    const sx = Math.min(1, this.width / 760);
+
+    this.nodes = [
+      { id: "dravya", label: "Dravya", aiLabel: "Entity: Mountain", type: "Substance", color: "#9E3B24", radius: 28, x: cx - 180 * sx, y: cy - 35, desc: "Dravya: Core object or entity (Mountain / Server)" },
+      { id: "guna", label: "Guna", aiLabel: "Property: Heat", type: "Quality", color: "#B8860B", radius: 24, x: cx + 175 * sx, y: cy - 75, desc: "Guna: Trait attached to an object (Fire / Temperature)" },
+      { id: "hetu", label: "Hetu", aiLabel: "Feature: Smoke", type: "Clue", color: "#7A2B18", radius: 26, x: cx, y: cy - 110, desc: "Hetu: Observable evidence connecting object to property" },
+      { id: "karma", label: "Karma", aiLabel: "Action: Heat Spike", type: "Action", color: "#A85532", radius: 22, x: cx + 125 * sx, y: cy + 95, desc: "Karma: Activity or state transition event" },
+      { id: "samanya", label: "Samanya", aiLabel: "Class: Terrain", type: "Category", color: "#3C5A72", radius: 24, x: cx - 120 * sx, y: cy + 105, desc: "Samanya: Shared group or class schema" },
+      { id: "vishesha", label: "Vishesha", aiLabel: "ID: Peak-01", type: "Unique Key", color: "#266A3E", radius: 21, x: cx - 270 * sx, y: cy + 30, desc: "Vishesha: Unique identifier distinguishing one object" },
+      { id: "samavaya", label: "Samavaya", aiLabel: "Edge: Inheres_In", type: "Link", color: "#8C6514", radius: 23, x: cx + 15 * sx, y: cy + 55, desc: "Samavaya: Inseparable link between object and trait" },
+      { id: "abhava", label: "Abhava", aiLabel: "Check: NOT_EXISTS", type: "Absence", color: "#5C4B43", radius: 22, x: cx + 255 * sx, y: cy + 35, desc: "Abhava: Detecting when a property is missing" }
+    ];
+
+    this.edges = [
+      { from: "dravya", to: "hetu", label: "has clue", aiLabel: "hasSensorEvent" },
+      { from: "hetu", to: "guna", label: "implies (Vyapti)", aiLabel: "impliesPredicate" },
+      { from: "dravya", to: "samanya", label: "belongs to", aiLabel: "rdf:type" },
+      { from: "dravya", to: "vishesha", label: "identified by", aiLabel: "hasUUID" },
+      { from: "guna", to: "karma", label: "triggers", aiLabel: "triggersEvent" },
+      { from: "samavaya", to: "guna", label: "connects", aiLabel: "inheresIn" },
+      { from: "dravya", to: "samavaya", label: "holds", aiLabel: "hasRelation" },
+      { from: "guna", to: "abhava", label: "checked by", aiLabel: "notExists" }
+    ];
+  }
+
   initParticles() {
     this.particles = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 18; i++) {
       const edge = this.edges[Math.floor(Math.random() * this.edges.length)];
       this.particles.push({
-        edge: edge,
+        edge,
         progress: Math.random(),
-        speed: 0.003 + Math.random() * 0.005,
-        size: 2.2 + Math.random() * 1.8,
-        color: Math.random() > 0.5 ? "#22d3ee" : "#f59e0b"
+        speed: 0.0035 + Math.random() * 0.004,
+        size: 2.4 + Math.random() * 1.4,
+        color: Math.random() > 0.5 ? "#9E3B24" : "#B8860B"
       });
     }
   }
@@ -2017,186 +2297,55 @@ class VaisheshikaGraphVisualizer {
     });
 
     if (this.pulsingNode) {
-      this.pulseRadius += 1.5;
+      this.pulseRadius += 1.4;
       this.pulseAlpha -= 0.025;
-      if (this.pulseAlpha <= 0) {
-        this.pulsingNode = null;
-      }
+      if (this.pulseAlpha <= 0) this.pulsingNode = null;
     }
   }
 
   bindPadarthaCards() {
-    const cards = document.querySelectorAll(".padartha-card");
-    cards.forEach(card => {
-      card.style.cursor = "pointer";
-      card.addEventListener("click", () => {
+    document.querySelectorAll(".padartha-card").forEach(card => {
+      const activate = () => {
         const id = card.getAttribute("data-padartha");
         const node = this.nodes.find(n => n.id === id);
         if (node) {
-          this.pulseNode(node);
+          this.pulsingNode = node;
+          this.pulseRadius = node.radius + 2;
+          this.pulseAlpha = 1.0;
           this.selectNodeTriple(node);
           this.canvas.scrollIntoView({ behavior: "smooth", block: "center" });
           audioSys.playAIChime(2);
+        }
+      };
+      card.addEventListener("click", activate);
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate();
         }
       });
     });
   }
 
-  pulseNode(node) {
-    this.pulsingNode = node;
-    this.pulseRadius = node.radius + 2;
-    this.pulseAlpha = 1.0;
-  }
-
-  initNodes() {
-    const cx = this.width / 2;
-    const cy = this.height / 2;
-    const sx = Math.min(1, this.width / 760);
-
-    this.nodes = [
-      {
-        id: "dravya",
-        label: "द्रव्य (Dravya)",
-        aiLabel: "Entity: Mountain",
-        type: "Substance",
-        color: "#f59e0b",
-        radius: 28,
-        x: cx - 180 * sx,
-        y: cy - 40,
-        vx: 0,
-        vy: 0,
-        desc: "Dravya / Entity: The metaphysical substrate (Mountain / Compute Node)"
-      },
-      {
-        id: "guna",
-        label: "गुण (Guna)",
-        aiLabel: "Property: Hot / Temp",
-        type: "Quality",
-        color: "#22d3ee",
-        radius: 24,
-        x: cx + 180 * sx,
-        y: cy - 80,
-        vx: 0,
-        vy: 0,
-        desc: "Guna / Property: Intrinsic quality inhering in substance (Fire / Temperature)"
-      },
-      {
-        id: "hetu",
-        label: "हेतु (Hetu / Linga)",
-        aiLabel: "Feature: Smoke",
-        type: "Logical Mark",
-        color: "#fbbf24",
-        radius: 26,
-        x: cx,
-        y: cy - 110,
-        vx: 0,
-        vy: 0,
-        desc: "Hetu / Feature Trigger: The middle term connecting entity to unobserved quality"
-      },
-      {
-        id: "karma",
-        label: "कर्म (Karma)",
-        aiLabel: "Action: Combustion",
-        type: "Motion / Event",
-        color: "#ef4444",
-        radius: 22,
-        x: cx + 130 * sx,
-        y: cy + 100,
-        vx: 0,
-        vy: 0,
-        desc: "Karma / Event: Dynamic state transition causing physical change"
-      },
-      {
-        id: "samanya",
-        label: "सामान्य (Samanya)",
-        aiLabel: "Class: VolcanoClass",
-        type: "Ontology Class",
-        color: "#6366f1",
-        radius: 25,
-        x: cx - 120 * sx,
-        y: cy + 110,
-        vx: 0,
-        vy: 0,
-        desc: "Samanya / Class Schema: The universal type shared across all instances"
-      },
-      {
-        id: "vishesha",
-        label: "विशेष (Vishesha)",
-        aiLabel: "UUID: Parvata-01",
-        type: "Unique Key",
-        color: "#10b981",
-        radius: 20,
-        x: cx - 280 * sx,
-        y: cy + 30,
-        vx: 0,
-        vy: 0,
-        desc: "Vishesha / Primary Key: The ultimate differentiator guaranteeing uniqueness"
-      },
-      {
-        id: "samavaya",
-        label: "समवाय (Samavaya)",
-        aiLabel: "Relation: Inheres_In",
-        type: "Inseparable Link",
-        color: "#d97706",
-        radius: 24,
-        x: cx + 20 * sx,
-        y: cy + 60,
-        vx: 0,
-        vy: 0,
-        desc: "Samavaya / Inseparable Edge: Eternal ontological link between part & whole"
-      },
-      {
-        id: "abhava",
-        label: "अभाव (Abhava)",
-        aiLabel: "Negation: NOT_EXISTS",
-        type: "Non-Existence",
-        color: "#64748b",
-        radius: 22,
-        x: cx + 260 * sx,
-        y: cy + 40,
-        vx: 0,
-        vy: 0,
-        desc: "Abhava / Negation as Failure: Ontological absence of a property (e.g. absence of coolant / NOT EXISTS)"
-      }
-    ];
-
-    this.edges = [
-      { from: "dravya", to: "hetu", label: "possesses (पक्षधर्मता)", aiLabel: "hasSensorEvent" },
-      { from: "hetu", to: "guna", label: "Vyapti (व्याप्ति-नियमः)", aiLabel: "impliesPredicate" },
-      { from: "dravya", to: "samanya", label: "isA (जाति-संबन्ध)", aiLabel: "rdf:type" },
-      { from: "dravya", to: "vishesha", label: "individuatedBy", aiLabel: "hasUUID" },
-      { from: "guna", to: "karma", label: "generates (कार्य-कारण)", aiLabel: "triggersEvent" },
-      { from: "samavaya", to: "guna", label: "inheres (समवाय-संबन्ध)", aiLabel: "owl:sameAs" },
-      { from: "dravya", to: "samavaya", label: "substrateOf", aiLabel: "subsumes" },
-      { from: "guna", to: "abhava", label: "negatedBy (अभाव-प्रतियोगी)", aiLabel: "notExists" }
-    ];
-  }
-
   bindEvents() {
     window.addEventListener("resize", () => this.resize(false));
     if (typeof ResizeObserver !== "undefined" && this.canvas.parentElement) {
-      const ro = new ResizeObserver(() => this.resize(true));
-      ro.observe(this.canvas.parentElement);
+      new ResizeObserver(() => this.resize(true)).observe(this.canvas.parentElement);
     }
 
     this.canvas.addEventListener("mousedown", (e) => this.onMouseDown(e));
     this.canvas.addEventListener("mousemove", (e) => this.onMouseMove(e));
-    window.addEventListener("mouseup", () => this.onMouseUp());
+    window.addEventListener("mouseup", () => { this.draggedNode = null; });
 
-    // Touch events for mobile
     this.canvas.addEventListener("touchstart", (e) => {
-      const touch = e.touches[0];
-      const rect = this.canvas.getBoundingClientRect();
-      this.onMouseDown({ clientX: touch.clientX, clientY: touch.clientY, rect });
+      const t = e.touches[0];
+      this.onMouseDown({ clientX: t.clientX, clientY: t.clientY, rect: this.canvas.getBoundingClientRect() });
     });
-
     this.canvas.addEventListener("touchmove", (e) => {
-      const touch = e.touches[0];
-      const rect = this.canvas.getBoundingClientRect();
-      this.onMouseMove({ clientX: touch.clientX, clientY: touch.clientY, rect });
+      const t = e.touches[0];
+      this.onMouseMove({ clientX: t.clientX, clientY: t.clientY, rect: this.canvas.getBoundingClientRect() });
     });
-
-    this.canvas.addEventListener("touchend", () => this.onMouseUp());
+    this.canvas.addEventListener("touchend", () => { this.draggedNode = null; });
 
     if (this.resetBtn) {
       this.resetBtn.addEventListener("click", () => {
@@ -2204,11 +2353,10 @@ class VaisheshikaGraphVisualizer {
         audioSys.playAIChime(1);
       });
     }
-
     if (this.toggleThemeBtn) {
       this.toggleThemeBtn.addEventListener("click", () => {
         this.isAIMode = !this.isAIMode;
-        this.toggleThemeBtn.textContent = this.isAIMode ? "Mode: Symbolic AI Graph" : "Mode: Sanskrit Vaisheshika";
+        this.toggleThemeBtn.textContent = this.isAIMode ? "Mode: AI Graph Labels" : "Mode: Sanskrit Terms";
         audioSys.playAIChime(2);
       });
     }
@@ -2216,18 +2364,11 @@ class VaisheshikaGraphVisualizer {
 
   getMousePos(e) {
     const rect = e.rect || this.canvas.getBoundingClientRect();
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
 
   findNodeAt(pos) {
-    return this.nodes.find(n => {
-      const dx = n.x - pos.x;
-      const dy = n.y - pos.y;
-      return Math.sqrt(dx * dx + dy * dy) <= n.radius + 6;
-    });
+    return this.nodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) <= n.radius + 6);
   }
 
   onMouseDown(e) {
@@ -2242,7 +2383,6 @@ class VaisheshikaGraphVisualizer {
 
   onMouseMove(e) {
     const pos = this.getMousePos(e);
-
     if (this.draggedNode) {
       this.draggedNode.x = Math.max(30, Math.min(this.width - 30, pos.x));
       this.draggedNode.y = Math.max(30, Math.min(this.height - 30, pos.y));
@@ -2253,17 +2393,13 @@ class VaisheshikaGraphVisualizer {
       this.canvas.style.cursor = node ? "pointer" : "grab";
       if (node && this.tooltip) {
         this.tooltip.style.display = "block";
-        this.tooltip.style.left = `${Math.min(this.width - 210, pos.x + 15)}px`;
-        this.tooltip.style.top = `${Math.max(12, pos.y - 35)}px`;
-        this.tooltip.innerHTML = `<strong>${this.isAIMode ? node.aiLabel : node.label}</strong><br><span style="color:#94a3b8;">${node.desc}</span>`;
+        this.tooltip.style.left = `${Math.min(this.width - 210, pos.x + 14)}px`;
+        this.tooltip.style.top = `${Math.max(12, pos.y - 34)}px`;
+        this.tooltip.innerHTML = `<strong>${this.isAIMode ? node.aiLabel : node.label}</strong><br><span style="color:#5C4B43;">${node.desc}</span>`;
       } else if (this.tooltip) {
         this.tooltip.style.display = "none";
       }
     }
-  }
-
-  onMouseUp() {
-    this.draggedNode = null;
   }
 
   selectNodeTriple(node) {
@@ -2272,39 +2408,20 @@ class VaisheshikaGraphVisualizer {
     });
     if (!this.activeSubEl || !this.activeObjEl || !this.tripleCodeEl) return;
 
-    if (node.id === "dravya") {
-      this.activeSubEl.textContent = "(Mountain: Dravya / Entity)";
-      this.activeObjEl.textContent = "(Fire: Guna / Property)";
-      this.tripleCodeEl.textContent = "SPARQL: :Mountain :inheres_in :FireProperty . FILTER(?state = :Active)";
-    } else if (node.id === "hetu") {
-      this.activeSubEl.textContent = "(Smoke: Hetu / Feature)";
-      this.activeObjEl.textContent = "(Fire: Sadhya / Implication)";
-      this.tripleCodeEl.textContent = 'Cypher: MATCH (f:Feature {name:"smoke"})-[:VYAPTI]->(p:Predicate {name:"fire"}) RETURN p';
-    } else if (node.id === "karma") {
-      this.activeSubEl.textContent = "(Server: Dravya / Substance)";
-      this.activeObjEl.textContent = "(Overheat: Karma / Event)";
-      this.tripleCodeEl.textContent = 'JSON-LD: { "@type": "KarmaEvent", "agent": "srv-07", "action": "ThrottleCPU" }';
-    } else if (node.id === "samanya") {
-      this.activeSubEl.textContent = "(Server_01: Vishesha / Instance)";
-      this.activeObjEl.textContent = "(ComputeNode: Samanya / Class)";
-      this.tripleCodeEl.textContent = "RDF: :srv_01 rdf:type :ComputeClusterNode ; rdfs:subClassOf :Hardware .";
-    } else if (node.id === "abhava") {
-      this.activeSubEl.textContent = "(Server: Dravya / Substance)";
-      this.activeObjEl.textContent = "(CoolantFlow: Abhava / Absence)";
-      this.tripleCodeEl.textContent = 'SPARQL: FILTER NOT EXISTS { ?server :hasCoolantFlow true }';
-    } else if (node.id === "vishesha") {
-      this.activeSubEl.textContent = "(Server_01: Dravya / Entity)";
-      this.activeObjEl.textContent = "(UUID-9842: Vishesha / Key)";
-      this.tripleCodeEl.textContent = 'OWL: :Server_01 owl:sameAs <urn:uuid:7c9e6679-7425-40de> .';
-    } else if (node.id === "samavaya") {
-      this.activeSubEl.textContent = "(Mountain: Substance)";
-      this.activeObjEl.textContent = "(Heat: Quality / Samavaya)";
-      this.tripleCodeEl.textContent = 'GraphEdge: (Parvata)-[:INHERES_IN {type: "Samavaya", eternal: true}]->(Tejas)';
-    } else {
-      this.activeSubEl.textContent = `(${node.label})`;
-      this.activeObjEl.textContent = `(${node.type})`;
-      this.tripleCodeEl.textContent = `GraphTriple: <${node.id}> :hasPadarthaType <${node.type}> ; :confidence 1.0 .`;
-    }
+    const triples = {
+      dravya: ["(Mountain: Dravya / Entity)", "(Fire: Guna / Property)", "SPARQL: :Mountain :hasProperty :Fire ."],
+      hetu: ["(Smoke: Hetu / Feature)", "(Fire: Sadhya / Outcome)", 'Cypher: MATCH (f:Feature {name:"smoke"})-[:VYAPTI]->(p:Outcome) RETURN p'],
+      karma: ["(Server: Dravya / Entity)", "(Heat Spike: Karma / Action)", 'JSON-LD: { "@type": "ActionEvent", "target": "server-07" }'],
+      samanya: ["(Mountain-01: Instance)", "(Terrain: Samanya / Class)", "RDF: :mountain_01 rdf:type :VolcanicTerrain ."],
+      vishesha: ["(Server-07: Entity)", "(UUID-9842: Vishesha / Key)", "OWL: :Server_07 owl:sameAs <urn:uuid:7c9e6679> ."],
+      samavaya: ["(Mountain: Substance)", "(Heat: Samavaya / Inherent Link)", 'GraphEdge: (Mountain)-[:INHERES_IN {permanent: true}]->(Heat)'],
+      abhava: ["(Server: Entity)", "(Coolant: Abhava / Missing)", "SPARQL: FILTER NOT EXISTS { ?server :hasCoolant true }"]
+    };
+
+    const t = triples[node.id] || [`(${node.label})`, `(${node.type})`, `GraphTriple: <${node.id}> :type <${node.type}> .`];
+    this.activeSubEl.textContent = t[0];
+    this.activeObjEl.textContent = t[1];
+    this.tripleCodeEl.textContent = t[2];
   }
 
   startSimulation() {
@@ -2320,16 +2437,14 @@ class VaisheshikaGraphVisualizer {
   }
 
   updatePhysics() {
-    // Gentle spring & repulsive forces between nodes
     for (let i = 0; i < this.nodes.length; i++) {
       for (let j = i + 1; j < this.nodes.length; j++) {
         const n1 = this.nodes[i];
         const n2 = this.nodes[j];
         const dx = n2.x - n1.x;
         const dy = n2.y - n1.y;
-        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const dist = Math.hypot(dx, dy) || 1;
         const minDist = n1.radius + n2.radius + 70;
-
         if (dist < minDist) {
           const force = (minDist - dist) * 0.02;
           const fx = (dx / dist) * force;
@@ -2340,13 +2455,9 @@ class VaisheshikaGraphVisualizer {
       }
     }
 
-    // Keep nodes cleanly inside canvas viewport bounds
     this.nodes.forEach(n => {
-      const padX = n.radius + 14;
-      const padTop = n.radius + 14;
-      const padBottom = n.radius + 26;
-      n.x = Math.max(padX, Math.min(this.width - padX, n.x));
-      n.y = Math.max(padTop, Math.min(this.height - padBottom, n.y));
+      n.x = Math.max(n.radius + 14, Math.min(this.width - n.radius - 14, n.x));
+      n.y = Math.max(n.radius + 14, Math.min(this.height - n.radius - 26, n.y));
     });
   }
 
@@ -2356,23 +2467,23 @@ class VaisheshikaGraphVisualizer {
     this.ctx.scale(this.dpr, this.dpr);
     this.ctx.clearRect(0, 0, this.width, this.height);
 
-    // Subtle blueprint grid background
-    this.ctx.strokeStyle = "rgba(255, 255, 255, 0.025)";
+    // Subtle manuscript ruled grid
+    this.ctx.strokeStyle = "rgba(184, 134, 11, 0.1)";
     this.ctx.lineWidth = 1;
-    for (let x = 0; x < this.width; x += 36) {
+    for (let x = 0; x < this.width; x += 40) {
       this.ctx.beginPath();
       this.ctx.moveTo(x, 0);
       this.ctx.lineTo(x, this.height);
       this.ctx.stroke();
     }
-    for (let y = 0; y < this.height; y += 36) {
+    for (let y = 0; y < this.height; y += 40) {
       this.ctx.beginPath();
       this.ctx.moveTo(0, y);
       this.ctx.lineTo(this.width, y);
       this.ctx.stroke();
     }
 
-    // 1. Draw Edges with subtle glow & directional arrowheads
+    // Edges & arrowheads
     this.edges.forEach(edge => {
       const n1 = this.nodes.find(n => n.id === edge.from);
       const n2 = this.nodes.find(n => n.id === edge.to);
@@ -2381,11 +2492,10 @@ class VaisheshikaGraphVisualizer {
       this.ctx.beginPath();
       this.ctx.moveTo(n1.x, n1.y);
       this.ctx.lineTo(n2.x, n2.y);
-      this.ctx.strokeStyle = "rgba(34, 211, 238, 0.24)";
-      this.ctx.lineWidth = 2;
+      this.ctx.strokeStyle = "rgba(92, 75, 67, 0.35)";
+      this.ctx.lineWidth = 1.75;
       this.ctx.stroke();
 
-      // Directional arrowhead near target node perimeter
       const angle = Math.atan2(n2.y - n1.y, n2.x - n1.x);
       const tipX = n2.x - Math.cos(angle) * (n2.radius + 5);
       const tipY = n2.y - Math.sin(angle) * (n2.radius + 5);
@@ -2395,83 +2505,69 @@ class VaisheshikaGraphVisualizer {
       this.ctx.lineTo(tipX - arrowLen * Math.cos(angle - Math.PI / 6), tipY - arrowLen * Math.sin(angle - Math.PI / 6));
       this.ctx.lineTo(tipX - arrowLen * Math.cos(angle + Math.PI / 6), tipY - arrowLen * Math.sin(angle + Math.PI / 6));
       this.ctx.closePath();
-      this.ctx.fillStyle = "rgba(34, 211, 238, 0.55)";
+      this.ctx.fillStyle = "rgba(158, 59, 36, 0.65)";
       this.ctx.fill();
 
-      // Edge Label
       const midX = (n1.x + n2.x) / 2;
       const midY = (n1.y + n2.y) / 2;
-      this.ctx.fillStyle = "rgba(148, 163, 184, 0.85)";
-      this.ctx.font = "10px Inter, sans-serif";
+      this.ctx.fillStyle = "#5C4B43";
+      this.ctx.font = "600 10px Inter, sans-serif";
       this.ctx.textAlign = "center";
       this.ctx.fillText(this.isAIMode ? edge.aiLabel : edge.label, midX, midY - 6);
     });
 
-    // 2. Draw Information Flow Particles along Edges
+    // Edge particles
     if (this.particles) {
       this.particles.forEach(p => {
         const n1 = this.nodes.find(n => n.id === p.edge.from);
         const n2 = this.nodes.find(n => n.id === p.edge.to);
         if (!n1 || !n2) return;
-
         const px = n1.x + (n2.x - n1.x) * p.progress;
         const py = n1.y + (n2.y - n1.y) * p.progress;
-
         this.ctx.beginPath();
         this.ctx.arc(px, py, p.size, 0, Math.PI * 2);
         this.ctx.fillStyle = p.color;
-        this.ctx.shadowBlur = 6;
-        this.ctx.shadowColor = p.color;
         this.ctx.fill();
-        this.ctx.shadowBlur = 0;
       });
     }
 
-    // 3. Draw Pulsing Ring for Selected Padartha Node
+    // Pulse ring
     if (this.pulsingNode && this.pulseAlpha > 0) {
       this.ctx.beginPath();
       this.ctx.arc(this.pulsingNode.x, this.pulsingNode.y, this.pulseRadius, 0, Math.PI * 2);
-      this.ctx.strokeStyle = `rgba(245, 158, 11, ${this.pulseAlpha})`;
+      this.ctx.strokeStyle = `rgba(158, 59, 36, ${this.pulseAlpha})`;
       this.ctx.lineWidth = 3;
-      this.ctx.shadowBlur = 14;
-      this.ctx.shadowColor = "#f59e0b";
       this.ctx.stroke();
-      this.ctx.shadowBlur = 0;
     }
 
-    // 4. Draw Nodes
+    // Nodes
     this.nodes.forEach(node => {
-      const isHovered = (node === this.hoveredNode);
-      const isDragged = (node === this.draggedNode);
-      const isPulsing = (node === this.pulsingNode);
+      const isHovered = node === this.hoveredNode;
+      const isDragged = node === this.draggedNode;
+      const isPulsing = node === this.pulsingNode;
 
-      // Outer Glow
       this.ctx.beginPath();
-      this.ctx.arc(node.x, node.y, node.radius + (isHovered || isPulsing ? 8 : 4), 0, Math.PI * 2);
-      this.ctx.fillStyle = isHovered || isPulsing ? "rgba(245, 158, 11, 0.4)" : "rgba(34, 211, 238, 0.12)";
+      this.ctx.arc(node.x, node.y, node.radius + (isHovered || isPulsing ? 6 : 3), 0, Math.PI * 2);
+      this.ctx.fillStyle = isHovered || isPulsing ? "rgba(158, 59, 36, 0.2)" : "rgba(184, 134, 11, 0.14)";
       this.ctx.fill();
 
-      // Node Body
       this.ctx.beginPath();
       this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-      this.ctx.fillStyle = isDragged ? "#fbbf24" : node.color;
+      this.ctx.fillStyle = isDragged ? "#D4A017" : node.color;
       this.ctx.fill();
-      this.ctx.strokeStyle = isPulsing ? "#f59e0b" : "#ffffff";
+      this.ctx.strokeStyle = "#FFFDF8";
       this.ctx.lineWidth = isHovered || isPulsing ? 2.5 : 1.5;
       this.ctx.stroke();
 
-      // Node Label
-      this.ctx.fillStyle = "#ffffff";
-      this.ctx.font = `bold 11px Inter, Noto Sans Devanagari, sans-serif`;
+      this.ctx.fillStyle = "#FFFDF8";
+      this.ctx.font = "bold 11px Inter, sans-serif";
       this.ctx.textAlign = "center";
       this.ctx.textBaseline = "middle";
-
-      const displayText = this.isAIMode ? node.aiLabel.split(":")[0] : node.label.split(" ")[0];
+      const displayText = this.isAIMode ? node.aiLabel.split(":")[0] : node.label;
       this.ctx.fillText(displayText, node.x, node.y);
 
-      // Secondary subtitle below node
-      this.ctx.fillStyle = "#94a3b8";
-      this.ctx.font = "9px Inter, sans-serif";
+      this.ctx.fillStyle = "#2C221E";
+      this.ctx.font = "600 10px Inter, sans-serif";
       this.ctx.fillText(node.type, node.x, node.y + node.radius + 14);
     });
 
@@ -2480,101 +2576,8 @@ class VaisheshikaGraphVisualizer {
 }
 
 // =============================================================================
-// 8. SANSKRIT LOGIC LEXICON (GLOSSARY MODAL & SEARCH)
+// 8. LEXICON MODAL & INITIALIZATION
 // =============================================================================
-const GLOSSARY_TERMS = [
-  {
-    sanskrit: "प्रमाण (Pramana)",
-    translit: "Pramāṇa",
-    def: "Valid means of acquiring true knowledge. Nyaya recognizes 4: Pratyaksha (perception), Anumana (inference), Upamana (analogy), and Shabda (testimony).",
-    ai: "AI Analogy: Perceptual sensors, inference engines, vector similarity models, and verified knowledge bases."
-  },
-  {
-    sanskrit: "प्रतिज्ञा (Pratijna)",
-    translit: "Pratijñā",
-    def: "The initial proposition or thesis that needs to be logically established (first member of the 5-member Anumana).",
-    ai: "AI Analogy: Target Goal state, hypothesis query, or classification objective to evaluate."
-  },
-  {
-    sanskrit: "हेतु (Hetu / Linga)",
-    translit: "Hetu / Liṅga",
-    def: "The observable sign or middle term that serves as rational ground for inference. Must satisfy 5 conditions (Pancha-Rupa Hetu).",
-    ai: "AI Analogy: Discriminative feature trigger, input sensor telemetry, or antecedent clause."
-  },
-  {
-    sanskrit: "उदाहरण (Udaharana)",
-    translit: "Udāharaṇa",
-    def: "The universal rule (Vyapti) illustrated with an indisputable empirical exemplar (Drishtanta). Inductive-deductive bridge.",
-    ai: "AI Analogy: Production Rule, definite Horn clause, or training set ground truth."
-  },
-  {
-    sanskrit: "उपनय (Upanaya)",
-    translit: "Upanaya",
-    def: "The application or subsumption of the universal rule to the specific subject/locus under current examination.",
-    ai: "AI Analogy: Variable unification in Rete algorithm; binding parameters to active facts."
-  },
-  {
-    sanskrit: "निगमन (Nigamana)",
-    translit: "Nigamana",
-    def: "The final formal deduction restating the proposition with certified epistemic certainty.",
-    ai: "AI Analogy: Inference engine assertion committed to working memory; autonomous action dispatch."
-  },
-  {
-    sanskrit: "व्याप्ति (Vyapti)",
-    translit: "Vyāpti",
-    def: "Invariant, unconditional concomitance between Hetu and Sadhya ('Where there is smoke, there is fire'). Free of unstated conditions (Upadhi).",
-    ai: "AI Analogy: Deterministic IF-THEN implication in expert systems: ∀x (P(x) → Q(x))."
-  },
-  {
-    sanskrit: "पक्ष (Paksha)",
-    translit: "Pakṣa",
-    def: "The subject or locus in which the unobserved target quality is suspected and needs to be proved (e.g., the mountain, the server).",
-    ai: "AI Analogy: Entity instance, node ID, or data subject."
-  },
-  {
-    sanskrit: "साध्य (Sadhya)",
-    translit: "Sādhya",
-    def: "The major term or property that is sought to be proved on the subject (e.g., fire, overheating).",
-    ai: "AI Analogy: Target class label, Boolean state, or predicted attribute value."
-  },
-  {
-    sanskrit: "हेत्वाभास (Hetvabhasa)",
-    translit: "Hetvābhāsa",
-    def: "Defective, fallacious pseudo-reasons that simulate valid inference but result in false conclusions (5 classical types).",
-    ai: "AI Analogy: Model hallucinations, spurious correlations, data poisoning, and distribution shift."
-  },
-  {
-    sanskrit: "द्रव्य (Dravya)",
-    translit: "Dravya",
-    def: "Substance / entity: The foundational substrate in Vaisheshika ontology in which qualities and actions inhere.",
-    ai: "AI Analogy: Knowledge Graph Entity / Node."
-  },
-  {
-    sanskrit: "गुण (Guna)",
-    translit: "Guṇa",
-    def: "Quality / attribute: Inherent static properties residing in substances (color, temperature, magnitude, number).",
-    ai: "AI Analogy: Graph Node properties, literal key-value attributes."
-  },
-  {
-    sanskrit: "कर्म (Karma)",
-    translit: "Karma",
-    def: "Action / motion: Dynamic events and operations causing conjunction and disjunction.",
-    ai: "AI Analogy: State transition event, dynamic edge, or API method call."
-  },
-  {
-    sanskrit: "समवाय (Samavaya)",
-    translit: "Samavāya",
-    def: "Inseparable inherence: The eternal, structural relationship between substance and quality, part and whole.",
-    ai: "AI Analogy: Invariant structural edge in ontologies (owl:sameAs, hasPart)."
-  },
-  {
-    sanskrit: "अभाव (Abhava)",
-    translit: "Abhāva",
-    def: "Non-existence or negation: The ontological reality of absence (prior, posterior, mutual, and absolute).",
-    ai: "AI Analogy: Negation as Failure (NAF) in Prolog; NOT EXISTS filters in SPARQL/SQL."
-  }
-];
-
 function initGlossaryModal() {
   const modal = document.getElementById("glossary-modal");
   const openBtn = document.getElementById("glossary-modal-btn");
@@ -2586,26 +2589,26 @@ function initGlossaryModal() {
 
   const renderList = (filter = "") => {
     const q = filter.toLowerCase().trim();
-    const filtered = GLOSSARY_TERMS.filter(item => 
-      item.sanskrit.toLowerCase().includes(q) ||
-      item.translit.toLowerCase().includes(q) ||
-      item.def.toLowerCase().includes(q) ||
-      item.ai.toLowerCase().includes(q)
+    const filtered = REFERENCE_TERMS.filter(item =>
+      item.term.toLowerCase().includes(q) ||
+      item.subtitle.toLowerCase().includes(q) ||
+      item.plainDef.toLowerCase().includes(q) ||
+      item.aiLink.toLowerCase().includes(q)
     );
 
     if (filtered.length === 0) {
-      listContainer.innerHTML = '<div style="padding:1.5rem; text-align:center; color:#64748b;">No matching Sanskrit logic terms found.</div>';
+      listContainer.innerHTML = '<div style="padding:1.5rem; text-align:center; color:#7C6B62;">No matching terms found.</div>';
       return;
     }
 
     listContainer.innerHTML = filtered.map(item => `
       <div class="glossary-item">
         <div class="glossary-item-top">
-          <span class="glossary-sanskrit-term">${item.sanskrit}</span>
-          <span class="glossary-translit">[${item.translit}]</span>
+          <span class="glossary-sanskrit-term">${item.term} (${item.subtitle})</span>
+          <span class="glossary-translit">${item.catLabel}</span>
         </div>
-        <p class="glossary-definition">${item.def}</p>
-        <div class="glossary-ai-analogy">${item.ai}</div>
+        <p class="glossary-definition">${item.plainDef}</p>
+        <div class="glossary-ai-analogy"><strong>AI Equivalent:</strong> ${item.aiLink}</div>
       </div>
     `).join("");
   };
@@ -2619,101 +2622,46 @@ function initGlossaryModal() {
       audioSys.playAIChime(1);
     });
   }
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      modal.classList.remove("open");
-    });
-  }
-
+  if (closeBtn) closeBtn.addEventListener("click", () => modal.classList.remove("open"));
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.classList.remove("open");
-    }
+    if (e.target === modal) modal.classList.remove("open");
   });
-
   if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      renderList(e.target.value);
-    });
+    searchInput.addEventListener("input", (e) => renderList(e.target.value));
   }
 }
 
-// =============================================================================
-// 9. NAVIGATION SCROLL-SPY, SOUND TOGGLE & MOBILE DRAWER
-// =============================================================================
-function initNavigation() {
+function initAudioControls() {
   const soundBtn = document.getElementById("sound-toggle-btn");
   const soundIcon = document.getElementById("sound-icon");
-  const navItems = document.querySelectorAll(".nav-item");
-  const mobileToggle = document.getElementById("mobile-menu-toggle");
-  const navMenu = document.getElementById("nav-menu");
+  if (!soundBtn) return;
 
-  // Audio Toggle (sync initial UI with saved localStorage state)
-  if (soundBtn) {
-    const syncSoundUI = (isSoundOn) => {
-      if (soundIcon) soundIcon.textContent = isSoundOn ? "🔔" : "🔕";
-      const label = soundBtn.querySelector(".sound-label");
-      if (label) label.textContent = isSoundOn ? "Audio: ON" : "Audio: MUTED";
-      soundBtn.setAttribute("aria-pressed", isSoundOn ? "true" : "false");
-    };
-    syncSoundUI(audioSys.soundEnabled);
+  const syncSoundUI = (isOn) => {
+    if (soundIcon) soundIcon.textContent = isOn ? "🔔" : "🔕";
+    const label = soundBtn.querySelector(".sound-label");
+    if (label) label.textContent = isOn ? "Audio: ON" : "Audio: MUTED";
+    soundBtn.setAttribute("aria-pressed", String(isOn));
+  };
+  syncSoundUI(audioSys.soundEnabled);
 
-    soundBtn.addEventListener("click", () => {
-      const isSoundOn = audioSys.toggleSound();
-      syncSoundUI(isSoundOn);
-      if (isSoundOn) audioSys.playAIChime(1);
-    });
-  }
-
-  // Mobile Menu Toggle
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener("click", () => {
-      navMenu.classList.toggle("mobile-open");
-    });
-
-    navItems.forEach(item => {
-      item.addEventListener("click", () => {
-        navMenu.classList.remove("mobile-open");
-      });
-    });
-  }
-
-  // ScrollSpy with IntersectionObserver
-  const sections = document.querySelectorAll("section[id]");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute("id");
-        navItems.forEach(item => {
-          if (item.getAttribute("href") === `#${id}`) {
-            item.classList.add("active");
-          } else {
-            item.classList.remove("active");
-          }
-        });
-      }
-    });
-  }, {
-    root: null,
-    rootMargin: "-20% 0px -65% 0px",
-    threshold: 0
+  soundBtn.addEventListener("click", () => {
+    const isOn = audioSys.toggleSound();
+    syncSoundUI(isOn);
+    if (isOn) audioSys.playAIChime(1);
   });
-
-  sections.forEach(s => observer.observe(s));
 }
 
-// =============================================================================
-// 10. DOM READY INITIALIZATION
-// =============================================================================
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("॥ हेतु-लॉजिक (PRAMANAX) प्रारब्धम् ॥ HetuLogic Initialized.");
-
-  initNavigation();
-  const simulator = new InferenceSimulator();
-  initMappingCards();
-  const logicLab = new LogicLabGame();
+  initAudioControls();
+  const referenceGuide = new ReferenceGuide();
+  const simulator = new InferenceSimulator((termId, shouldScroll) => {
+    referenceGuide.highlightTerm(termId, shouldScroll);
+  });
   const graphViz = new VaisheshikaGraphVisualizer();
+  const viewManager = new ViewManager(() => graphViz.resize(true));
+  const quizEngine = new QuizGameEngine(() => viewManager.switchView("simulation"));
+  const logicLab = new LogicLabGame();
+  initMappingCards();
   initExplorerTabs(() => graphViz.resize(true));
   initGlossaryModal();
 });
