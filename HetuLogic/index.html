@@ -47,7 +47,7 @@
             </svg>
           </div>
           <div class="brand-text">
-            <span class="brand-title">HETULOGIC <span class="brand-accent">प्रमाणX</span></span>
+            <span class="brand-title">HETULOGIC</span>
             <span class="brand-tagline">Nyaya-Vaisheshika ⇌ Symbolic AI</span>
           </div>
         </a>
@@ -226,6 +226,10 @@
               <span class="chip-icon">🩺</span>
               <span>4. Medical CDSS</span>
             </button>
+            <button class="preset-chip" data-preset="autonomous_brake">
+              <span class="chip-icon">🚗</span>
+              <span>5. Autonomous Brake</span>
+            </button>
           </div>
 
           <!-- Action Control Bar -->
@@ -291,6 +295,13 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- LIVE EPISTEMIC BRIDGE INDICATOR -->
+        <div class="epistemic-bridge-bar" id="epistemic-bridge-bar" aria-live="polite">
+          <span class="bridge-pill bridge-nyaya" id="bridge-nyaya-label">न्याय: Standby</span>
+          <span class="bridge-connector">⟷</span>
+          <span class="bridge-pill bridge-ai" id="bridge-ai-label">Symbolic AI: Awaiting Query</span>
         </div>
 
         <!-- DYNAMIC 5-STAGE OUTPUT & PERMANENT SIDE-BY-SIDE COMPARISON PANEL -->
@@ -406,7 +417,7 @@
                     The application of the universal rule to the specific subject: The mountain bears that exact smoke which is inseparably pervaded by fire (<em>Vyapti-vishishta-paksha-dharmata</em>).
                   </p>
                   <div class="epistemic-tag-row">
-                    <span class="epistemic-tag">संबन्ध: <strong>व्याप्तिविशिष्टपक्षधर्मताज्ञानम्</strong></span>
+                    <span class="epistemic-tag">संबन्ध: <strong id="tag-sambandha">व्याप्तिविशिष्टपक्षधर्मताज्ञानम्</strong></span>
                   </div>
                 </div>
               </div>
@@ -499,7 +510,7 @@
                   </p>
                   <div class="ai-metrics-row">
                     <span class="ai-metric">Trigger Feature: <code id="ai-metric-feature">smoke_detected == 1</code></span>
-                    <span class="ai-metric">Fact Source: <code>PerceptualStream.IoT</code></span>
+                    <span class="ai-metric">Fact Source: <code id="ai-metric-source">PerceptualStream.IoT</code></span>
                   </div>
                 </div>
               </div>
@@ -523,8 +534,8 @@
                     The rule-base encodes the invariant law. In modern automated theorem proving, this is a definite clause backed by ontology constraints and verified training corpora.
                   </p>
                   <div class="ai-metrics-row">
-                    <span class="ai-metric">Rule ID: <code>RULE_KB_VYAPTI_01</code></span>
-                    <span class="ai-metric">Invariance Weight: <code>1.0 (Strict Implication)</code></span>
+                    <span class="ai-metric">Rule ID: <code id="ai-metric-rule">RULE_KB_VYAPTI_01</code></span>
+                    <span class="ai-metric">Invariance Weight: <code id="ai-metric-weight">1.0 (Strict Implication)</code></span>
                   </div>
                 </div>
               </div>
@@ -549,7 +560,7 @@
                   </p>
                   <div class="ai-metrics-row">
                     <span class="ai-metric">Unification Set: <code id="ai-metric-unify">θ = { ?x / mountain }</code></span>
-                    <span class="ai-metric">Rete State: <code>Alpha-Beta Conflict Resolved</code></span>
+                    <span class="ai-metric">Rete State: <code id="ai-metric-state">Alpha-Beta Conflict Resolved</code></span>
                   </div>
                 </div>
               </div>
@@ -747,35 +758,39 @@
               <!-- Interactive Element: The 5-Rupa Hetu Inspector -->
               <div class="card-interactive-drawer">
                 <div class="drawer-header">
-                  <span class="drawer-title">🔍 The 5 Criteria for a Sound Hetu (AI Alignment Guardrails)</span>
+                  <span class="drawer-title">🔍 The 5 Criteria for a Sound Hetu (Click any criterion to inspect)</span>
                 </div>
                 <div class="drawer-body">
-                  <div class="criteria-grid">
-                    <div class="crit-item">
+                  <div class="criteria-grid" id="hetu-criteria-list">
+                    <button type="button" class="crit-item active" data-crit="pakshadharmata">
                       <span class="crit-num">1</span>
                       <span class="crit-name">Pakshadharmata</span>
                       <span class="crit-ai">Feature present on target instance</span>
-                    </div>
-                    <div class="crit-item">
+                    </button>
+                    <button type="button" class="crit-item" data-crit="sapakshasattva">
                       <span class="crit-num">2</span>
                       <span class="crit-name">Sapakshasattva</span>
                       <span class="crit-ai">Feature present in positive training labels</span>
-                    </div>
-                    <div class="crit-item">
+                    </button>
+                    <button type="button" class="crit-item" data-crit="vipaksha">
                       <span class="crit-num">3</span>
                       <span class="crit-name">Vipakshasattva-Abhava</span>
-                      <span class="crit-ai">Feature absent in negative/out-of-distribution cases</span>
-                    </div>
-                    <div class="crit-item">
+                      <span class="crit-ai">Feature absent in negative/OOD cases</span>
+                    </button>
+                    <button type="button" class="crit-item" data-crit="abadhitatva">
                       <span class="crit-num">4</span>
                       <span class="crit-name">Abadhitatva</span>
                       <span class="crit-ai">Not contradicted by higher-priority sensors</span>
-                    </div>
-                    <div class="crit-item">
+                    </button>
+                    <button type="button" class="crit-item" data-crit="asatpratipaksha">
                       <span class="crit-num">5</span>
                       <span class="crit-name">Asatpratipakshatva</span>
-                      <span class="crit-ai">No equal opposing evidence (No adversarial tie)</span>
-                    </div>
+                      <span class="crit-ai">No equal opposing evidence (No tie)</span>
+                    </button>
+                  </div>
+                  <div class="tester-result" id="hetu-crit-detail" style="margin-top:0.65rem;" aria-live="polite">
+                    <span class="result-badge valid">पक्षधर्मता (Pakshadharmata)</span>
+                    <span class="result-text">The observed mark (Hetu = Smoke) must genuinely exist in the subject (Paksha = Mountain), preventing ungrounded hallucinations (Asiddha).</span>
                   </div>
                 </div>
               </div>
@@ -1412,11 +1427,11 @@
                   </div>
                 </div>
                 <p class="padartha-desc">
-                  The universal generic essence common to many individuals (e.g., *Cowness* in cows, *Serverhood* in servers).
+                  The universal generic essence common to many individuals (e.g., <em>Cowness</em> in cows, <em>Serverhood</em> in servers).
                 </p>
                 <div class="padartha-kg-badge">
                   <span class="kg-role">Graph Role:</span>
-                  <strong>Ontology Class / `rdf:type` Schema</strong>
+                  <strong>Ontology Class / <code>rdf:type</code> Schema</strong>
                 </div>
                 <div class="padartha-example">
                   <code>Example: :Server_01 a :ComputeClusterInstance</code>
@@ -1458,7 +1473,7 @@
                 </p>
                 <div class="padartha-kg-badge">
                   <span class="kg-role">Graph Role:</span>
-                  <strong>Immutable Structural Edge (`owl:sameAs` / PartOf)</strong>
+                  <strong>Immutable Structural Edge (<code>owl:sameAs</code> / PartOf)</strong>
                 </div>
                 <div class="padartha-example">
                   <code>Example: :Thread -[:INSEPARABLE_FROM]-> :Cloth</code>
@@ -1479,7 +1494,7 @@
                 </p>
                 <div class="padartha-kg-badge">
                   <span class="kg-role">Graph Role:</span>
-                  <strong>Negation as Failure (NAF) / `NOT EXISTS` Query</strong>
+                  <strong>Negation as Failure (NAF) / <code>NOT EXISTS</code> Query</strong>
                 </div>
                 <div class="padartha-example">
                   <code>Example: NOT EXISTS { ?server :hasCoolantFlow true }</code>
@@ -1566,6 +1581,9 @@
       </div>
     </div>
   </footer>
+
+  <!-- Toast Notification Mount -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- Main JavaScript App -->
   <script src="app.js"></script>
